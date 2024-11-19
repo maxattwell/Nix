@@ -19,6 +19,7 @@
   hardware.xpadneo.enable = true;
 
   environment.systemPackages = with pkgs; [
+    git
     neovim
     fastfetch
     bluez
