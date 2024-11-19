@@ -2,7 +2,7 @@
 
 source "uname.sh"
 
-src="$HOME/nix-dots"
+src="$HOME/nix-configs"
 if [ "$linux_os" = "nixos" ]
 then
     dst="/etc/nixos"
