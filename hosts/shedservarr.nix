@@ -7,6 +7,7 @@
       ../modules/locale.nix
       ../modules/hardware.nix
       ../modules/users.nix
+      ../modules/servarr/hardware-configuration.nix
       ../modules/servarr/nixarr.nix
       ../modules/servarr/homepage.nix
       ../modules/servarr/kodi.nix
