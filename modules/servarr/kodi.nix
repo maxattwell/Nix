@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  #services.xserver.windowManager.i3.enable = true;
+
   services.xserver.enable = true;
 
   services.xserver.desktopManager.kodi = {
@@ -20,7 +22,10 @@
   services.xserver.displayManager.lightdm.greeter.enable = false;
 
   # Define a user account
-  users.extraUsers.kodi.isNormalUser = true;
+  users.extraUsers.kodi = {
+    isNormalUser = true;
+    password = "kodi";
+  };
 
   # Allow wake on LAN
   networking.interfaces."enp2s0".wakeOnLan.enable = true;
