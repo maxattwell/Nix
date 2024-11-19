@@ -8,3 +8,5 @@ then
     sudo ln -sfn "$src/flake.lock" "$dst/flake.lock"
     sudo ln -sfn "$src/hosts" "$dst/hosts"
     sudo ln -sfn "$src/modules" "$dst/modules"
+fi
+echo "generated soft links to $dst"
