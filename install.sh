@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+source "uname.sh"
+
 src="$HOME/nix-dots"
 if [ "$linux_os" = "nixos" ]
 then
