@@ -15,19 +15,25 @@
 
   networking.hostName = "shedservarr";
 
+  # nvidia drivers
+  hardware.nvidia.open = false;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   # Xbox controller driver
-  hardware.xpadneo.enable = true;
+  #hardware.xpadneo.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
     neovim
     fastfetch
+    nitch
     bluez
     linuxConsoleTools
     wget
     retroarchFull
     moonlight-qt
     dualsensectl
+    nvtopPackages.nvidia
   ];
 
   services.openssh.enable = true;
