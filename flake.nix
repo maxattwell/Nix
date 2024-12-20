@@ -37,6 +37,9 @@
     darwinConfigurations = {
       macbookair = nix-darwin.lib.darwinSystem {
         modules = [ ./hosts/macbookair.nix ];
+
+        # Set Git commit hash for darwin-version.
+        system.configurationRevision = self.rev or self.dirtyRev or null;
       };
     };
   };
