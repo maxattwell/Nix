@@ -8,7 +8,6 @@
 
   home = {
     username = "max";
-    homeDirectory = "/Users/max";
     stateVersion = "24.11";
   };
 }

@@ -4,7 +4,7 @@
 {
   environment.systemPackages = with pkgs; [
     emacs-29
-    nerdfonts
+    # nerdfonts
   ];
 
   services.emacs = {
