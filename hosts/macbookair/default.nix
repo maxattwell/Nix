@@ -8,6 +8,7 @@
     ../../modules/darwin/skhd.nix
   ];
 
+
   nix.settings.experimental-features = "nix-command flakes";
   security.pam.enableSudoTouchIdAuth = true;
 

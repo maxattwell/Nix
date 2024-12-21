@@ -5,7 +5,7 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
-      cmd - return : open -na kitty
+      cmd - return : osascript -e 'tell application "iTerm" to create window with default profile'
       cmd + shift - return : osascript -e 'tell application "Google Chrome" to make new window'
       cmd - e : emacsclient -cn
       cmd - q : osascript -e 'tell application (path to frontmost application as text) to close front window'
