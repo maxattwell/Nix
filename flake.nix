@@ -66,7 +66,7 @@
             home-manager.darwinModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.max = import ./hosts/macbookair/home.nix;
+              home-manager.users.max = ./hosts/macbookair/home.nix;
             }
           ];
           specialArgs = { inherit inputs; };

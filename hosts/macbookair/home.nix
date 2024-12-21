@@ -2,12 +2,15 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ../../modules/home-manager/zsh.nix
-  ];
+  # imports = [
+  #   ../../modules/home-manager/zsh.nix
+  # ];
 
   home = {
     username = "max";
-    stateVersion = "24.11";
+    homeDirectory = "/Users/max";
+    stateVersion = "25.05";
   };
+
+
 }
