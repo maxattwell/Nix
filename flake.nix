@@ -35,10 +35,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixarr = {
-      # url = "github:rasmus-kirk/nixarr";
-      type = "git";
-      url = "https://github.com/rasmus-kirk/nixarr.git";
-      rev = "a3fad60dd2f5110536eb13f24e7529b2506ade6d";
+      url = "github:rasmus-kirk/nixarr";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
