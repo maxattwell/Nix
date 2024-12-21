@@ -1,17 +1,7 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      ../modules/base.nix
-      ../modules/locale.nix
-      ../modules/hardware.nix
-      ../modules/users.nix
-      ../modules/servarr/hardware-configuration.nix
-      ../modules/servarr/nixarr.nix
-      ../modules/servarr/homepage.nix
-      ../modules/servarr/kodi.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "shedservarr";
 
@@ -19,8 +9,7 @@
   hardware.nvidia.open = false;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  # Xbox controller driver
-  #hardware.xpadneo.enable = true;
+  hardware.bluetooth.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
@@ -41,5 +30,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
