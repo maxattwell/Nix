@@ -46,7 +46,7 @@
         shedservarr = nixpkgs.lib.nixosSystem {
           system = linuxSystem;
           modules = [
-            ./hosts/shedservarr.nix
+            ./hosts/shedservarr
             nixarr.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
