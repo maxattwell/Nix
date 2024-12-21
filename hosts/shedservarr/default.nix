@@ -4,8 +4,8 @@
   imports = [
     ./system.nix
     ../../modules/nixos
-    ../../modules/nixarr.nix
-    ../../modules/homepage.nix
-    ../../modules/kodi.nix
+    ../../modules/nixos/nixarr.nix
+    ../../modules/nixos/homepage.nix
+    ../../modules/nixos/kodi.nix
   ];
 }
