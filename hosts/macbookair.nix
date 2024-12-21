@@ -2,7 +2,9 @@
 
 {
 
-  nix.settings.experimental-features =  "nix-command flakes";
+  imports = import (../home-manager/home.nix);
+
+  nix.settings.experimental-features = "nix-command flakes";
 
   security.pam.enableSudoTouchIdAuth = true;
 

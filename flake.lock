@@ -4,15 +4,15 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
-          "nixpkgs-darwin"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1734660906,
-        "narHash": "sha256-AFz5e6d8E519Fck7KJfD4mJ47uHupinXGKm02aXOD+U=",
+        "lastModified": 1734747136,
+        "narHash": "sha256-P6U2377BhMHyd4XKpfT8KkNJ2axbfxFTjvKXhuJ/Hbc=",
         "owner": "c4710n",
         "repo": "nix-darwin-emacs",
-        "rev": "697b7c0edb9c8d0507f4f7ce691f21accfa5c5e0",
+        "rev": "14a9ad3625009cbe517f128eaab188fd165cb14f",
         "type": "github"
       },
       "original": {
@@ -39,10 +39,30 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1734622215,
+        "narHash": "sha256-OOfI0XhSJGHblfdNDhfnn8QnZxng63rWk9eeJ2tCbiI=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "1395379a7a36e40f2a76e7b9936cc52950baa1be",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-darwin"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -94,22 +114,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-darwin": {
-      "locked": {
-        "lastModified": 1734589538,
-        "narHash": "sha256-WErwexYxXfZi8VFFVCxLObGdN12/Vs+pMbTXKcoxBqo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a53cfe5e6e9fb28b1442b2b6a9fd577d8d64c6d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-24.11-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1734424634,
@@ -129,10 +133,10 @@
     "root": {
       "inputs": {
         "darwin-emacs": "darwin-emacs",
+        "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixarr": "nixarr",
-        "nixpkgs": "nixpkgs_2",
-        "nixpkgs-darwin": "nixpkgs-darwin"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "systems": {
