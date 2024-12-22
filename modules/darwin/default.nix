@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   users.users.max.home = "/Users/max";
+
+  users.users.max.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
     emacs-29

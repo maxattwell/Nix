@@ -9,6 +9,4 @@
     enableCompletion = true;
     history.size = 10000;
   };
-
-  users.users.yourname.shell = pkgs.zsh;
 }

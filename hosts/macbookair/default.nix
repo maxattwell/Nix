@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./system.nix
     ../../modules/base.nix
+    ../../modules/darwin
     ../../modules/darwin/yabai.nix
     ../../modules/darwin/skhd.nix
   ];
