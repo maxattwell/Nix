@@ -55,6 +55,7 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.users.max = import ./hosts/shedserver/home.nix;
             }
           ];
           specialArgs = { inherit inputs; };
