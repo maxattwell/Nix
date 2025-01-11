@@ -7,9 +7,11 @@
 
   environment.systemPackages = with pkgs; [
     emacs-29
+    brave
+    iterm2
     nerd-fonts.mononoki
     nerd-fonts.jetbrains-mono
-    nerd-fonts.overpass
+    yarn
   ];
 
   services.emacs = {
