@@ -9,6 +9,8 @@
     packages = with pkgs; [];
   };
 
+  users.users.max.shell = pkgs.zsh;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

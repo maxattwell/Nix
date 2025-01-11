@@ -6,7 +6,7 @@
     enable = true;
     skhdConfig = ''
       cmd - return : osascript -e 'tell application "iTerm" to create window with default profile'
-      cmd + shift - return : osascript -e 'tell application "Google Chrome" to make new window'
+      cmd + shift - return : brave
       cmd - e : emacsclient -cn
       cmd - q : osascript -e 'tell application (path to frontmost application as text) to close front window'
 
