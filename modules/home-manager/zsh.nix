@@ -9,4 +9,12 @@
     enableCompletion = true;
     history.size = 10000;
   };
+
+
+  programs.zsh.initExtra = ''
+    alias ls="ls --color"
+
+    export DOOM_DIR=$HOME/.config/emacs/bin
+    export PATH=$PATH:$DOOM_DIR
+  '';
 }

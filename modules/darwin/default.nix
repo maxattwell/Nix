@@ -7,10 +7,8 @@
 
   environment.systemPackages = with pkgs; [
     emacs-29
+    ripgrep
     brave
-    iterm2
-    nerd-fonts.mononoki
-    nerd-fonts.jetbrains-mono
     yarn
   ];
 
@@ -18,4 +16,13 @@
     enable = true;
     package = pkgs.emacs-29;
   };
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.mononoki
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.overpass
+  ];
+
+  system.defaults.dock.autohide = true;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 }
