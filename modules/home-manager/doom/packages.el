@@ -58,3 +58,4 @@
 
 (package! templ-ts-mode)
 
+(package! magit-delta)

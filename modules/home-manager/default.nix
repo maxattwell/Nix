@@ -14,6 +14,12 @@
     enable = true;
     userName  = "Max Attwell";
     userEmail = "max.attwell@hotmail.com";
+    delta = {
+      enable = true;
+      options = {
+        line-numbers = true;
+      };
+    };
   };
 
   programs.zsh = {
