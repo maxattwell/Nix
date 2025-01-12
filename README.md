@@ -29,13 +29,7 @@ nix run nix-darwin —- switch -—flake .
 
 
 ## Git Setup 
-1. Login to git
-```sh
-git config --global user.name "Max Attwell"
-git config --global user.email "max.attwell@hotmail.com"
-```
-
-2. Create ssh key
+1. Create ssh key
 ``` sh
 # Generate a new ssh key for github
 ssh-keygen -t ed25519 -C max.attwell@hotmail.com

@@ -7,9 +7,17 @@
 
   environment.systemPackages = with pkgs; [
     emacs-29
+    nodejs_22
+    docker
+    colima
+    pnpm
+    yarn
     ripgrep
     brave
-    yarn
+    supabase-cli
+    watchman
+    # Java OpenJDK
+    zulu17
   ];
 
   services.emacs = {
