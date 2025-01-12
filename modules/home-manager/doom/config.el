@@ -199,3 +199,7 @@
 ;;             (let ((proc (start-process "wl-copy" "*Messages*" "wl-copy")))
 ;;               (process-send-string proc text)
 ;;               (process-send-eof proc))))))
+
+
+(use-package! magit-delta
+  :hook (magit-mode . magit-delta-mode))
