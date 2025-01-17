@@ -25,7 +25,7 @@
       yabai -m config window_shadow float
 
       yabai -m rule --add app="^Ajustes del Sistema$" manage=off
-
+      yabai -m rule --add app="^qemu-system-aarch64$" manage=off
       # Force management of all workspaces
       yabai -m config --space 2 layout bsp
       yabai -m config --space 3 layout bsp
