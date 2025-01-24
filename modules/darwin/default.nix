@@ -18,6 +18,8 @@
     watchman
     # Java OpenJDK
     zulu17
+    gnupg
+    pass
   ];
 
   services.emacs = {
