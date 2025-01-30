@@ -20,6 +20,7 @@
     zulu17
     gnupg
     pass
+    flyctl
   ];
 
   services.emacs = {
