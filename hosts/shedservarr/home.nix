@@ -5,7 +5,6 @@
     ../../modules/home-manager
   ];
 
-
   home = {
     username = "max";
     homeDirectory = "/home/max";
