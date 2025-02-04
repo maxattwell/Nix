@@ -9,9 +9,8 @@
     description = "Max Attwell";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
-
-  users.users.max.shell = pkgs.zsh;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
