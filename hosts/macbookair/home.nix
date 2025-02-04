@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../../modules/home-manager ];
+  imports = [
+    ../../modules/home-manager
+    ../../modules/home-manager/doom.nix
+  ];
 
   home = {
     username = "max";

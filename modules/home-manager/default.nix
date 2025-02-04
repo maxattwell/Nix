@@ -1,15 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  home = {
-    sessionVariables = {
-      DOOM_DIR = "$HOME/.config/emacs/bin";
-    };
-    sessionPath = [
-      "$DOOM_DIR"
-    ];
-  };
-
   programs.git = {
     enable = true;
     userName  = "Max Attwell";
@@ -35,8 +26,4 @@
   };
 
   programs.bat.enable = true;
-
-  home.file.".config/doom" = {
-    source = ./doom;
-  };
 }
