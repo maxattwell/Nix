@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  nix.settings.experimental-features = ["nix-command flakes"];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
