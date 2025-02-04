@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  nix.settings.experimental-features = "nix-command flakes";
+
   users.users.max.home = "/Users/max";
 
   users.users.max.shell = pkgs.zsh;
