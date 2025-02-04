@@ -3,9 +3,10 @@
 {
   nix.settings.experimental-features = "nix-command flakes";
 
-  users.users.max.home = "/Users/max";
-
-  users.users.max.shell = pkgs.zsh;
+  users.users.max = {
+    home = "/Users/max";
+    shell = pkgs.zsh;
+  };
 
   environment.systemPackages = with pkgs; [
     emacs-29
