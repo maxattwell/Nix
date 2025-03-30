@@ -181,25 +181,54 @@
         (go "https://github.com/tree-sitter/tree-sitter-go")
         (gomod "https://github.com/camdencheek/tree-sitter-go-mod")))
 
-;; ;; Sync system clipboard with Emacs kill ring
-;; (setq select-enable-clipboard t
-;;       select-enable-primary t)
-
-;; ;; Use system clipboard for pasting by default
-;; (setq x-select-enable-clipboard-manager nil)
-
-;; ;; Set up clipboard integration for Wayland
-;; (when (eq window-system nil) ; running under Wayland (no X11)
-;;   (setq interprogram-paste-function
-;;         (lambda ()
-;;           (shell-command-to-string "wl-paste --no-newline")))
-;;   (setq interprogram-cut-function
-;;         (lambda (text &optional _rest)
-;;           (let ((process-connection-type nil))
-;;             (let ((proc (start-process "wl-copy" "*Messages*" "wl-copy")))
-;;               (process-send-string proc text)
-;;               (process-send-eof proc))))))
-
-
 (use-package! magit-delta
   :hook (magit-mode . magit-delta-mode))
+
+;; accept completion from copilot and fallback to company
+
+;;(use-package! copilot
+;;  :hook (prog-mode . copilot-mode)
+;;  :bind (:map copilot-completion-map
+;;              ("<tab>" . 'copilot-accept-completion)
+;;              ("TAB" . 'copilot-accept-completion)
+;;              ("C-TAB" . 'copilot-accept-completion-by-word)
+;;              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(use-package! gptel)
+
+(defun get-gemini-api-key ()
+  "Retrieve the Gemini API key from pass."
+  (string-trim (shell-command-to-string "pass show Google/gemini-api-key")))
+
+(setq
+ gptel-model 'gemini-2.0-flash
+ gptel-backend (gptel-make-gemini "Gemini"
+                 :key (get-gemini-api-key)
+                 :stream t))
+
+(defun get-anthropic-api-key ()
+  "Retrieve the Anthropic API key from pass."
+  (string-trim (shell-command-to-string "pass show Anthropic/api-key")))
+
+(gptel-make-anthropic "Claude"          ;Any name you want
+  :stream t                             ;Streaming responses
+  :key (get-anthropic-api-key))
+
+
+(map! :leader
+      (:prefix ("e" . "GPTel")
+       :desc "Add region or buffer to GPTel's context" "a" #'gptel-add
+       :desc "Send all text up to (point) or the selection." "<RET>" #'gptel-send
+       :desc "Send buffer to GPTel" "f" #'gptel-add-file
+       :desc "Open GPTel" "e" #'gptel
+       :desc "Remove all GPTel's context" "d" #'gptel-context-remove-all
+       :desc "Rewrite, refactor or change the selected region" "r" #'gptel-rewrite))
+
+(add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+(add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+
+(setq gptel-default-mode 'org-mode)
+
+
+(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
+(setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n")
