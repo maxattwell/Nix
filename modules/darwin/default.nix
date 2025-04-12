@@ -24,6 +24,7 @@
     gnupg
     pass
     flyctl
+    go
   ];
 
   services.emacs = {
