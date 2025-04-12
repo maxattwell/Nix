@@ -39,6 +39,20 @@
       linuxSystem = "x86_64-linux";
     in {
       nixosConfigurations = {
+        nixbox = nixpkgs.lib.nixosSystem {
+          system = linuxSystem;
+          modules = [
+            ./hosts/nixbox
+
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.max = import ./hosts/nixbox/home.nix;
+            }
+          ];
+          specialArgs = { inherit inputs; };
+        };
+
         shedservarr = nixpkgs.lib.nixosSystem {
           system = linuxSystem;
           modules = [
