@@ -232,3 +232,8 @@
 
 (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
 (setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n")
+
+(setenv "ANTHROPIC_API_KEY" (get-anthropic-api-key))
+(use-package aider
+  :config
+  (setq aider-args '("--model" "sonnet")))
