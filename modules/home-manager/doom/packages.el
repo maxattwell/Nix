@@ -64,3 +64,5 @@
 ;;  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 
 (package! gptel)
+
+(package! aider :recipe (:host github :repo "tninja/aider.el" :files ("aider.el" "aider-core.el" "aider-file.el" "aider-code-change.el" "aider-discussion.el" "aider-prompt-mode.el" "aider-doom.el")))
