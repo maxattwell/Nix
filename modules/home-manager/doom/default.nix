@@ -11,6 +11,6 @@
   };
 
   home.file.".config/doom" = {
-    source = ./doom;
+    source = ./.;
   };
 }

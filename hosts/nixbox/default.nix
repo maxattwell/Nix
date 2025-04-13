@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -8,10 +8,14 @@
 
   networking.hostName = "nixbox";
 
+  networking.networkmanager.enable = true;
+
   hardware.nvidia.open = false;
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.bluetooth.enable = true;
+
+  programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
@@ -19,11 +23,27 @@
     nitch
     bluez
     nvtopPackages.nvidia
+    kitty
+    brave
+    emacs
+    pass
+    gnupg
+    ripgrep
+    adwaita-icon-theme
+    nwg-look
   ];
+
+  services.getty.autologinUser = "max";
 
   services.openssh.enable = true;
 
-  services.getty.autologinUser = "max";
+  services.emacs.enable = true;
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.mononoki
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.overpass
+  ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).

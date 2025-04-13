@@ -3,7 +3,7 @@
 {
   imports = [
     ../../modules/home-manager
-    ../../modules/home-manager/doom.nix
+    ../../modules/home-manager/doom
   ];
 
   home = {
