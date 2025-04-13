@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,7 +48,10 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.max = import ./hosts/nixbox/home.nix;
+              home-manager.users.max = {
+                imports = [ ./hosts/nixbox/home.nix ];
+              };
+              home-manager.backupFileExtension = "backup";
             }
           ];
           specialArgs = { inherit inputs; };

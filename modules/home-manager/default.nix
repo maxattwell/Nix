@@ -23,6 +23,13 @@
     shellAliases = {
       cat = "bat";
     };
+    initExtra = ''
+    bindkey '^k' history-search-backward
+    bindkey '^j' history-search-forward
+    bindkey '^h' backward-word
+    bindkey '^l' forward-word
+    bindkey '^[[3;5~' backward-kill-word
+    '';
   };
 
   programs.bat.enable = true;
