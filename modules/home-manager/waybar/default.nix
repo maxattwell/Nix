@@ -20,7 +20,7 @@ in {
         "custom/radioplayer" = {
             format = "";
             return-type = "json";
-            on-click = "/home/max/dotfiles/bin/play-radio.sh";
+            on-click = "$HOME/Nix/assets/bin/play-radio.sh";
             tooltip = false;
         };
         "hyprland/workspaces" = {

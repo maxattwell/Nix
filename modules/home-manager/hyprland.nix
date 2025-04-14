@@ -5,15 +5,40 @@
   wayland.windowManager.hyprland.settings = {
     exec-once = ["hyprpaper" "waybar"];
 
+    monitor = [
+      "DP-4, 1920x1080@60, 0x475, 1"
+      "DP-3, 1920x1080@60, 1920x0, 1, transform, 1"
+    ];
+
+    workspace = [
+      "1,monitor:DP-4"
+      "2,monitor:DP-3"
+      "w[tv1], gapsout:0, gapsin:0"
+      "f[1], gapsout:0, gapsin:0"
+    ];
+
+    windowrule = [
+      "bordersize 0, floating:0, onworkspace:w[tv1]"
+      "rounding 0, floating:0, onworkspace:w[tv1]"
+      "bordersize 0, floating:0, onworkspace:f[1]"
+      "rounding 0, floating:0, onworkspace:f[1]"
+    ];
+
     "$mod" = "SUPER";
+    "$terminal" = "exec, kitty";
+    "$browser" = "exec, brave";
+    "$editor" = "exec, emacsclient -nc";
+    "$suspend" = "exec, systemctl suspend";
+    "$launcher" = "exec, wofi --show drun --style=$HOME/Nix/assets/wofi_styles.css";
 
     bind = [
-      "$mod, RETURN, exec, kitty"
-      "$mod SHIFT, RETURN, exec, brave"
+      "$mod, RETURN, $terminal"
+      "$mod SHIFT, RETURN, $browser"
       "$mod, Q, killactive,"
-      "$mod, E, exec, emacsclient -nc"
-      "$mod, ESCAPE, exec, systemctl suspend"
+      "$mod, E, $editor"
+      "$mod, ESCAPE, $suspend"
       "$mod SHIFT, ESCAPE, exit"
+      "$mod, SPACE, $launcher"
 
       "$mod, h, movefocus, l"
       "$mod, j, movefocus, d"

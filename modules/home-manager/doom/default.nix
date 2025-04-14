@@ -10,7 +10,7 @@
     ];
   };
 
-  home.file.".config/doom" = {
-    source = ./.;
-  };
+  home.file.".config/doom/init.el".source = ./init.el;
+  home.file.".config/doom/packages.el".source = ./packages.el;
+  home.file.".config/doom/config.el".source = ./config.el;
 }
