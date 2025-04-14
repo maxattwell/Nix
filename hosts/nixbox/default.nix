@@ -22,6 +22,7 @@
     neovim
     nitch
     bluez
+    blueman
     nvtopPackages.nvidia
     kitty
     brave
@@ -29,8 +30,9 @@
     pass
     gnupg
     ripgrep
-    adwaita-icon-theme
-    nwg-look
+    wofi
+    vlc
+    code-cursor
   ];
 
   services.getty.autologinUser = "max";

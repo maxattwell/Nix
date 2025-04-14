@@ -7,15 +7,15 @@
       splash = false;
 
       preload = [
-        "/home/max/Nix/backgrounds/keys-l.png"
-        "/home/max/Nix/backgrounds/keys-d.png"
-        "/home/max/Nix/backgrounds/current.png"
+        "$HOME/Nix/assets/backgrounds/keys-l.png"
+        "$HOME/Nix/assets/backgrounds/keys-d.png"
+        "$HOME/Nix/assets/backgrounds/current.png"
       ];
 
       wallpaper = [
-        "HDMI-A-2, /home/max/Nix/backgrounds/keys-l.png"
-        "DP-2, /home/max/Nix/backgrounds/current.png"
-        "DP-3, /home/max/Nix/backgrounds/current.png"
+        "HDMI-A-2, $HOME/Nix/assets/backgrounds/keys-l.png"
+        "DP-4, $HOME/Nix/assets/backgrounds/keys-l.png"
+        "DP-3, $HOME/Nix/assets/backgrounds/keys-l.png"
       ];
     };
   };
