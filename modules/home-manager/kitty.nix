@@ -3,6 +3,7 @@
 {
   programs.kitty = {
     enable = true;
+    themeFile = "Monokai_Pro";
     settings = {
       font_family = "JetBrainsMono Nerd Font Mono";
       font_size = "13.0";
