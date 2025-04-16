@@ -6,9 +6,11 @@
     ../../modules/nixos
   ];
 
-  networking.hostName = "nixbox";
-
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixbox";
+    networkmanager.enable = true;
+    firewall.enable = false;
+  };
 
   hardware.nvidia.open = false;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -34,6 +36,7 @@
     wofi
     vlc
     code-cursor
+    aider-chat
   ];
 
   services.getty.autologinUser = "max";
