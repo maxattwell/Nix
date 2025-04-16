@@ -19,6 +19,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    zip
     neovim
     nitch
     bluez
