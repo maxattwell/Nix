@@ -34,19 +34,24 @@
     bluez
     blueman
     nvtopPackages.nvidia
-    kitty
-    brave
-    emacs
-    ispell
+
     pass
     gnupg
     ripgrep
-    nodejs_22
+    ispell
     wofi
     vlc
-    code-cursor
-    aider-chat
+
+    kitty
+    emacs
+    brave
+
+    nodejs_22
+    pnpm
     supabase-cli
+
+    aider-chat
+    code-cursor
   ];
 
   services.getty.autologinUser = "max";
