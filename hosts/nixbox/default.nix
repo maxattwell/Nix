@@ -9,8 +9,15 @@
   networking = {
     hostName = "nixbox";
     networkmanager.enable = true;
+    useNetworkd = false;
     firewall.enable = false;
   };
+
+  environment.etc."resolv.conf".text = ''
+    nameserver 1.1.1.1
+    nameserver 8.8.8.8
+  '';
+
 
   hardware.nvidia.open = false;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -38,6 +45,7 @@
     vlc
     code-cursor
     aider-chat
+    supabase-cli
   ];
 
   services.getty.autologinUser = "max";
@@ -51,6 +59,9 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.overpass
   ];
+
+  virtualisation.docker.enable = true;
+  users.users.max.extraGroups = [ "docker" ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
