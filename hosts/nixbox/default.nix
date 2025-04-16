@@ -33,6 +33,7 @@
     pass
     gnupg
     ripgrep
+    nodejs_22
     wofi
     vlc
     code-cursor
