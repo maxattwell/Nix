@@ -22,6 +22,7 @@
     history.size = 10000;
     shellAliases = {
       cat = "bat";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/Nix";
     };
     initExtra = ''
     bindkey '^k' history-search-backward
