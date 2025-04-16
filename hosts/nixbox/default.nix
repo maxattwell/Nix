@@ -37,6 +37,7 @@
     kitty
     brave
     emacs
+    ispell
     pass
     gnupg
     ripgrep

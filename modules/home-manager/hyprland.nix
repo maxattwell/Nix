@@ -100,6 +100,11 @@
 
     decoration = {
       rounding = 3;
+      blur = {
+        enabled = true;
+        size = 8;
+        passes = 2;
+      };
     };
 
     animations = {
