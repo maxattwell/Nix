@@ -2,14 +2,12 @@
 
 {
   imports = [
-    ../../modules
     ../../modules/darwin
     ../../modules/darwin/yabai.nix
     ../../modules/darwin/skhd.nix
   ];
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
-  services.nix-daemon.enable = true;
   system.stateVersion = 5;
 }
