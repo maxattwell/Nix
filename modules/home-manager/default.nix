@@ -24,6 +24,12 @@
       cat = "bat";
       rebuild = "sudo nixos-rebuild switch --flake $HOME/Nix";
     };
+    zplug = {
+      enable = true;
+      plugins = [
+        { name = "agkozak/zsh-z"; }
+      ];
+    };
     initExtra = ''
     bindkey '^k' history-search-backward
     bindkey '^j' history-search-forward
