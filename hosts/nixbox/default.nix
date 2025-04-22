@@ -48,13 +48,21 @@
 
     nodejs_22
     pnpm
+    yarn
     supabase-cli
 
+    slurp
+    grim
     aider-chat
     code-cursor
+    wf-recorder
   ];
 
-  services.getty.autologinUser = "max";
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
+  # services.getty.autologinUser = "max";
 
   services.openssh.enable = true;
 
