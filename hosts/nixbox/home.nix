@@ -3,8 +3,7 @@
 {
   imports = [
     ../../modules/home-manager
-    ../../modules/home-manager/hyprland.nix
-    ../../modules/home-manager/hyprpaper.nix
+    ../../modules/home-manager/hypr
     ../../modules/home-manager/waybar
     ../../modules/home-manager/kitty.nix
     ../../modules/home-manager/doom
