@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  home.sessionVariables = {
+    "WLR_NO_HARDWARE_CURSORS" = "1";
+    "LIBVA_DRIVER_NAME" = "nvidia";
+    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+    "GBM_BACKEND" = "nvidia-drm";
+    "__GL_VRR_ALLOWED" = 1;
+    "WLR_RENDERER" = "vulkan";
+  };
+
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
     exec-once = ["hyprpaper" "waybar"];
@@ -27,17 +36,6 @@
     windowrulev2 = [
       "float, center, title:^(Bluetooth Devices)$"
     ];
-
-    "$mod" = "SUPER";
-
-    home.sessionVariables = {
-      WLR_NO HARDWARE_CURSORS: "1";
-      LIBVA_DRIVER_NAME: "nvidia";
-      __GLX_VENDOR_LIBRARY_NAME: "nvidia";
-      GBM_BACKEND: "nvidia-drm";
-      __GL_VRR_ALLOWED: "1";
-      WLR_RENDERER: "v Vulkan";
-    };
 
     "$mod" = "SUPER";
     "$terminal" = "exec, kitty";
