@@ -19,7 +19,13 @@
   '';
 
 
-  hardware.nvidia.open = false;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.bluetooth.enable = true;
@@ -33,6 +39,7 @@
     nitch
     bluez
     blueman
+    htop
     nvtopPackages.nvidia
 
     pass
@@ -59,15 +66,21 @@
     ffmpeg
   ];
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-  # services.getty.autologinUser = "max";
+  services.displayManager.ly.enable = true;
+  # services.displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  # };
+  # # services.getty.autologinUser = "max";
 
   services.openssh.enable = true;
 
   services.emacs.enable = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
 
   fonts.packages = with pkgs; [
     nerd-fonts.mononoki
