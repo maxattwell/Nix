@@ -31,12 +31,12 @@
     "$mod" = "SUPER";
 
     home.sessionVariables = {
-      WLR_NO HARDWARE_CURSORS = "1";
-      LIBVA_DRIVER_NAME = "nvidia";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      GBM_BACKEND = "nvidia-drm";
-      __GL_VRR_ALLOWED = "1";
-      WLR_RENDERER = "vulkan";
+      WLR_NO HARDWARE_CURSORS: "1";
+      LIBVA_DRIVER_NAME: "nvidia";
+      __GLX_VENDOR_LIBRARY_NAME: "nvidia";
+      GBM_BACKEND: "nvidia-drm";
+      __GL_VRR_ALLOWED: "1";
+      WLR_RENDERER: "v Vulkan";
     };
 
     "$mod" = "SUPER";
