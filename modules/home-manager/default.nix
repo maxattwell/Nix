@@ -24,7 +24,7 @@
       cat = "bat";
       rebuild = "sudo nixos-rebuild switch --flake $HOME/Nix";
     };
-    initExtra = ''
+    initContent = ''
     bindkey '^k' history-search-backward
     bindkey '^j' history-search-forward
     bindkey '^h' backward-word

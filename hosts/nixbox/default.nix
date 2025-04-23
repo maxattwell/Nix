@@ -60,10 +60,13 @@
 
     slurp
     grim
-    aider-chat
-    code-cursor
     wf-recorder
     ffmpeg
+
+    aider-chat
+    code-cursor
+    codex
+    claude-code
   ];
 
   services.displayManager.ly.enable = true;
