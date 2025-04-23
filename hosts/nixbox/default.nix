@@ -56,6 +56,7 @@
     aider-chat
     code-cursor
     wf-recorder
+    ffmpeg
   ];
 
   services.displayManager.sddm = {

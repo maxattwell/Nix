@@ -33,6 +33,7 @@
     "$browser" = "exec, brave";
     "$editor" = "exec, emacsclient -nc";
     "$suspend" = "exec, systemctl suspend";
+    "$lock" = "exec, hyprlock";
     "$launcher" = "exec, wofi --show drun --style=$HOME/Nix/assets/wofi_styles.css";
     "$lighttheme" = "$HOME/Nix/assets/bin/set-theme.sh light";
     "$darktheme" = "$HOME/Nix/assets/bin/set-theme.sh dark";
@@ -42,7 +43,7 @@
       "$mod SHIFT, RETURN, $browser"
       "$mod, Q, killactive,"
       "$mod, E, $editor"
-      "$mod, ESCAPE, $suspend"
+      "$mod, ESCAPE, $lock"
       "$mod SHIFT, ESCAPE, exit"
       "$mod, SPACE, $launcher"
       "$mod, F1, exec, $darktheme"
