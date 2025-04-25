@@ -74,11 +74,6 @@
   ];
 
   services.displayManager.ly.enable = true;
-  # services.displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  # };
-  # # services.getty.autologinUser = "max";
 
   services.openssh.enable = true;
 
