@@ -1,6 +1,35 @@
 # Nix Configurations
 Collection of Nix configurations for Max Attwell.
 
+## NixOS Setup
+1. Boot from NixOS installation media
+
+2. Enter a nix shell with git
+``` sh
+nix-shell -p git
+```
+
+3. Clone this repository
+``` sh
+git clone git@github.com:maxattwell/Nix.git
+cd Nix
+```
+
+4. Install NixOS with the nixbox configuration
+``` sh
+sudo nixos-install --flake .#nixbox
+```
+
+5. Reboot into your new system
+``` sh
+sudo reboot
+```
+
+6. After first boot, you can update your system with
+``` sh
+sudo nixos-rebuild switch --flake .#nixbox
+```
+
 ## Darwin Setup
 0. Set username as `max`.
 

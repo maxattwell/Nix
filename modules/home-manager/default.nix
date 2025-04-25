@@ -30,7 +30,7 @@
         { name = "agkozak/zsh-z"; }
       ];
     };
-    initExtra = ''
+    initContent = ''
     bindkey '^k' history-search-backward
     bindkey '^j' history-search-forward
     bindkey '^h' backward-word

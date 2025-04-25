@@ -19,7 +19,13 @@
   '';
 
 
-  hardware.nvidia.open = false;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.bluetooth.enable = true;
@@ -33,6 +39,7 @@
     nitch
     bluez
     blueman
+    htop
     nvtopPackages.nvidia
 
     pass
@@ -41,24 +48,41 @@
     ispell
     wofi
     vlc
-
+    slurp
+    grim
+    wf-recorder
+    ffmpeg
     kitty
     emacs
     brave
 
     nodejs_22
     pnpm
+    yarn
     supabase-cli
+    rustc
+    cargo
+    maturin
+    python3Full
+    uv
+    go
 
     aider-chat
     code-cursor
+    codex
+    claude-code
   ];
 
-  services.getty.autologinUser = "max";
+  services.displayManager.ly.enable = true;
 
   services.openssh.enable = true;
 
   services.emacs.enable = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
 
   fonts.packages = with pkgs; [
     nerd-fonts.mononoki
