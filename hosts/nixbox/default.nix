@@ -48,7 +48,10 @@
     ispell
     wofi
     vlc
-
+    slurp
+    grim
+    wf-recorder
+    ffmpeg
     kitty
     emacs
     brave
@@ -57,11 +60,12 @@
     pnpm
     yarn
     supabase-cli
-
-    slurp
-    grim
-    wf-recorder
-    ffmpeg
+    rustc
+    cargo
+    maturin
+    python3Full
+    uv
+    go
 
     aider-chat
     code-cursor
