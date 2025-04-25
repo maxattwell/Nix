@@ -22,7 +22,7 @@
     history.size = 10000;
     shellAliases = {
       cat = "bat";
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/Nix";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/Nix --impure";
     };
     zplug = {
       enable = true;

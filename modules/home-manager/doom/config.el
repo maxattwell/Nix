@@ -96,6 +96,11 @@
                  :stream t
                  :models '(qwen2.5-coder:14b)))
 
+(gptel-make-ollama "Fedora"
+  :host "192.168.31.76:11434"
+  :stream t
+  :models '(qwen2.5-coder:14b))
+
 (gptel-make-gemini "Gemini"
   :key (get-api-key "Google/gemini-api-key")
   :stream t)
