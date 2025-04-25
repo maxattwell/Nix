@@ -51,7 +51,6 @@
               home-manager.users.max = {
                 imports = [ ./hosts/nixbox/home.nix ];
               };
-              home-manager.backupFileExtension = "backup";
             }
           ];
           specialArgs = { inherit inputs; };
