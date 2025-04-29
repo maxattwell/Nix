@@ -39,7 +39,7 @@
     nitch
     bluez
     blueman
-    htop
+    btop
     nvtopPackages.nvidia
 
     pass
