@@ -82,6 +82,8 @@
        :desc "Open GPTel dedicated chat buffer" "e" #'gptel
        :desc "Remove all GPTel's context" "d" #'gptel-context-remove-all
        :desc "Rewrite, refactor or change the selected region" "r" #'gptel-rewrite
+       :desc "Register MCP tool" "t" #'gptel-mcp-register-tool
+       :desc "Use MCP tool" "T" #'gptel-mcp-use-tool
        :desc "Open GPTel menu" "m" #'gptel-menu))
 
 (defun get-api-key (pass-path)
@@ -123,10 +125,10 @@
 
 (setq mcp-hub-servers
       '(
-        ;; ("File system" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-filesystem" "/home/max/code")))
+        ("File system" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-filesystem" "/home/max/code")))
         ("Nixos server" . (:command "uvx" :args ("mcp-nixos")))
-        ;; ("Git" . (:command "uvx" :args ("mcp-server-git")))
-        ;; ("Sequential thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequesntial-thinking")))
+        ("Git" . (:command "uvx" :args ("mcp-server-git")))
+        ("Sequential thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequential-thinking")))
         ("Playwright" . (:command "npx" :args ("-y" "@playwright/mcp@latest")))
         ("Playwright ExecuteAutomation" . (:command "npx" :args ("-y" "@executeautomation/playwright-mcp-server")))))
 
