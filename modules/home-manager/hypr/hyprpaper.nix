@@ -13,9 +13,9 @@
       ];
 
       wallpaper = [
-        "HDMI-A-2, $HOME/Nix/assets/backgrounds/keys-l.png"
-        "DP-4, $HOME/Nix/assets/backgrounds/keys-l.png"
-        "DP-3, $HOME/Nix/assets/backgrounds/keys-l.png"
+        "HDMI-A-2, $HOME/Nix/assets/backgrounds/current.png"
+        "DP-4, $HOME/Nix/assets/backgrounds/current.png"
+        "DP-3, $HOME/Nix/assets/backgrounds/current.png"
       ];
     };
   };

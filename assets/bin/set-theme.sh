@@ -26,5 +26,8 @@ hyprctl hyprpaper wallpaper "DP-4,$WALLPAPER_DIR/$WALLPAPER"
 # Update Waybar style
 ln -sf "$WAYBAR_DIR/$WAYBAR_STYLE" "$WAYBAR_DIR/style.css"
 
+# Update Current background
+ln -sf "$WALLPAPER_DIR/$WALLPAPER" "$WALLPAPER_DIR/current.png"
+
 # Reload Waybar styles
 pkill -SIGUSR2 waybar
