@@ -12,7 +12,11 @@
 
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
-    exec-once = ["hyprpaper" "waybar"];
+    exec-once = [
+      "hyprpaper"
+      "waybar"
+      "hypridle"
+    ];
 
     monitor = [
       "DP-4, 1920x1080@60, 0x475, 1"

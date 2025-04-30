@@ -9,7 +9,7 @@
     # BACKGROUND
     background {
         monitor =
-        path = /home/max/dotfiles/backgrounds/keys-l.png   # supports png, jpg, webp (no animations, though)
+        path = /home/max/Nix/assets/backgrounds/current.png
         blur_passes = 2
         contrast = 1
         brightness = 0.5
@@ -51,7 +51,7 @@
       text = cmd[update:1000] echo "$(date +"%A, %B %d")"
       color = rgba(242, 243, 244, 0.75)
       font_size = 22
-      font_family = JetBrains Mono
+      font_family = Overpass Nerd Font
       position = 0, 300
       halign = center
       valign = center
@@ -63,7 +63,7 @@
       text = cmd[update:1000] echo "$(date +"%-I:%M")"
       color = rgba(242, 243, 244, 0.75)
       font_size = 95
-      font_family = JetBrains Mono Extrabold
+      font_family = Overpass Nerd Font Extrabold
       position = 0, 200
       halign = center
       valign = center
