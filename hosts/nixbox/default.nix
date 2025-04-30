@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
+    ../../modules/nixos/sddm.nix
   ];
 
   networking = {
@@ -72,8 +73,6 @@
     codex
     claude-code
   ];
-
-  services.displayManager.ly.enable = true;
 
   services.openssh.enable = true;
 

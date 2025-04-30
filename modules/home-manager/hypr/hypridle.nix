@@ -6,25 +6,22 @@
   ];
 
   xdg.configFile."hypr/hypridle.conf".text = ''
+    $LOCKSCREEN = pidof hyprlock || hyprlock
+
     general {
-        lock_cmd = pidof hyprlock || hyprlock       # avoid starting multiple hyprlock instances.
-        before_sleep_cmd = loginctl lock-session    # lock before suspend.
+        lock_cmd = $LOCKSCREEN
+        before_sleep_cmd = $LOCKSCREEN    # command ran before sleep
     }
 
-    # Screenlock
+    # Lock it first before dpms off so that screen won't show for a moment after wake up.
     listener {
-        # HYPRLOCK TIMEOUT
         timeout = 600
-        # HYPRLOCK ONTIMEOUT
-        on-timeout = loginctl lock-session
+        on-timeout = $LOCKSCREEN
     }
-
 
     # Suspend
     listener {
-        # SUSPEND TIMEOUT
         timeout = 900
-        #SUSPEND ONTIMEOUT
         on-timeout = systemctl suspend
     }
   '';
