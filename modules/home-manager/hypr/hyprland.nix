@@ -56,7 +56,7 @@
       "$mod SHIFT, RETURN, $browser"
       "$mod, Q, killactive,"
       "$mod, E, $editor"
-      "$mod, ESCAPE, $lock"
+      "$mod, ESCAPE, $suspend"
       "$mod SHIFT, ESCAPE, exit"
       "$mod, SPACE, $launcher"
       "$mod, F1, exec, $darktheme"
