@@ -56,6 +56,7 @@
     kitty
     emacs
     brave
+    google-chrome
 
     nodejs_22
     pnpm
