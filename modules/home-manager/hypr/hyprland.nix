@@ -15,7 +15,6 @@
     exec-once = [
       "hyprpaper"
       "waybar"
-      "hypridle"
     ];
 
     monitor = [
