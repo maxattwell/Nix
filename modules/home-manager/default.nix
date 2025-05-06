@@ -36,6 +36,10 @@
     bindkey '^h' backward-word
     bindkey '^l' forward-word
     bindkey '^[[3;5~' backward-kill-word
+
+    if [[ -n "$IN_NIX_SHELL" ]]; then
+      RPROMPT="%F{cyan}[nix-dev]%f"
+    fi
     '';
   };
 
