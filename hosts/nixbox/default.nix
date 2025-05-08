@@ -68,6 +68,7 @@
     python3Full
     uv
     go
+    awscli2
 
     aider-chat
     code-cursor
