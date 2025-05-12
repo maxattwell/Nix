@@ -49,7 +49,8 @@
     "$launcher" = "exec, wofi --show drun --style=$HOME/Nix/assets/wofi_styles.css";
     "$lighttheme" = "$HOME/Nix/assets/bin/set-theme.sh light";
     "$darktheme" = "$HOME/Nix/assets/bin/set-theme.sh dark";
-
+    "$screenshot" = "exec, slurp | grim -g - \"$HOME/screenshot_$(date +%Y%m%d_%H%M%S).png\"";
+    
     bind = [
       "$mod, RETURN, $terminal"
       "$mod SHIFT, RETURN, $browser"
@@ -60,6 +61,7 @@
       "$mod, SPACE, $launcher"
       "$mod, F1, exec, $darktheme"
       "$mod, F2, exec, $lighttheme"
+      "$mod SHIFT, S, $screenshot"
 
       "$mod, h, movefocus, l"
       "$mod, j, movefocus, d"
