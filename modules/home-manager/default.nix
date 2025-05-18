@@ -37,6 +37,9 @@
     bindkey '^l' forward-word
     bindkey '^[[3;5~' backward-kill-word
 
+    # Highlight selected item in completion menu
+    zstyle ':completion:*' menu select
+
     if [[ -n "$IN_NIX_SHELL" ]]; then
       RPROMPT="%F{cyan}[nix-dev]%f"
     fi
