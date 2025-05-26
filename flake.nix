@@ -10,12 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin-emacs = {
-      # pin to a commit so we dont have to rebuild emacs on each flake update
-      url = "github:c4710n/nix-darwin-emacs/25949adae777a2718eb5c66e0a5b034408ce6e63";
+      url = "github:nix-giant/nix-darwin-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
