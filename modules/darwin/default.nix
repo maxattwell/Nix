@@ -8,8 +8,16 @@
     shell = pkgs.zsh;
   };
 
+  system.primaryUser = "max";
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
-    emacs-29
+    neovim
+    emacs-30
+    kitty
+    ispell
     nodejs_22
     docker
     colima
@@ -25,11 +33,13 @@
     pass
     flyctl
     go
+    claude-code
+    goose-cli
   ];
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacs-29;
+    package = pkgs.emacs-30;
   };
 
   fonts.packages = with pkgs; [
