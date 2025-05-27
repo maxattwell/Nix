@@ -46,10 +46,9 @@
     # Custom rebuild function
     rebuild() {
       if [[ "$(uname -s)" == "Darwin" ]]; then
-        darwin-rebuild switch --flake $HOME/Nix --impure
+        sudo darwin-rebuild switch --flake $HOME/Nix
         echo "Rebuild complete, reloading yabai..."
-        sudo yabai --load-sa
-        echo "Yabai reload attempted"
+        sudo yabai --load-sa && echo "Yabai reload success"
       else
         sudo nixos-rebuild switch --flake $HOME/Nix --impure
       fi
