@@ -23,7 +23,7 @@
     shellAliases = {
       cat = "bat";
       rebuild =
-        if (builtins.getEnv "OSTYPE") == "Darwin"
+        if (pkgs.system == "x86_64-darwin" || pkgs.system == "aarch64-darwin")
         then "sudo darwin-rebuild switch --flake $HOME/Nix"
         else "sudo nixos-rebuild switch --flake $HOME/Nix --impure";
     };
