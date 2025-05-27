@@ -22,10 +22,6 @@
     history.size = 10000;
     shellAliases = {
       cat = "bat";
-      rebuild =
-        if (pkgs.system == "x86_64-darwin" || pkgs.system == "aarch64-darwin")
-        then "sudo darwin-rebuild switch --flake $HOME/Nix"
-        else "sudo nixos-rebuild switch --flake $HOME/Nix --impure";
     };
     zplug = {
       enable = true;
@@ -46,6 +42,18 @@
     if [[ -n "$IN_NIX_SHELL" ]]; then
       RPROMPT="%F{cyan}[nix-dev]%f"
     fi
+
+    # Custom rebuild function
+    rebuild() {
+      if [[ "$(uname -s)" == "Darwin" ]]; then
+        darwin-rebuild switch --flake $HOME/Nix --impure
+        echo "Rebuild complete, reloading yabai..."
+        sudo yabai --load-sa
+        echo "Yabai reload attempted"
+      else
+        sudo nixos-rebuild switch --flake $HOME/Nix --impure
+      fi
+    }
     '';
   };
 

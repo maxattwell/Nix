@@ -38,12 +38,4 @@
       yabai -m config --space 10 layout bsp
     '';
   };
-
-  # Reload yabai scripting addition after rebuild
-  system.activationScripts.postActivation.text = ''
-    echo "Reloading yabai scripting addition..."
-    if command -v yabai >/dev/null 2>&1; then
-      sudo yabai --load-sa 2>/dev/null || echo "Failed to load yabai scripting addition (this is normal if yabai isn't running)"
-    fi
-  '';
 }
