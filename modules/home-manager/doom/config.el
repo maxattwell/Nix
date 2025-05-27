@@ -75,6 +75,7 @@
 (after! mcp
   (setq! mcp-hub-servers
          '(("filesystem" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-filesystem" "~/")))
+           ("desktop-commander" . (:command "npx" :args ("-y" "@wonderwhy-er/desktop-commander@latest")))
            ("git" . (:command "uvx" :args ("mcp-server-git")))
            ("postgresql" . (:command "npx" :args ("-y"  "@modelcontextprotocol/server-postgres" "postgresql://postgres:postgres@127.0.0.1:54322/postgres")))
            ("sequential-thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequential-thinking")))))

@@ -4,7 +4,7 @@
 declare -A stations=(
     ["George FM"]="https://digitalstreams.mediaworks.nz/george_net/playlist.m3u8"
     ["Loca FM"]="https://s3.we4stream.com:2020/stream/locafm"
-    ["RNE Radio 5"]="https://rtvelivestream.akamaized.net/rtvesec/rne/rne_r5_madrid_main.m3u8"
+    ["RNE Radio 5"]="https://rtvelivestream.rtve.es/rtvesec/rne/rne_r5_madrid_main.m3u8"
     ["RNE Exterior"]="https://rtvelivestream.akamaized.net/rtvesec/rne/rne_re_main.m3u8"
     ["Stop all stations"]="stop"
 )
