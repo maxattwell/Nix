@@ -22,7 +22,10 @@
     history.size = 10000;
     shellAliases = {
       cat = "bat";
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/Nix --impure";
+      rebuild =
+        if (builtins.getEnv "OSTYPE") == "Darwin"
+        then "sudo darwin-rebuild switch --flake $HOME/Nix"
+        else "sudo nixos-rebuild switch --flake $HOME/Nix --impure";
     };
     zplug = {
       enable = true;
