@@ -43,6 +43,9 @@
     if [[ -n "$IN_NIX_SHELL" ]]; then
       RPROMPT="%F{cyan}[nix-dev]%f"
     fi
+
+    # Run nitch on startup
+    nitch
     '';
   };
 

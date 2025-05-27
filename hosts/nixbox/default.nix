@@ -38,6 +38,7 @@
     zip
     neovim
     nitch
+    tree
     bluez
     blueman
     btop
@@ -72,8 +73,7 @@
 
     aider-chat
     code-cursor
-    codex
-    claude-code
+    vscode
   ];
 
   services.openssh.enable = true;
