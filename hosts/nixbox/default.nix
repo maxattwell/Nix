@@ -33,8 +33,6 @@
 
   programs.hyprland.enable = true;
 
-  programs.direnv.enable = true;
-
   environment.systemPackages = with pkgs; [
     git
     zip
