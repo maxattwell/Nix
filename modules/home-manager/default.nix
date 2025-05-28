@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 {
   programs.git = {
     enable = true;
@@ -13,7 +12,6 @@
       };
     };
   };
-
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -35,13 +33,28 @@
     bindkey '^h' backward-word
     bindkey '^l' forward-word
     bindkey '^[[3;5~' backward-kill-word
-
     # Highlight selected item in completion menu
     zstyle ':completion:*' menu select
 
-    if [[ -n "$IN_NIX_SHELL" ]]; then
-      RPROMPT="%F{cyan}[nix-dev]%f"
-    fi
+    # Function to update rprompt
+    update_rprompt() {
+      rprompt_parts=""
+      if [[ -n "$IN_NIX_SHELL" ]]; then
+        rprompt_parts+="%F{cyan}[nix-dev]%f "
+      fi
+      if [[ -n "$DIRENV_DIR" ]]; then
+        rprompt_parts+="%F{yellow}[direnv]%f "
+      fi
+      RPROMPT="$rprompt_parts"
+    }
+
+    # Update rprompt on directory change and before each command
+    autoload -U add-zsh-hook
+    add-zsh-hook chpwd update_rprompt
+    add-zsh-hook precmd update_rprompt
+
+    # Initial update
+    update_rprompt
 
     # Custom rebuild function
     rebuild() {
@@ -55,6 +68,5 @@
     }
     '';
   };
-
   programs.bat.enable = true;
 }
