@@ -89,5 +89,7 @@
       enable = true;
       nix-direnv.enable = true;
     };
+
+    bat.enable = true;
   };
 }
