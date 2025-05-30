@@ -33,7 +33,7 @@
 
       initContent = ''
       bindkey '^k' history-search-backward
-      bindkey '^j' history-search-forward
+      #bindkey '^j' history-search-forward
       bindkey '^h' backward-word
       bindkey '^l' forward-word
       bindkey '^[[3;5~' backward-kill-word
@@ -60,6 +60,18 @@
       # Initial update
       update_rprompt
 
+      # Function to update rprompt
+      update_rprompt() {
+        rprompt_parts=""
+        if [[ -n "$IN_NIX_SHELL" ]]; then
+          rprompt_parts+="%F{cyan}[nix-dev]%f "
+        fi
+        if [[ -n "$DIRENV_DIR" ]]; then
+          rprompt_parts+="%F{yellow}[direnv]%f "
+        fi
+        RPROMPT="$rprompt_parts"
+      }
+
       # Custom rebuild function
       rebuild() {
         if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -72,18 +84,6 @@
       }
       '';
     };
-
-    # Function to update rprompt
-    update_rprompt() {
-      rprompt_parts=""
-      if [[ -n "$IN_NIX_SHELL" ]]; then
-        rprompt_parts+="%F{cyan}[nix-dev]%f "
-      fi
-      if [[ -n "$DIRENV_DIR" ]]; then
-        rprompt_parts+="%F{yellow}[direnv]%f "
-      fi
-      RPROMPT="$rprompt_parts"
-    }
 
     direnv = {
       enable = true;
