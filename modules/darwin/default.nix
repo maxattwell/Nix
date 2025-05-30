@@ -33,6 +33,7 @@
     pass
     flyctl
     go
+    aider-chat
     claude-code
     goose-cli
   ];
