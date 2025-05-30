@@ -72,6 +72,25 @@
 (use-package! magit-delta
   :hook (magit-mode . magit-delta-mode))
 
+(defun get-api-key (pass-path)
+  "Retrieve the API key from pass using the given path."
+  (string-trim (shell-command-to-string (concat "pass show " pass-path))))
+
+(use-package! aidermacs
+  :bind (("C-c a" . aidermacs-transient-menu))
+  :config
+  ;; Set API keys via environment variables or load from secure file
+  (setenv "ANTHROPIC_API_KEY" (get-api-key "Anthropic/api-key"))
+  (setenv "GEMINI_API_KEY" (get-api-key "Google/gemini-api-key"))
+
+  :custom
+  (aidermacs-use-architect-mode t)
+  (aidermacs-default-model "sonnet"))
+
+(after! aidermacs
+  (map! :leader
+        :desc "Aidermacs menu" "a" #'aidermacs-transient-menu))
+
 (after! mcp
   (setq! mcp-hub-servers
          '(("filesystem" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-filesystem" "~/")))
@@ -102,7 +121,6 @@
 
 (defvar my/init-mcp-tools nil "Function to initialize MCP tools")
 
-
 (use-package! gptel)
 
 (after! gptel
@@ -117,9 +135,6 @@
          :desc "Rewrite, refactor or change the selected region" "r" #'gptel-rewrite
          :desc "Open GPTel menu" "m" #'gptel-menu))
 
-  (defun get-api-key (pass-path)
-    "Retrieve the API key from pass using the given path."
-    (string-trim (shell-command-to-string (concat "pass show " pass-path))))
 
   (setq
    gptel-use-tools t
@@ -165,3 +180,4 @@
     (message "Activating MCP tools...")
     (gptel-mcp-use-tool)
     (message "MCP initialization complete!")))
+
