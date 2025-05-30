@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 {
   programs = {
 
@@ -74,7 +73,17 @@
       '';
     };
 
-    bat.enable = true;
+    # Function to update rprompt
+    update_rprompt() {
+      rprompt_parts=""
+      if [[ -n "$IN_NIX_SHELL" ]]; then
+        rprompt_parts+="%F{cyan}[nix-dev]%f "
+      fi
+      if [[ -n "$DIRENV_DIR" ]]; then
+        rprompt_parts+="%F{yellow}[direnv]%f "
+      fi
+      RPROMPT="$rprompt_parts"
+    }
 
     direnv = {
       enable = true;
