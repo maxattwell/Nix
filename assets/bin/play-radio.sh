@@ -13,7 +13,7 @@ declare -A stations=(
 station_names=$(printf "%s\n" "${!stations[@]}")
 
 # Use wofi to display the list of station names and capture the selected station
-selection=$(printf '%s\n' "$station_names" | wofi --dmenu --style=/home/max/dotfiles/wofi/wofi_styles.css --prompt "Select a radio station")
+selection=$(printf '%s\n' "$station_names" | wofi --dmenu --style=$HOME/Nix/assets/wofi_styles.css --prompt "Select a radio station")
 
 # Get the URL associated with the selected station
 station_url="${stations[$selection]}"
