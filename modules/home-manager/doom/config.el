@@ -138,20 +138,20 @@
 
   (setq
    gptel-use-tools t
-   gptel-model 'qwen2.5-coder:14b
-   gptel-backend (gptel-make-ollama "Ollama"
-                   :host "localhost:11434"
-                   :stream t
-                   :models '(qwen2.5-coder:14b)))
+   gptel-model 'gemini-2.5-flash-preview-05-20
+   gptel-backend (gptel-make-gemini "Gemini"
+                   :key (get-api-key "Google/gemini-api-key")
+                   :stream t))
+
+  (gptel-make-ollama "Ollama"
+    :host "localhost:11434"
+    :stream t
+    :models '(qwen2.5-coder:14b))
 
   (gptel-make-ollama "Ollama"
     :host "192.168.31.76:11434"
     :stream t
     :models '(qwen2.5-coder:14b PetrosStav/gemma3-tools:12b deepseek-r1:14b gemma3:12b))
-
-  (gptel-make-gemini "Gemini"
-    :key (get-api-key "Google/gemini-api-key")
-    :stream t)
 
   (gptel-make-anthropic "Claude"
     :stream t
@@ -181,3 +181,16 @@
     (gptel-mcp-use-tool)
     (message "MCP initialization complete!")))
 
+(use-package! magit-gptcommit
+  :after (gptel magit)
+  :demand t
+  :config
+  ;; Enable automatic commit message generation (optional)
+  (magit-gptcommit-mode 1)
+
+  ;; Add gptcommit transient commands to magit commit interface
+  (magit-gptcommit-status-buffer-setup)
+
+  ;; Bind C-c C-g in git-commit-mode to accept GPT commit message
+  :bind (:map git-commit-mode-map
+              ("C-c C-g" . magit-gptcommit-commit-accept)))
