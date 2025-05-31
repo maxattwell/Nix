@@ -181,16 +181,20 @@
     (gptel-mcp-use-tool)
     (message "MCP initialization complete!")))
 
-(use-package! magit-gptcommit
-  :after (gptel magit)
-  :demand t
-  :config
-  ;; Enable automatic commit message generation (optional)
-  (magit-gptcommit-mode 1)
+;; (use-package! magit-gptcommit
+;;   :after (gptel magit)
+;;   :demand t
+;;   :config
+;;   ;; Enable automatic commit message generation (optional)
+;;   (magit-gptcommit-mode 1)
 
-  ;; Add gptcommit transient commands to magit commit interface
-  (magit-gptcommit-status-buffer-setup)
+;;   ;; Add gptcommit transient commands to magit commit interface
+;;   (magit-gptcommit-status-buffer-setup)
 
-  ;; Bind C-c C-g in git-commit-mode to accept GPT commit message
-  :bind (:map git-commit-mode-map
-              ("C-c C-g" . magit-gptcommit-commit-accept)))
+;;   ;; Bind C-c C-g in git-commit-mode to accept GPT commit message
+;;   :bind (:map git-commit-mode-map
+;;               ("C-c C-g" . magit-gptcommit-commit-accept)))
+
+(use-package! gptel-magit
+  :after (magit gptel)
+  :hook (magit-mode . gptel-magit-install))
