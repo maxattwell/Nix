@@ -65,7 +65,9 @@
 
 (package! aidermacs)
 
-(package! magit-gptcommit
-  :recipe (:host github
-           :repo "douo/magit-gptcommit"
-           :branch "gptel"))
+;; (package! magit-gptcommit
+;;   :recipe (:host github
+;;            :repo "douo/magit-gptcommit"
+;;            :branch "gptel"))
+
+(package! gptel-magit)
