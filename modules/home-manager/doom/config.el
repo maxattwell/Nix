@@ -77,19 +77,19 @@
   (string-trim (shell-command-to-string (concat "pass show " pass-path))))
 
 (use-package! aidermacs
-  :bind (("C-c a" . aidermacs-transient-menu))
   :config
   ;; Set API keys via environment variables or load from secure file
   (setenv "ANTHROPIC_API_KEY" (get-api-key "Anthropic/api-key"))
   (setenv "GEMINI_API_KEY" (get-api-key "Google/gemini-api-key"))
 
+  ;; Bind to SPC a
+  (map! :leader
+        :desc "Aider menu"
+        "a" #'aidermacs-transient-menu)
+
   :custom
   (aidermacs-use-architect-mode t)
   (aidermacs-default-model "sonnet"))
-
-(after! aidermacs
-  (map! :leader
-        :desc "Aidermacs menu" "a" #'aidermacs-transient-menu))
 
 (after! mcp
   (setq! mcp-hub-servers
