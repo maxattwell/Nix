@@ -25,6 +25,7 @@ in
     enable = true;
     openFirewall = true;
     settings.title = "ShedServarr";
+    allowedHosts = "192.168.31.218:8082";
     services = [
       {
         "Manage" = [
