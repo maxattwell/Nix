@@ -9,12 +9,6 @@
     ../../modules/home-manager/doom
   ];
 
-  # Ensure hyprlock and hypridle are available
-  home.packages = with pkgs; [
-    hyprlock
-    hypridle
-  ];
-
   home = {
     username = "max";
     homeDirectory = "/home/max";
