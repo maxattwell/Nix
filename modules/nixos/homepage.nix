@@ -19,12 +19,15 @@ let
   prowlarrPort = 9696;
   prowlarrKey = "6c6deb549af5414298eb900aad4d7c13";
 
+  jellySeerPort = 5055;
+  jellySeerKey = "MTc1MDA3NjAwOTg4NWMwYzVhNjVkLTNhZTYtNDkzYS05M2I5LTUxY2IwMTJlMjJlYQ==";
 in
 {
   services.homepage-dashboard = {
     enable = true;
     openFirewall = true;
     settings.title = "ShedServarr";
+    allowedHosts = "192.168.31.218:8082";
     services = [
       {
         "Manage" = [
@@ -49,6 +52,18 @@ in
                 type = "radarr";
                 url = "http://localhost:${toString radarrPort}";
                 key = radarrKey;
+              };
+            };
+          }
+          {
+            "JellySeer" = {
+              icon = "jellyseer.png";
+              href = "http://${networkIP}:${toString jellySeerPort}";
+              description = "Movie management";
+              widget = {
+                type = "radarr";
+                url = "http://localhost:${toString jellySeerPort}";
+                key = jellySeerKey;
               };
             };
           }
