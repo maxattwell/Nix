@@ -25,6 +25,8 @@
     powerKey = "suspend";
   };
 
+  # services.displayManager.ly.enable = true;
+
   boot.kernelParams = [
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
@@ -63,6 +65,7 @@
     blueman
     btop
     nvtopPackages.nvidia
+    nh
 
     pass
     gnupg
@@ -98,8 +101,6 @@
 
   services.openssh.enable = true;
 
-  services.emacs.enable = true;
-
   # services.ollama = {
   #   enable = true;
   #   acceleration = "cuda";
@@ -110,8 +111,6 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.overpass
   ];
-
-  programs.dconf.enable = true;
 
   virtualisation.docker.enable = true;
   users.users.max.extraGroups = [ "docker" ];

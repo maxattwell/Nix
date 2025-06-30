@@ -22,5 +22,12 @@
     };
   };
 
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+    client.enable = true;
+    socketActivation.enable = true;
+  };
+
   programs.home-manager.enable = true;
 }
