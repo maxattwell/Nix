@@ -82,6 +82,9 @@
           sudo nixos-rebuild switch --flake $HOME/Nix --impure
         fi
       }
+
+      # Set npm global config
+      export PATH=~/.npm-global/bin:$PATH
       '';
     };
 

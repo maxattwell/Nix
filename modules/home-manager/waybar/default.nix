@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 
+let
+    waybarThemes = ../../../assets/waybar-themes;
+in
 {
-    home.file.".config/waybar/style.css".source = ./light.css; # default
-    home.file.".config/waybar/light.css".source = ./light.css;
-    home.file.".config/waybar/dark.css".source = ./dark.css;
+    home.file.".config/waybar/style.css".source = "${waybarThemes}/light.css";
 
     programs.waybar = {
         enable = true;
