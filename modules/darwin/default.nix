@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   nix.settings.experimental-features = "nix-command flakes";
@@ -14,6 +14,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    nh
     neovim
     emacs-30
     kitty
@@ -33,9 +34,13 @@
     pass
     flyctl
     go
+    eas-cli
     aider-chat
     claude-code
     goose-cli
+    # opencode
+    vscode
+    inputs.opencode-flake.packages.${pkgs.system}.default
   ];
 
   services.emacs = {
