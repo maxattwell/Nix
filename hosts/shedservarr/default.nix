@@ -6,7 +6,8 @@
     ../../modules/nixos
     ../../modules/nixos/nixarr.nix
     ../../modules/nixos/homepage.nix
-    ../../modules/nixos/kodi.nix
+    ../../modules/nixos/pihole.nix
+    # ../../modules/nixos/kodi.nix
   ];
 
   networking.hostName = "shedservarr";
@@ -24,7 +25,7 @@
     bluez
     linuxConsoleTools
     wget
-    retroarchFull
+    # retroarchFull
     dualsensectl
     nvtopPackages.nvidia
   ];
