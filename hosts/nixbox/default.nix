@@ -1,5 +1,4 @@
 { config, pkgs, inputs, ... }:
-
 {
   imports = [
     ./hardware-configuration.nix
@@ -93,19 +92,18 @@
     go
     awscli2
 
-    aider-chat
-    code-cursor
     vscode
+    inputs.opencode-flake.packages.${pkgs.system}.default
   ];
 
   services.openssh.enable = true;
 
   services.emacs.enable = true;
 
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "cuda";
+  # };
 
   fonts.packages = with pkgs; [
     nerd-fonts.mononoki

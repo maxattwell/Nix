@@ -21,6 +21,7 @@
       url = "github:rasmus-kirk/nixarr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opencode-flake.url = "github:maxattwell/opencode-flake";
   };
 
   outputs = {
