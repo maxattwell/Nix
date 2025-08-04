@@ -70,6 +70,20 @@
           ];
           specialArgs = { inherit inputs; };
         };
+
+        steambox = nixpkgs.lib.nixosSystem {
+          system = linuxSystem;
+          modules = [
+            ./hosts/steambox
+
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.max = import ./hosts/steambox/home.nix;
+            }
+          ];
+          specialArgs = { inherit inputs; };
+        };
       };
 
       darwinConfigurations = {
