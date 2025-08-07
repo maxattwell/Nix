@@ -18,10 +18,5 @@
     };
   };
 
-  # KDE/Plasma specific configurations
-  programs.plasma = {
-    enable = true;
-  };
-
   programs.home-manager.enable = true;
 }
