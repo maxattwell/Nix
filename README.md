@@ -2,7 +2,7 @@
 Collection of Nix configurations for Max Attwell.
 
 ## NixOS Setup
-1. Boot from NixOS installation media
+1. Start on a fresh install of nixos
 
 2. Enter a nix shell with git
 ``` sh
@@ -11,7 +11,7 @@ nix-shell -p git
 
 3. Clone this repository
 ``` sh
-git clone git@github.com:maxattwell/Nix.git
+git clone https://github.com/maxattwell/Nix.git
 cd Nix
 ```
 
@@ -27,7 +27,7 @@ sudo reboot
 
 6. After first boot, you can update your system with
 ``` sh
-sudo nixos-rebuild switch --flake .#nixbox
+rebuild
 ```
 
 ## Darwin Setup
