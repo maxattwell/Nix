@@ -3,7 +3,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
-    ../../modules/nixos/gaming.nix
   ];
 
   networking = {
