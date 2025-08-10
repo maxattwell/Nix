@@ -3,7 +3,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
-    ../../modules/nixos/gaming.nix
   ];
 
   networking = {
@@ -18,11 +17,6 @@
     nameserver 8.8.8.8
   '';
 
-  services.logind = {
-    killUserProcesses = false;
-    lidSwitch = "suspend";
-    powerKey = "suspend";
-  };
 
   # KDE Plasma Desktop Environment
   services.displayManager.sddm.enable = true;
@@ -81,10 +75,6 @@
     ffmpeg
     brave
     google-chrome
-    
-    # Development tools
-    vscode
-    inputs.opencode-flake.packages.${pkgs.system}.default
   ];
 
   services.openssh.enable = true;
