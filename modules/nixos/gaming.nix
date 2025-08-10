@@ -38,23 +38,9 @@
     heroic
     bottles
     
-    # Performance monitoring and tools
-    mangohud
-    goverlay
-    gamemode
-    
-    # Game streaming
-    sunshine
-    moonlight-qt
-    
     # Controller support
     dualsensectl
-    antimicrox
-    
-    # Audio/Video tools for streaming
-    obs-studio
-    v4l-utils
-    
+
     # Compatibility tools
     protonup-qt
     protontricks
@@ -64,13 +50,6 @@
     btop
     nvtopPackages.nvidia
   ];
-
-  # Sunshine game streaming service
-  services.sunshine = {
-    enable = true;
-    openFirewall = true;
-    capSysAdmin = true;
-  };
 
   # Controller support
   hardware.steam-hardware.enable = true;
