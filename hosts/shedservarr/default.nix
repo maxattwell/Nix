@@ -28,6 +28,8 @@
     # retroarchFull
     dualsensectl
     nvtopPackages.nvidia
+    claude-code
+    pass
   ];
 
   services.openssh.enable = true;
