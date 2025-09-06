@@ -6,7 +6,6 @@
     listen.ip = "0.0.0.0";
     listen.port = 8083;
     options = {
-      calibreLibrary = "/var/lib/calibre-web/library";
       enableBookUploading = true;
     };
   };
