@@ -26,6 +26,7 @@
     bluez
     linuxConsoleTools
     wget
+    nh
     # retroarchFull
     dualsensectl
     nvtopPackages.nvidia
