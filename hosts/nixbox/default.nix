@@ -24,14 +24,8 @@
 
   # services.displayManager.ly.enable = true;
 
+  # Need nixos module according to hypr docs
   programs.hyprland.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    wofi
-    slurp
-    grim
-  ];
-
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
