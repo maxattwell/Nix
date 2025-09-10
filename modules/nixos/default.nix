@@ -21,6 +21,7 @@
     nitch
     nh
     pass
+    gnupg
   ];
 
   services.logind = {

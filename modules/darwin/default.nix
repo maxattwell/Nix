@@ -10,44 +10,28 @@
 
   system.primaryUser = "max";
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     nh
     neovim
-    emacs-30
+    gnupg
+    pass
+
     kitty
-    ispell
+
+    brave
+
     nodejs_22
-    # docker
-    # colima
     pnpm
     yarn
-    ripgrep
-    brave
     supabase-cli
     watchman
     # Java OpenJDK
     zulu17
-    gnupg
-    pass
-    flyctl
-    go
     eas-cli
     claude-code
     opencode
-  ];
-
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs-30;
-  };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.mononoki
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.overpass
   ];
 
   system.defaults.dock.autohide = true;
