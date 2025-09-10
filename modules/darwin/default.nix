@@ -17,21 +17,6 @@
     neovim
     gnupg
     pass
-
-    kitty
-
-    brave
-
-    nodejs_22
-    pnpm
-    yarn
-    supabase-cli
-    watchman
-    # Java OpenJDK
-    zulu17
-    eas-cli
-    claude-code
-    opencode
   ];
 
   system.defaults.dock.autohide = true;
