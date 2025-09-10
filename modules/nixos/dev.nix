@@ -12,6 +12,7 @@
     yarn
     supabase-cli
     docker-compose
+    claude-code
     opencode
   ];
 
