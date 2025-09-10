@@ -2,6 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
+    zip
+    tree
+    unzip
+    brave
+    google-chrome
     nodejs_22
     pnpm
     yarn
@@ -9,4 +14,7 @@
     docker-compose
     opencode
   ];
+
+  virtualisation.docker.enable = true;
+  users.users.max.extraGroups = [ "docker" ];
 }

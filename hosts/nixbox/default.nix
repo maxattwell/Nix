@@ -6,6 +6,7 @@
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/sddm.nix
+    ../../modules/nixos/emacs.nix
     ../../modules/nixos/dev.nix
   ];
 
@@ -26,35 +27,11 @@
   programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
-    gnupg
-
-    ripgrep
-    ispell
-    emacs
-
     wofi
     slurp
     grim
-
-    vlc
-    brave
-    google-chrome
-
-    zip
-    tree
-    unzip
   ];
 
-  services.openssh.enable = true;
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.mononoki
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.overpass
-  ];
-
-  virtualisation.docker.enable = true;
-  users.users.max.extraGroups = [ "docker" ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
