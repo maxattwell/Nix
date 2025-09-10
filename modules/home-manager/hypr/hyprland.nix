@@ -1,6 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
+  programs.wofi.enable = true;
+
+  home.packages = with pkgs; [
+    slurp
+    grim
+  ];
+
   home.sessionVariables = {
     "WLR_NO_HARDWARE_CURSORS" = "1";
     "LIBVA_DRIVER_NAME" = "nvidia";
