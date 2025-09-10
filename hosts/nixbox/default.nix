@@ -18,13 +18,6 @@
     nameserver 8.8.8.8
   '';
 
-
-  services.logind = {
-    killUserProcesses = false;
-    lidSwitch = "suspend";
-    powerKey = "suspend";
-  };
-
   # services.displayManager.ly.enable = true;
 
   boot.kernelParams = [
@@ -55,19 +48,14 @@
   programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
-    git
     zip
-    neovim
-    nitch
     tree
     unzip
     bluez
     blueman
     btop
     nvtopPackages.nvidia
-    nh
 
-    pass
     gnupg
     ripgrep
     ispell
@@ -90,13 +78,16 @@
     rustc
     cargo
     maturin
-    python3Full
+    # python3Full
     uv
     go
     awscli2
 
     vscode
-    inputs.opencode-flake.packages.${pkgs.system}.default
+    opencode
+    # inputs.opencode-flake.packages.${pkgs.system}.default
+    distrobox
+    qemu
   ];
 
   services.openssh.enable = true;
