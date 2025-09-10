@@ -11,11 +11,6 @@
 
   networking.hostName = "shedservarr";
 
-  environment.systemPackages = with pkgs; [
-    linuxConsoleTools
-    nvtopPackages.nvidia
-  ];
-
   services.openssh.enable = true;
 
   # HDD config
