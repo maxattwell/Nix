@@ -20,8 +20,8 @@
     kitty
     ispell
     nodejs_22
-    docker
-    colima
+    # docker
+    # colima
     pnpm
     yarn
     ripgrep
@@ -35,12 +35,8 @@
     flyctl
     go
     eas-cli
-    aider-chat
     claude-code
-    goose-cli
-    # opencode
-    vscode
-    inputs.opencode-flake.packages.${pkgs.system}.default
+    opencode
   ];
 
   services.emacs = {
