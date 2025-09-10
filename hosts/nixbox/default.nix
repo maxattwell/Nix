@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/nixos
     ../../modules/nixos/bluetooth.nix
+    ../../modules/nixos/nvidia.nix
     ../../modules/nixos/sddm.nix
   ];
 
@@ -21,78 +22,36 @@
 
   # services.displayManager.ly.enable = true;
 
-  boot.kernelParams = [
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-    "nvidia.NVreg_TemporaryFilePath=/var/tmp"
-  ];
-
-  # Enable NVIDIA suspend services
-  systemd.services = {
-    nvidia-suspend.enable = true;
-    nvidia-hibernate.enable = true;
-    nvidia-resume.enable = true;
-  };
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
   programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
+    gnupg
+
+    ripgrep
+    ispell
+    emacs
+
+    wofi
+    slurp
+    grim
+
+    vlc
+    brave
+    google-chrome
+
     zip
     tree
     unzip
-    btop
-    nvtopPackages.nvidia
-
-    gnupg
-    ripgrep
-    ispell
-    wofi
-    vlc
-    slurp
-    grim
-    wf-recorder
-    ffmpeg
-    kitty
-    emacs
-    brave
-    google-chrome
 
     nodejs_22
     pnpm
     yarn
     supabase-cli
     docker-compose
-    rustc
-    cargo
-    maturin
-    # python3Full
-    uv
-    go
-    awscli2
-
-    vscode
     opencode
-    # inputs.opencode-flake.packages.${pkgs.system}.default
-    distrobox
-    qemu
   ];
 
   services.openssh.enable = true;
-
-  # services.ollama = {
-  #   enable = true;
-  #   acceleration = "cuda";
-  # };
 
   fonts.packages = with pkgs; [
     nerd-fonts.mononoki
