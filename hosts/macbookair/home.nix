@@ -13,7 +13,7 @@
     stateVersion = "24.11";
 
     sessionVariables = {
-      JAVA_HOME = "${pkgs.zulu17}/zulu-17.jdk/Contents/Home";
+      JAVA_HOME = "${pkgs.zulu17}/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
       ANDROID_HOME = "/Users/max/Library/Android/sdk";
     };
 
