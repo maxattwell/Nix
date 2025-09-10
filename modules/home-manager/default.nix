@@ -21,9 +21,6 @@
       syntaxHighlighting.enable = true;
       enableCompletion = true;
       history.size = 10000;
-      shellAliases = {
-        cat = "bat";
-      };
       zplug = {
         enable = true;
         plugins = [
