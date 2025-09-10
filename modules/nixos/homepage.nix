@@ -20,7 +20,7 @@ let
   prowlarrKey = "6c6deb549af5414298eb900aad4d7c13";
 
   jellySeerPort = 5055;
-  jellySeerKey = "MTc1MDA3NjAwOTg4NWMwYzVhNjVkLTNhZTYtNDkzYS05M2I5LTUxY2IwMTJlMjJlYQ==";
+  jellySeerKey = "7e4986d611dd401f8ccd87362eb2372c";
 in
 {
   services.homepage-dashboard = {
@@ -56,10 +56,10 @@ in
             };
           }
           {
-            "JellySeer" = {
-              icon = "jellyseer.png";
+            "Jellyseerr" = {
+              icon = "jellyseerr.png";
               href = "http://${networkIP}:${toString jellySeerPort}";
-              description = "Movie management";
+              description = "Media Requests";
               widget = {
                 type = "radarr";
                 url = "http://localhost:${toString jellySeerPort}";

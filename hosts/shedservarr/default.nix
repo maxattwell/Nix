@@ -6,7 +6,8 @@
     ../../modules/nixos
     ../../modules/nixos/nixarr.nix
     ../../modules/nixos/homepage.nix
-    ../../modules/nixos/pihole.nix
+    ../../modules/nixos/calibre.nix
+    # ../../modules/nixos/pihole.nix
     # ../../modules/nixos/kodi.nix
   ];
 
@@ -25,9 +26,12 @@
     bluez
     linuxConsoleTools
     wget
+    nh
     # retroarchFull
     dualsensectl
     nvtopPackages.nvidia
+    claude-code
+    pass
   ];
 
   services.openssh.enable = true;
