@@ -6,6 +6,7 @@
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/sddm.nix
+    ../../modules/nixos/dev.nix
   ];
 
   networking = {
@@ -42,13 +43,6 @@
     zip
     tree
     unzip
-
-    nodejs_22
-    pnpm
-    yarn
-    supabase-cli
-    docker-compose
-    opencode
   ];
 
   services.openssh.enable = true;
