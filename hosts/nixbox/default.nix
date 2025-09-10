@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
+    ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/sddm.nix
   ];
 
@@ -43,16 +44,12 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.bluetooth.enable = true;
-
   programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
     zip
     tree
     unzip
-    bluez
-    blueman
     btop
     nvtopPackages.nvidia
 
