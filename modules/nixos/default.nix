@@ -3,7 +3,6 @@
 {
   nix.settings.experimental-features = ["nix-command flakes"];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
     description = "Max Attwell";
@@ -14,8 +13,23 @@
 
   programs.zsh.enable = true;
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  environment.systemPackages = with pkgs; [
+    git
+    neovim
+    nitch
+    nh
+    pass
+  ];
+
+  services.logind = {
+    settings.Login = {
+      KillUserProcesses = false;
+      HandleLidSwitch = "suspend";
+      HandlePowerKey = "suspend";
+    };
+  };
 
   # Locale settings
   time.timeZone = "Pacific/Auckland";

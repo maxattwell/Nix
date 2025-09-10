@@ -11,25 +11,9 @@
 
   networking.hostName = "shedservarr";
 
-  # nvidia drivers
-  hardware.nvidia.open = false;
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.bluetooth.enable = true;
-
   environment.systemPackages = with pkgs; [
-    git
-    neovim
-    nitch
-    bluez
     linuxConsoleTools
-    wget
-    nh
-    # retroarchFull
-    dualsensectl
     nvtopPackages.nvidia
-    claude-code
-    pass
   ];
 
   services.openssh.enable = true;
