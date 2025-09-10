@@ -1,4 +1,3 @@
-# modules/darwin/yabai.nix
 { config, pkgs, ... }:
 
 {

@@ -4,7 +4,6 @@
   imports = [
     ../../modules/home-manager
     ../../modules/home-manager/doom
-    ../../modules/home-manager/kitty.nix
   ];
 
   home = {

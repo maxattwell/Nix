@@ -1,4 +1,3 @@
-# modules/darwin/skhd.nix
 { config, pkgs, ... }:
 
 {
