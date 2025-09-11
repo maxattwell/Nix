@@ -32,16 +32,18 @@
     workspace = [
       "1,monitor:DP-4"
       "2,monitor:DP-3"
-      "w[tv1], gapsout:0, gapsin:0"
-      "f[1], gapsout:0, gapsin:0"
+      # Smart gaps for full screen
+      # "w[tv1], gapsout:0, gapsin:0"
+      # "f[1], gapsout:0, gapsin:0"
     ];
 
-    windowrule = [
-      "bordersize 0, floating:0, onworkspace:w[tv1]"
-      "rounding 0, floating:0, onworkspace:w[tv1]"
-      "bordersize 0, floating:0, onworkspace:f[1]"
-      "rounding 0, floating:0, onworkspace:f[1]"
-    ];
+    # Smart gaps for full screen
+    # windowrule = [
+    #   "bordersize 0, floating:0, onworkspace:w[tv1]"
+    #   "rounding 0, floating:0, onworkspace:w[tv1]"
+    #   "bordersize 0, floating:0, onworkspace:f[1]"
+    #   "rounding 0, floating:0, onworkspace:f[1]"
+    # ];
 
     windowrulev2 = [
       "float, center, title:^(Bluetooth Devices)$"
@@ -116,12 +118,17 @@
     general = {
       gaps_in = 3;
       gaps_out = 5;
-      "col.active_border" = "rgba(ffffffff)";
-      "col.inactive_border" = "rgba(595959aa)";
+      border_size = 0;
+      # "col.active_border" = "rgba(ffffffff)";
+      # "col.inactive_border" = "rgba(595959aa)";
     };
 
     decoration = {
-      rounding = 3;
+      rounding = 7;
+      rounding_power = 8.0;
+      dim_inactive = true;
+      dim_strength = 0.18;
+      shadow.enabled = false;
       blur = {
         enabled = true;
         size = 8;
