@@ -67,6 +67,11 @@
         fi
       }
 
+      # run nitch on nixos on launch
+      if [[ "$(uname -s)" == "Linux" ]]; then
+        nitch
+      fi
+
       # Set npm global config
       export PATH=~/.npm-global/bin:$PATH
       '';
