@@ -11,12 +11,12 @@ in
 
         settings = {
             mainBar = {
-                position = "bottom";
-                height = 30;
-                spacing = 20;
+                position = "top";
+                height = 37;
+                spacing = 0;
                 modules-left = ["hyprland/workspaces"];
-                modules-center = ["bluetooth" "custom/radioplayer"];
-                modules-right = ["custom/gpu" "memory" "cpu" "clock"];
+                modules-center = ["disk" "memory" "cpu"];
+                modules-right = ["bluetooth" "custom/radioplayer" "clock"];
                 "custom/radioplayer" = {
                     format = "";
                     return-type = "json";
@@ -51,6 +51,9 @@ in
                     timezone = "Pacific/Auckland";
                     format = "<small>󰃭</small> {:%a %d %b     <small></small>  %I:%M  %p}";
                     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+                };
+                disk = {
+                    format = "{percentage_used}% ";
                 };
                 cpu = {
                     format = "{usage}% ";
