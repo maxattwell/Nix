@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  networkIP = "192.168.31.218";
+  networkIP = "192.168.31.220";
 
   sonarrPort = 8989;
   sonarrKey = "1fb854a00ed2474ead57e9e3cc81e77d";
@@ -27,7 +27,7 @@ in
     enable = true;
     openFirewall = true;
     settings.title = "ShedServarr";
-    allowedHosts = "192.168.31.218:8082";
+    allowedHosts = "192.168.31.220:8082";
     services = [
       {
         "Manage" = [
