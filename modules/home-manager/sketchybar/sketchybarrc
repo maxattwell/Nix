@@ -5,6 +5,25 @@
 
 PLUGIN_DIR="$HOME/Nix/modules/home-manager/sketchybar"
 
+# Theme detection and color setup
+is_dark_mode() {
+    [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) == "Dark" ]]
+}
+
+if is_dark_mode; then
+    # Dark mode colors (gruvbox dark)
+    BAR_COLOR="0x00000000"
+    ICON_COLOR="0xffebdbb2"  # gruvbox light1
+    LABEL_COLOR="0xffebdbb2"  # gruvbox light1
+    SPACE_BG_COLOR="0xff3c3836"  # gruvbox dark1
+else
+    # Light mode colors (gruvbox light)
+    BAR_COLOR="0x00000000"
+    ICON_COLOR="0xff3c3836"
+    LABEL_COLOR="0xff3c3836"
+    SPACE_BG_COLOR="0xff282828"
+fi
+
 ##### Bar Appearance #####
 # Configuring the general appearance of the bar.
 # These are only some of the options available. For all options see:
@@ -12,7 +31,9 @@ PLUGIN_DIR="$HOME/Nix/modules/home-manager/sketchybar"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=bottom height=30 blur_radius=30 color=0xcc282828
+sketchybar --bar position=top height=30 \
+                 margin=2 y_offset=2 \
+                 color=$BAR_COLOR
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -20,12 +41,12 @@ sketchybar --bar position=bottom height=30 blur_radius=30 color=0xcc282828
 # https://felixkratz.github.io/SketchyBar/config/items
 
 default=(
-  padding_left=5
-  padding_right=5
-  icon.font="Hack Nerd Font:Bold:17.0"
-  label.font="Hack Nerd Font:Bold:14.0"
-  icon.color=0xffa89984
-  label.color=0xffebdbb2
+  padding_left=0
+  padding_right=0
+  icon.font="Overpass Nerd Font:Bold:17.0"
+  label.font="Overpass Nerd Font:Bold:14.0"
+  icon.color=$ICON_COLOR
+  label.color=$LABEL_COLOR
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -45,11 +66,12 @@ do
   space=(
     space="$sid"
     icon="${SPACE_ICONS[i]}"
-    icon.padding_left=7
-    icon.padding_right=7
-    background.color=0x80504945
+    icon.padding_left=10
+    icon.padding_right=12
+    background.color=0x00000000
     background.corner_radius=5
     background.height=25
+    background.drawing=off
     label.drawing=off
     script="$PLUGIN_DIR/space.sh"
     click_script="yabai -m space --focus $sid"
@@ -61,11 +83,20 @@ done
 # We add some regular items to the left side of the bar, where
 # only the properties deviating from the current defaults need to be set
 
-sketchybar --add item chevron left \
-           --set chevron icon= label.drawing=off \
-           --add item front_app left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-           --subscribe front_app front_app_switched
+           # --set chevron icon= label.drawing=off \
+
+
+##### Adding Center Items #####
+# System monitoring items in the center
+sketchybar --add item disk center \
+           --set disk update_freq=30 icon= script="$PLUGIN_DIR/disk.sh" \
+           --add item ram center \
+           --set ram update_freq=10 icon= script="$PLUGIN_DIR/ram.sh" \
+           --add item cpu center \
+           --set cpu update_freq=2 icon= script="$PLUGIN_DIR/cpu.sh" \
+           --add item battery center \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --subscribe battery system_woke power_source_change
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
@@ -80,12 +111,48 @@ sketchybar --add item chevron left \
 
 sketchybar --add item clock right \
            --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
-           --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
-           --subscribe volume volume_change \
-           --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change
+
+
+# Dynamic bracket creation for islands
+ITEMS=$(sketchybar --query bar | jq -r '.items | .[]')
+
+LEFT_ITEMS=()
+CENTER_ITEMS=()
+RIGHT_ITEMS=()
+
+for item in $ITEMS
+do
+  POS=$(sketchybar --query ${item} | jq -r '.geometry.position')
+  if [ "$POS" = "left" ]; then
+    LEFT_ITEMS+=(${item})
+  elif [ "$POS" = "center" ]; then
+    CENTER_ITEMS+=(${item})
+  elif [ "$POS" = "right" ]; then
+    RIGHT_ITEMS+=(${item})
+  fi
+done
+
+# Create brackets for each island
+if [ ${#LEFT_ITEMS[@]} -gt 0 ]; then
+  sketchybar --add bracket left_items ${LEFT_ITEMS[@]} \
+             --set left_items background.color=$SPACE_BG_COLOR \
+                              background.height=28 \
+                              background.corner_radius=10
+fi
+
+if [ ${#CENTER_ITEMS[@]} -gt 0 ]; then
+  sketchybar --add bracket center_items ${CENTER_ITEMS[@]} \
+             --set center_items background.color=$SPACE_BG_COLOR \
+                              background.height=28 \
+                              background.corner_radius=10
+fi
+
+if [ ${#RIGHT_ITEMS[@]} -gt 0 ]; then
+  sketchybar --add bracket right_items ${RIGHT_ITEMS[@]} \
+             --set right_items background.color=$SPACE_BG_COLOR \
+                              background.height=28 \
+                              background.corner_radius=10
+fi
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
