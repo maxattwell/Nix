@@ -74,8 +74,8 @@ Variants {
               property var currentMonitor: Hyprland.monitorFor(screen)
               property bool hovered: false
               
-              // Show workspaces that belong to this monitor, or all workspaces if no monitor is assigned
-              visible: !currentMonitor || !modelData.monitor || modelData.monitor === currentMonitor.id
+              // Show workspaces that belong to this monitor and are typically in use
+              visible: modelData.monitor && currentMonitor && modelData.monitor.id === currentMonitor.id && modelData.id >= 1 && modelData.id <= 10
               
               width: visible ? workspaceWidth : 0
               height: buttonHeight
@@ -248,7 +248,25 @@ Variants {
               hoverEnabled: true
               onEntered: parent.hovered = true
               onExited: parent.hovered = false
-              onClicked: bluetoothPopup.visible = !bluetoothPopup.visible
+              onClicked: {
+                if (bluetoothPopup.visible) {
+                  bluetoothHideAnim.start()
+                } else {
+                  // Close radio popup if it's open, then open bluetooth after delay
+                  if (radioPopup.visible) {
+                    radioHideAnim.start()
+                    bluetoothDelayTimer.start()
+                  } else {
+                    bluetoothPopup.visible = true
+                  }
+                }
+              }
+            }
+
+            Timer {
+              id: bluetoothDelayTimer
+              interval: 220 // Slightly longer than hide animation (200ms)
+              onTriggered: bluetoothPopup.visible = true
             }
 
             PopupWindow {
@@ -261,9 +279,41 @@ Variants {
               color: "transparent"
 
               Rectangle {
+                id: bluetoothRect
                 anchors.fill: parent
                 color: bgColor
                 radius: moduleRadius
+                transform: Translate { id: bluetoothTransform; y: -bluetoothRect.height }
+
+                PropertyAnimation {
+                  id: bluetoothShowAnim
+                  target: bluetoothTransform
+                  property: "y"
+                  from: -bluetoothRect.height
+                  to: 0
+                  duration: 250
+                  easing.type: Easing.OutCubic
+                }
+
+                PropertyAnimation {
+                  id: bluetoothHideAnim
+                  target: bluetoothTransform
+                  property: "y"
+                  from: 0
+                  to: -bluetoothRect.height
+                  duration: 200
+                  easing.type: Easing.InCubic
+                  onFinished: bluetoothPopup.visible = false
+                }
+
+                Component.onCompleted: {
+                  bluetoothPopup.onVisibleChanged.connect(function() {
+                    if (bluetoothPopup.visible) {
+                      bluetoothRect.visible = true
+                      bluetoothShowAnim.start()
+                    }
+                  })
+                }
 
                 // Reusable Button Component
                 component BluetoothButton: Rectangle {
@@ -510,7 +560,25 @@ Variants {
               hoverEnabled: true
               onEntered: parent.hovered = true
               onExited: parent.hovered = false
-              onClicked: radioPopup.visible = !radioPopup.visible
+              onClicked: {
+                if (radioPopup.visible) {
+                  radioHideAnim.start()
+                } else {
+                  // Close bluetooth popup if it's open, then open radio after delay
+                  if (bluetoothPopup.visible) {
+                    bluetoothHideAnim.start()
+                    radioDelayTimer.start()
+                  } else {
+                    radioPopup.visible = true
+                  }
+                }
+              }
+            }
+
+            Timer {
+              id: radioDelayTimer
+              interval: 220 // Slightly longer than hide animation (200ms)
+              onTriggered: radioPopup.visible = true
             }
 
             PopupWindow {
@@ -523,9 +591,41 @@ Variants {
               color: "transparent"
 
               Rectangle {
+                id: radioRect
                 anchors.fill: parent
                 color: bgColor
                 radius: moduleRadius
+                transform: Translate { id: radioTransform; y: -radioRect.height }
+
+                PropertyAnimation {
+                  id: radioShowAnim
+                  target: radioTransform
+                  property: "y"
+                  from: -radioRect.height
+                  to: 0
+                  duration: 250
+                  easing.type: Easing.OutCubic
+                }
+
+                PropertyAnimation {
+                  id: radioHideAnim
+                  target: radioTransform
+                  property: "y"
+                  from: 0
+                  to: -radioRect.height
+                  duration: 200
+                  easing.type: Easing.InCubic
+                  onFinished: radioPopup.visible = false
+                }
+
+                Component.onCompleted: {
+                  radioPopup.onVisibleChanged.connect(function() {
+                    if (radioPopup.visible) {
+                      radioRect.visible = true
+                      radioShowAnim.start()
+                    }
+                  })
+                }
 
                 // Reusable Radio Button Component
                 component RadioButton: Rectangle {
@@ -600,7 +700,7 @@ Variants {
                           console.log("George FM clicked")
                           radioStopProc.running = true
                           georgeTimer.start()
-                          radioPopup.visible = false
+                          radioHideAnim.start()
                         }
                       }
 
@@ -611,7 +711,7 @@ Variants {
                           console.log("Loca FM clicked")
                           radioStopProc.running = true
                           locaTimer.start()
-                          radioPopup.visible = false
+                          radioHideAnim.start()
                         }
                       }
 
@@ -622,7 +722,7 @@ Variants {
                           console.log("RNE Radio 5 clicked")
                           radioStopProc.running = true
                           rne5Timer.start()
-                          radioPopup.visible = false
+                          radioHideAnim.start()
                         }
                       }
 
@@ -633,7 +733,7 @@ Variants {
                           console.log("RNE Exterior clicked")
                           radioStopProc.running = true
                           rneExtTimer.start()
-                          radioPopup.visible = false
+                          radioHideAnim.start()
                         }
                       }
 
@@ -644,7 +744,7 @@ Variants {
                         onClicked: {
                           console.log("Stop all stations clicked")
                           radioStopProc.running = true
-                          radioPopup.visible = false
+                          radioHideAnim.start()
                         }
                       }
                     }
