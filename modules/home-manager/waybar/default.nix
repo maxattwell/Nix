@@ -7,7 +7,7 @@ in
     home.file.".config/waybar/style.css".source = "${waybarThemes}/light.css";
 
     programs.waybar = {
-        enable = true;
+        enable = false;
 
         settings = {
             mainBar = {
