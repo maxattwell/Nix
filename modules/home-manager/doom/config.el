@@ -198,3 +198,86 @@
 (use-package! gptel-magit
   :after (magit gptel)
   :hook (magit-mode . gptel-magit-install))
+
+;; LaTeX configuration for quantum information notes
+(after! latex
+  ;; Use pdf-tools to view PDFs inside Emacs
+  (setq +latex-viewers '(pdf-tools))
+  
+  ;; Set TeX view program to use PDF Tools
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+  (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
+  
+  ;; Enable math mode delimiters
+  (setq LaTeX-math-abbrev-prefix ";")
+  
+  ;; Auto-fill for LaTeX
+  (add-hook 'LaTeX-mode-hook #'auto-fill-mode))
+
+;; PDF Tools configuration (for general PDF viewing in Emacs)
+(use-package! pdf-tools
+  :config
+  (pdf-tools-install))
+
+;; Org-LaTeX configuration
+(after! org
+  ;; Enable LaTeX preview in org-mode
+  (setq org-startup-with-latex-preview t)
+  
+  ;; Better LaTeX preview scaling
+  ;; (setq org-format-latex-options
+  ;;       (plist-put org-format-latex-options :scale 1.5))
+  
+  ;; Use xelatex for better unicode support
+  (setq org-latex-compiler "xelatex")
+  
+  ;; Quantum information packages for LaTeX export
+  (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
+  (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
+  (add-to-list 'org-latex-packages-alist '("" "physics" t))
+  (add-to-list 'org-latex-packages-alist '("" "braket" t))
+  
+  ;; Ensure proper LaTeX header for previews
+  (setq org-format-latex-header
+        "\\documentclass{article}
+\\usepackage[usenames]{color}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{amssymb}
+\\usepackage{physics}
+\\usepackage{braket}
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}")
+  
+  ;; Custom LaTeX commands for quantum information
+  (setq org-latex-preview-ltxpng-directory ".ltximg/")
+  
+  ;; Better LaTeX preview scaling
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 1.5))
+  
+  ;; Ensure display math is properly formatted (uses LaTeX's default centering)
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :border 0))
+  
+  ;; Add leader key shortcut for LaTeX preview in org-mode
+  (map! :leader
+        :map org-mode-map
+        :desc "Toggle LaTeX preview" "t l" #'org-latex-preview)
+  
+  ;; Fix LaTeX syntax highlighting colors
+  (custom-set-faces!
+    '(org-latex-and-related :foreground nil :background nil)
+    '(org-block :background nil))))
