@@ -49,26 +49,11 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
 
-
 (package! evil-snipe :disable t)
 
 (package! nvm)
 
-;; (package! vue-mode)
-
 (package! magit-delta)
-
-(package! gptel)
-
-(package! mcp
-  :recipe (:host github :repo "lizqwerscott/mcp.el" :files ("mcp.el" "mcp-hub.el")))
-
-(package! aidermacs)
-
-;; (package! magit-gptcommit
-;;   :recipe (:host github
-;;            :repo "douo/magit-gptcommit"
-;;            :branch "gptel"))
 
 (package! gptel-magit)
 
