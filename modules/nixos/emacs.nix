@@ -13,5 +13,16 @@
     ripgrep
     ispell
     emacs
+    # Latex pkgs
+    (texlive.combine {
+      inherit (texlive) scheme-medium
+        # Quantum information packages
+        braket
+        physics
+        # Additional useful packages
+        latexmk
+        dvisvgm
+        dvipng;
+    })
   ];
 }

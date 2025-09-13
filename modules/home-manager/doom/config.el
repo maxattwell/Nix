@@ -223,61 +223,31 @@
 (after! org
   ;; Enable LaTeX preview in org-mode
   (setq org-startup-with-latex-preview t)
-  
-  ;; Better LaTeX preview scaling
-  ;; (setq org-format-latex-options
-  ;;       (plist-put org-format-latex-options :scale 1.5))
-  
-  ;; Use xelatex for better unicode support
-  (setq org-latex-compiler "xelatex")
-  
+
   ;; Quantum information packages for LaTeX export
   (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
   (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
   (add-to-list 'org-latex-packages-alist '("" "physics" t))
   (add-to-list 'org-latex-packages-alist '("" "braket" t))
   
-  ;; Ensure proper LaTeX header for previews
-  (setq org-format-latex-header
-        "\\documentclass{article}
-\\usepackage[usenames]{color}
-\\usepackage{amsmath}
-\\usepackage{amsfonts}
-\\usepackage{amssymb}
-\\usepackage{physics}
-\\usepackage{braket}
-\\pagestyle{empty}             % do not remove
-% The settings below are copied from fullpage.sty
-\\setlength{\\textwidth}{\\paperwidth}
-\\addtolength{\\textwidth}{-3cm}
-\\setlength{\\oddsidemargin}{1.5cm}
-\\addtolength{\\oddsidemargin}{-2.54cm}
-\\setlength{\\evensidemargin}{\\oddsidemargin}
-\\setlength{\\textheight}{\\paperheight}
-\\addtolength{\\textheight}{-\\headheight}
-\\addtolength{\\textheight}{-\\headsep}
-\\addtolength{\\textheight}{-\\footskip}
-\\addtolength{\\textheight}{-3cm}
-\\setlength{\\topmargin}{1.5cm}
-\\addtolength{\\topmargin}{-2.54cm}")
-  
   ;; Custom LaTeX commands for quantum information
   (setq org-latex-preview-ltxpng-directory ".ltximg/")
   
-  ;; Better LaTeX preview scaling
+  ;; Better LaTeX preview scaling and options for Homebrew setup
   (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 1.5))
+        (plist-put org-format-latex-options 
+                   :scale 1.5
+                   :border 0              ; No border around images
+                   :foreground default    ; Use default text color
+                   :background default))  ; Use default background
   
-  ;; Ensure display math is properly formatted (uses LaTeX's default centering)
-  (setq org-format-latex-options
-        (plist-put org-format-latex-options :border 0))
-  
-  ;; Add leader key shortcut for LaTeX preview in org-mode
+  ;; Add leader key shortcuts for LaTeX preview in org-mode
   (map! :leader
         :map org-mode-map
-        :desc "Toggle LaTeX preview" "t l" #'org-latex-preview)
+        :desc "Toggle LaTeX preview" "t l" #'org-latex-preview
+        :desc "Clear LaTeX preview" "t L" #'(lambda () (interactive) (org-latex-preview '(16))))
   
   ;; Fix LaTeX syntax highlighting colors
   (custom-set-faces!
     '(org-latex-and-related :foreground nil :background nil)
-    '(org-block :background nil))))
+    '(org-block :background nil)))
