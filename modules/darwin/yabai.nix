@@ -7,8 +7,8 @@
     config = {
       focus_follows_mouse = "autoraise";
       mouse_follows_focus = "on";
-      top_padding = 2;
-      bottom_padding = 30;
+      top_padding = 35;
+      bottom_padding = 2;
       left_padding = 2;
       right_padding = 2;
       window_gap = 2;
