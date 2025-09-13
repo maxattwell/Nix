@@ -21,4 +21,19 @@ in
     ln -sf ${doomSource}/config.el $HOME/.config/doom/config.el
     ln -sf ${doomSource}/packages.el $HOME/.config/doom/packages.el
   '';
+
+  # for Latex
+  home.packages = with pkgs; [
+    (texlive.combine {
+      inherit (texlive) scheme-medium
+        # Quantum information packages
+        braket
+        physics
+        # Additional useful packages
+        latexmk
+        dvisvgm
+        dvipng;
+    })
+    # zathura  # Lightweight PDF viewer
+  ];
 }

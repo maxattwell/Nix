@@ -71,3 +71,5 @@
 ;;            :branch "gptel"))
 
 (package! gptel-magit)
+
+(package! pdf-tools)
