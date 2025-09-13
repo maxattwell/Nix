@@ -224,22 +224,19 @@
   ;; Enable LaTeX preview in org-mode
   (setq org-startup-with-latex-preview t)
 
+  ;; Custom LaTeX commands for quantum information
+  (setq org-preview-latex-image-directory ".ltximg/")
+
   ;; Quantum information packages for LaTeX export
   (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
   (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
   (add-to-list 'org-latex-packages-alist '("" "physics" t))
   (add-to-list 'org-latex-packages-alist '("" "braket" t))
-  
-  ;; Custom LaTeX commands for quantum information
-  (setq org-latex-preview-ltxpng-directory ".ltximg/")
-  
+
   ;; Better LaTeX preview scaling and options for Homebrew setup
   (setq org-format-latex-options
         (plist-put org-format-latex-options 
-                   :scale 1.5
-                   :border 0              ; No border around images
-                   :foreground default    ; Use default text color
-                   :background default))  ; Use default background
+                   :scale 1.5))
   
   ;; Add leader key shortcuts for LaTeX preview in org-mode
   (map! :leader
@@ -249,5 +246,6 @@
   
   ;; Fix LaTeX syntax highlighting colors
   (custom-set-faces!
-    '(org-latex-and-related :foreground nil :background nil)
-    '(org-block :background nil)))
+    '(org-latex-and-related :inherit default :foreground nil :background nil)
+    '(org-block :background nil)
+    '(org-formula :inherit default :foreground nil :background nil)))
