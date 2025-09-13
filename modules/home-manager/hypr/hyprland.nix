@@ -48,6 +48,7 @@
 
     windowrulev2 = [
       "float, center, title:^(Bluetooth Devices)$"
+      "suppressevent fullscreen, class:^(Brave-browser)$"
     ];
 
     "$mod" = "SUPER";
