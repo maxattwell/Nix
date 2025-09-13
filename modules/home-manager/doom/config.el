@@ -96,8 +96,7 @@
   (map! :leader
         (:prefix ("l" . "LaTeX")
          :map org-mode-map
-         :desc "Toggle LaTeX preview" "p" #'org-latex-preview
-         :desc "Clear LaTeX preview" "c" #'(lambda () (interactive) (org-latex-preview '(16)))))
+         :desc "Toggle LaTeX preview" "p" #'org-latex-preview))
   
   ;; Fix LaTeX syntax highlighting colors
   (custom-set-faces!
