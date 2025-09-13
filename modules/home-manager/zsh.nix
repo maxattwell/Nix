@@ -5,14 +5,8 @@
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      enableCompletion = true;
-      history.size = 10000;
-      zplug = {
-        enable = true;
-        plugins = [
-          { name = "agkozak/zsh-z"; }
-        ];
-      };
+      enableCompletion = false;
+      history.size = 1000;
 
       initContent = ''
       bindkey '^k' history-search-backward
@@ -43,18 +37,6 @@
       # Initial update
       update_rprompt
 
-      # Function to update rprompt
-      update_rprompt() {
-        rprompt_parts=""
-        if [[ -n "$IN_NIX_SHELL" ]]; then
-          rprompt_parts+="%F{cyan}[nix-dev]%f "
-        fi
-        if [[ -n "$DIRENV_DIR" ]]; then
-          rprompt_parts+="%F{yellow}[direnv]%f "
-        fi
-        RPROMPT="$rprompt_parts"
-      }
-
       # Custom rebuild function
       rebuild() {
         if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -67,8 +49,8 @@
         fi
       }
 
-      # run nitch on nixos on launch
-      if [[ "$(uname -s)" == "Linux" ]]; then
+      # run nitch on nixos on launch (only for interactive shells):
+      if [[ "$(uname -s)" == "Linux" && $- == *i* ]]; then
         nitch
       fi
 
@@ -76,4 +58,9 @@
       export PATH=~/.npm-global/bin:$PATH
       '';
     };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
