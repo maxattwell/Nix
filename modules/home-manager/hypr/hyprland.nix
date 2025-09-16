@@ -88,6 +88,7 @@
       "$mod SHIFT, m, movetoworkspace, special:magic"
 
       "$mod, p, workspace, previous"
+      "$mod, o, layoutmsg, togglesplit"
 
       "$mod, 1, workspace, 1"
       "$mod, 2, workspace, 2"
@@ -123,6 +124,10 @@
       border_size = 0;
       # "col.active_border" = "rgba(ffffffff)";
       # "col.inactive_border" = "rgba(595959aa)";
+    };
+
+    dwindle = {
+      preserve_split = true;
     };
 
     decoration = {
