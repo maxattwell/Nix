@@ -3,7 +3,7 @@
 {
   services.yabai = {
     enable = true;
-    enableScriptingAddition = false;
+    enableScriptingAddition = true;
     config = {
       focus_follows_mouse = "autoraise";
       mouse_follows_focus = "on";
