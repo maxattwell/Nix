@@ -60,27 +60,51 @@ else
     LABEL_DRAWING=off
 fi
 
+# Hide the workspace entirely if it has no windows and is not focused or previous
+if [ "$WINDOW_COUNT" -eq 0 ] && [ "$WORKSPACE_ID" != "$FOCUSED_WORKSPACE" ] && [ "$WORKSPACE_ID" != "$PREV_WORKSPACE" ]; then
+    sketchybar --set "$NAME" icon.drawing=off \
+                             label.drawing=off \
+                             background.drawing=off \
+                             padding_left=0 \
+                             padding_right=0 \
+                             icon.padding_left=0 \
+                             icon.padding_right=0
+    exit 0
+fi
+
 # Check if this workspace is the focused one or the previous one
 if [ "$WORKSPACE_ID" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --set "$NAME" background.drawing=on \
+    sketchybar --set "$NAME" icon.drawing=on \
+                             background.drawing=on \
                              background.color="$ACTIVE_BG" \
                              background.corner_radius=9 \
                              icon.color="$ACTIVE_ICON" \
                              label="$LABEL" \
                              label.color="$ACTIVE_ICON" \
-                             label.drawing="$LABEL_DRAWING"
+                             label.drawing="$LABEL_DRAWING" \
+                             padding_right=2 \
+                             icon.padding_left=8 \
+                             icon.padding_right=8
 elif [ "$WORKSPACE_ID" = "$PREV_WORKSPACE" ]; then
-    sketchybar --set "$NAME" background.drawing=on \
+    sketchybar --set "$NAME" icon.drawing=on \
+                             background.drawing=on \
                              background.color="$PREV_BG" \
                              background.corner_radius=9 \
                              icon.color="$INACTIVE_ICON" \
                              label="$LABEL" \
                              label.color="$INACTIVE_ICON" \
-                             label.drawing="$LABEL_DRAWING"
+                             label.drawing="$LABEL_DRAWING" \
+                             padding_right=2 \
+                             icon.padding_left=8 \
+                             icon.padding_right=8
 else
-    sketchybar --set "$NAME" background.drawing=off \
+    sketchybar --set "$NAME" icon.drawing=on \
+                             background.drawing=off \
                              icon.color="$INACTIVE_ICON" \
                              label="$LABEL" \
                              label.color="$INACTIVE_ICON" \
-                             label.drawing="$LABEL_DRAWING"
+                             label.drawing="$LABEL_DRAWING" \
+                             padding_right=2 \
+                             icon.padding_left=8 \
+                             icon.padding_right=8
 fi
