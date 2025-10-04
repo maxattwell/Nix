@@ -21,6 +21,9 @@
   # Homebrew configuration for latex
   homebrew = {
     enable = true;
+    brews = [
+      "tmux"
+    ];
     casks = [
       "basictex"  # Minimal LaTeX distribution for org-mode inline preview
     ];

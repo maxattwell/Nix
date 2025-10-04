@@ -12,7 +12,7 @@
     # Java OpenJDK
     zulu17
     eas-cli
-    claude-code
+    # claude-code
     opencode
   ];
 
