@@ -25,13 +25,52 @@ else
     INACTIVE_ICON="0xff3c3836"  # gruvbox dark fg
 fi
 
+# Get list of app names in this workspace
+APPS=$(aerospace list-windows --workspace "$WORKSPACE_ID" --format '%{app-name}' 2>/dev/null)
+
+# Create icons/dots for windows
+LABEL=""
+WINDOW_COUNT=0
+if [ -n "$APPS" ]; then
+    while IFS= read -r app; do
+        if [ -n "$app" ]; then
+            ((WINDOW_COUNT++))
+            case "$app" in
+                "iTerm2"|"iTerm")
+                    LABEL+=" " ;;
+                "Emacs"|"emacs")
+                    LABEL+=" " ;;
+                "Google Chrome"|"Chrome")
+                    LABEL+=" " ;;
+                "Brave Browser"|"Brave")
+                    LABEL+=" " ;;
+                *)
+                    LABEL+=" " ;;
+            esac
+        fi
+    done <<< "$APPS"
+fi
+
+# Only show label if there are windows
+if [ "$WINDOW_COUNT" -gt 0 ]; then
+    LABEL_DRAWING=on
+else
+    LABEL_DRAWING=off
+fi
+
 # Check if this workspace is the focused one
 if [ "$WORKSPACE_ID" = "$FOCUSED_WORKSPACE" ]; then
     sketchybar --set "$NAME" background.drawing=on \
                              background.color="$ACTIVE_BG" \
                              background.corner_radius=9 \
-                             icon.color="$ACTIVE_ICON"
+                             icon.color="$ACTIVE_ICON" \
+                             label="$LABEL" \
+                             label.color="$ACTIVE_ICON" \
+                             label.drawing="$LABEL_DRAWING"
 else
     sketchybar --set "$NAME" background.drawing=off \
-                             icon.color="$INACTIVE_ICON"
+                             icon.color="$INACTIVE_ICON" \
+                             label="$LABEL" \
+                             label.color="$INACTIVE_ICON" \
+                             label.drawing="$LABEL_DRAWING"
 fi
