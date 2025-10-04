@@ -58,3 +58,5 @@
 (package! gptel-magit)
 
 (package! pdf-tools)
+
+(package! auto-dark)
