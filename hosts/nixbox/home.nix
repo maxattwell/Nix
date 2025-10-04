@@ -4,8 +4,8 @@
   imports = [
     ../../modules/home-manager
     ../../modules/home-manager/hypr
-    ../../modules/home-manager/quickshell
-    ../../modules/home-manager/waybar
+    # ../../modules/home-manager/quickshell
+    ../../modules/home-manager/waybar.nix
     ../../modules/home-manager/kitty.nix
     ../../modules/home-manager/doom
   ];

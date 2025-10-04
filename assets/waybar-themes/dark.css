@@ -1,13 +1,33 @@
+@define-color bg0 #282828;
+@define-color bg1 #3c3836;
+@define-color bg2 #504945;
+@define-color bg3 #665c54;
+@define-color bg4 #7c6f64;
+@define-color fg0 #fbf1c7;
+@define-color fg1 #ebdbb2;
+@define-color fg2 #d5c4a1;
+@define-color fg3 #bdae93;
+@define-color fg4 #a89984;
+@define-color gray #928374;
+@define-color red #cc241d;
+@define-color green #98971a;
+@define-color yellow #d79921;
+@define-color blue #458588;
+@define-color purple #b16286;
+@define-color aqua #689d6a;
+@define-color orange #d65d0e;
+
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Overpass Nerd Font, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #ebdbb2;
+    font-size: 15px;
+    font-weight: 600;
+    color: @fg1;
 }
 
 window#waybar {
     background-color: transparent;
-    color: #ebdbb2;
+    color: @fg1;
 }
 
 window#waybar.hidden {
@@ -49,45 +69,36 @@ button:hover {
 #workspaces button {
     font-size: 12px;
     padding: 0px 5px;
-    background-color: #3c3836;
     border-radius: 7px;
     margin: 1px;
 }
 
 #workspaces button * {
-    color: #a89984;
-}
-
-#workspaces button  small {
-    background-color: #000000;
+    color: @fg2;
 }
 
 #workspaces button:hover {
-    background-color: #504945;
+    background-color: @bg2;
 }
 
 #workspaces button.visible {
-    background-color: #928374;
+    background-color: @bg2;
+}
+
+#workspaces button.visible * {
+    color: @fg1;
 }
 
 #workspaces button.active {
-    background-color: #ebdbb2;
+    background-color: @blue;
 }
 
 #workspaces button.active * {
-    color: #3c3836;
-}
-
-#workspaces button.focused {
-    background-color: #ebdbb2;
-}
-
-#workspaces button.focused * {
-    color: #3c3836;
+    color: @bg1;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: @red;
 }
 
 #mode {
@@ -98,15 +109,15 @@ button:hover {
 #bluetooth,
 #custom-radioplayer {
     padding: 0 10px;
-    background-color: #3c3836;
+    background-color: @bg1;
     border-radius: 7px;
     margin: 1px;
-    color: #ebdbb2;
+    color: @fg1;
 }
 
 #bluetooth:hover,
 #custom-radioplayer:hover {
-    background-color: #504945;
+    background-color: @bg2;
 }
 
 /* System metrics grouped container */
@@ -115,29 +126,29 @@ button:hover {
 #disk {
     padding: 0 8px;
     background-color: transparent;
-    color: #ebdbb2;
+    color: @fg1;
     margin: 3px 0;
 }
 
 /* Floating module groups with gaps */
 .modules-left {
-    background-color: #282828;
+    background-color: @bg0;
     border-radius: 10px;
-    margin: 2px 2px 0;
+    margin: 0 2px 2px;
     padding: 2px;
 }
 
 .modules-center {
-    background-color: #282828;
+    background-color: @bg0;
     border-radius: 10px;
-    margin: 2px 2px 0;
+    margin: 0 2px 2px;
     padding: 2px;
 }
 
 .modules-right {
-    background-color: #282828;
+    background-color: @bg0;
     border-radius: 10px;
-    margin: 2px 2px 0;
+    margin: 0 2px 2px;
     padding: 2px;
 }
 
@@ -163,7 +174,7 @@ button:hover {
 }
 
 #clock * {
-    color: #ebdbb2;
+    color: @fg1;
 }
 
 #battery {
