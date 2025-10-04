@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
-    waybarThemes = ../../../assets/waybar-themes;
+    waybarThemes = ../../assets/waybar-themes;
 in
 {
     home.file.".config/waybar/style.css".source = "${waybarThemes}/light.css";
 
     programs.waybar = {
-        enable = false;
+        enable = true;
 
         settings = {
             mainBar = {
-                position = "top";
+                position = "bottom";
                 height = 37;
                 spacing = 0;
                 modules-left = ["hyprland/workspaces"];

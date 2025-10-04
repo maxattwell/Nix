@@ -21,8 +21,8 @@
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       "hyprpaper"
-      # "waybar"
-      "quickshell --path ~/Nix/modules/home-manager/quickshell"
+      "waybar"
+      # "quickshell --path ~/Nix/modules/home-manager/quickshell"
     ];
 
     monitor = [
