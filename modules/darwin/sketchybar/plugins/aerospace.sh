@@ -12,10 +12,12 @@ if is_dark_mode; then
     # Dark mode gruvbox colors
     ACTIVE_BG="0xff458588"  # gruvbox blue
     ACTIVE_ICON="0xff1d2021"  # gruvbox dark0_hard
+    PREV_BG="0xff665c54"  # gruvbox gray (more obvious)
 else
     # Light mode gruvbox colors
     ACTIVE_BG="0xff076678"  # gruvbox blue (darker for light mode)
     ACTIVE_ICON="0xfffbf1c7"  # gruvbox light0
+    PREV_BG="0xffc9b99a"  # gruvbox light gray (more obvious)
 fi
 
 # Set inactive icon color based on theme
@@ -45,7 +47,7 @@ if [ -n "$APPS" ]; then
                 "Brave Browser"|"Brave")
                     LABEL+=" " ;;
                 *)
-                    LABEL+=" " ;;
+                    LABEL+=" " ;;
             esac
         fi
     done <<< "$APPS"
@@ -58,7 +60,7 @@ else
     LABEL_DRAWING=off
 fi
 
-# Check if this workspace is the focused one
+# Check if this workspace is the focused one or the previous one
 if [ "$WORKSPACE_ID" = "$FOCUSED_WORKSPACE" ]; then
     sketchybar --set "$NAME" background.drawing=on \
                              background.color="$ACTIVE_BG" \
@@ -66,6 +68,14 @@ if [ "$WORKSPACE_ID" = "$FOCUSED_WORKSPACE" ]; then
                              icon.color="$ACTIVE_ICON" \
                              label="$LABEL" \
                              label.color="$ACTIVE_ICON" \
+                             label.drawing="$LABEL_DRAWING"
+elif [ "$WORKSPACE_ID" = "$PREV_WORKSPACE" ]; then
+    sketchybar --set "$NAME" background.drawing=on \
+                             background.color="$PREV_BG" \
+                             background.corner_radius=9 \
+                             icon.color="$INACTIVE_ICON" \
+                             label="$LABEL" \
+                             label.color="$INACTIVE_ICON" \
                              label.drawing="$LABEL_DRAWING"
 else
     sketchybar --set "$NAME" background.drawing=off \
