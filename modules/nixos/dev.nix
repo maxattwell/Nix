@@ -12,9 +12,10 @@
     yarn
     supabase-cli
     docker-compose
-    claude-code
     opencode
   ];
+
+  programs.nix-ld.enable = true;
 
   virtualisation.docker.enable = true;
   users.users.max.extraGroups = [ "docker" ];
