@@ -41,8 +41,8 @@
       rebuild() {
         if [[ "$(uname -s)" == "Darwin" ]]; then
           sudo darwin-rebuild switch --flake $HOME/Nix
-          echo "Rebuild complete, reloading yabai..."
-          sudo yabai --load-sa && echo "Yabai reload success"
+          # echo "Rebuild complete, reloading yabai..."
+          # sudo yabai --load-sa && echo "Yabai reload success"
         else
           # sudo nixos-rebuild switch --flake $HOME/Nix --impure
           nh os switch $HOME/Nix -- --impure
@@ -54,8 +54,9 @@
         nitch
       fi
 
-      # Set npm global config
-      export PATH=~/.npm-global/bin:$PATH
+       # Set npm global config
+       export NPM_CONFIG_PREFIX=~/.npm-global
+       export PATH=~/.npm-global/bin:$PATH
       '';
     };
 
