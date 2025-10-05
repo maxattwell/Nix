@@ -17,9 +17,4 @@
 
   # Open firewall for web access
   networking.firewall.allowedTCPPorts = [ 8083 ];
-
-  # Ensure the library directory exists with proper permissions
-  systemd.tmpfiles.rules = [
-    "d /data/calibre-library 0755 calibre-web calibre-web -"
-  ];
 }
