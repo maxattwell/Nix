@@ -6,6 +6,7 @@
     ../../modules/nixos
     ../../modules/nixos/nixarr.nix
     ../../modules/nixos/homepage.nix
+    ../../modules/nixos/calibre-web.nix
     # ../../modules/nixos/kodi.nix
   ];
 
