@@ -46,6 +46,12 @@ if [ -n "$APPS" ]; then
                     LABEL+=" " ;;
                 "Brave Browser"|"Brave")
                     LABEL+=" " ;;
+                "Notion"|"notion")
+                    LABEL+=" " ;;
+                "Microsoft Teams"|"teams")
+                    LABEL+="󰊻 " ;;
+                "Finder"|"finder")
+                    LABEL+=" " ;;
                 *)
                     LABEL+=" " ;;
             esac
