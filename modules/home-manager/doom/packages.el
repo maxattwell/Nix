@@ -60,3 +60,15 @@
 (package! pdf-tools)
 
 (package! auto-dark)
+
+(package! glab)
+(package! gtea)
+(package! gogs)
+(package! buck)
+
+;; Vue.js support with Volar language server
+(package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
+
+;; Code review for GitHub PRs
+(package! code-review)
+(package! emojify)

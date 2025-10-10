@@ -5,7 +5,10 @@
       enable = true;
       userName  = "Max Attwell";
       userEmail = "max.attwell@hotmail.com";
-      extraConfig.init.defaultBranch = "main";
+      extraConfig = {
+        init.defaultBranch = "main";
+        github.user = "maxattwell";
+      };
       delta = {
         enable = true;
         options = {
