@@ -145,10 +145,10 @@ done
 
 # Create brackets for each island
 if [ ${#LEFT_ITEMS[@]} -gt 0 ]; then
-  # Add padding to first and last items in left island
-  sketchybar --set ${LEFT_ITEMS[0]} padding_left=2
-  sketchybar --set ${LEFT_ITEMS[1]} padding_left=2
-  sketchybar --set ${LEFT_ITEMS[-1]} padding_right=2
+  # Add padding to all items in left island
+  for item in ${LEFT_ITEMS[@]}; do
+    sketchybar --set ${item} padding_left=2 padding_right=2
+  done
 
   sketchybar --add bracket left_items ${LEFT_ITEMS[@]} \
              --set left_items background.color=$SPACE_BG_COLOR \
