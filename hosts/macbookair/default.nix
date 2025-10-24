@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hostname, ... }:
 
 {
   imports = [
@@ -10,6 +10,8 @@
     ../../modules/darwin/aerospace.nix
     ../../modules/darwin/sketchybar
   ];
+
+  networking.hostName = hostname;
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
