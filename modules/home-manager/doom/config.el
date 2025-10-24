@@ -208,9 +208,17 @@
           (side . right)
           (window-width . 0.33)))
   :config
+  ;; Enable agent-shell-completion-mode by default
+  (add-hook 'agent-shell-mode-hook #'agent-shell-completion-mode)
+
   ;; Close agent-shell window with 'q' in normal mode
   (map! :map agent-shell-mode-map
-        :n "q" #'delete-window))
+        :n "q" #'delete-window)
+
+  ;; Mode switching keybindings
+  (map! :map agent-shell-mode-map
+        :n "m" #'agent-shell-cycle-session-mode
+        :n "M" #'agent-shell-set-session-mode))
 
 ;; Agent Shell keybinding - just use built-in toggle
 (map! :leader
