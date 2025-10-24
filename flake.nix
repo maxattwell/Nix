@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixarr = {
-      url = "github:rasmus-kirk/nixarr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,16 +14,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
     darwin-emacs = {
       url = "github:nix-giant/nix-darwin-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
+    nixarr = {
+      url = "github:rasmus-kirk/nixarr";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # opencode-flake.url = "github:maxattwell/opencode-flake";
   };
 
   outputs = inputs@{
@@ -36,7 +32,6 @@
     nixpkgs,
     home-manager,
     nix-darwin,
-    darwin-emacs,
     nix-homebrew,
     nixarr,
     ...
@@ -61,7 +56,6 @@
         macbookair = lib.mkDarwinSystem {
           hostname = "macbookair";
           extraModules = [
-            { nixpkgs.overlays = [ darwin-emacs.overlays.emacs ]; }
             nix-homebrew.darwinModules.nix-homebrew {
               nix-homebrew = {
                 enable = true;

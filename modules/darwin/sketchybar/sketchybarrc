@@ -56,8 +56,8 @@ default=(
 sketchybar --default "${default[@]}"
 
 ##### Adding Mission Control Space Indicators #####
-# AeroSpace workspace indicators
-sketchybar --add event aerospace_workspace_change
+# Add custom events for yabai space/window changes
+sketchybar --add event space_windows_change
 
 # Add theme change event listener
 sketchybar --add event theme_change AppleInterfaceThemeChangedNotification
@@ -66,45 +66,29 @@ sketchybar --add item theme_listener left \
                                 script="$PLUGIN_DIR/theme_change.sh" \
            --subscribe theme_listener theme_change
 
-for sid in $(aerospace list-workspaces --all); do
-  sketchybar --add item space.$sid left \
-    --subscribe space.$sid aerospace_workspace_change \
-    --set space.$sid \
-    icon="$sid" \
-    icon.padding_left=8 \
-    icon.padding_right=8 \
-    label.padding_left=4 \
-    label.margin_right=4 \
-    padding_right=2 \
-    background.color=0x00000000 \
-    background.corner_radius=5 \
-    background.height=25 \
-    background.drawing=off \
-    label.drawing=off \
-    click_script="aerospace workspace $sid" \
-    script="$PLUGIN_DIR/aerospace.sh $sid"
-done
+# Yabai workspace indicators - show only spaces with windows (or selected)
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
 
-# Yabai workspace indicators (commented out for future use)
-# SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-# for i in "${!SPACE_ICONS[@]}"
-# do
-#   sid="$(($i+1))"
-#   space=(
-#     space="$sid"
-#     icon="${SPACE_ICONS[i]}"
-#     icon.padding_left=10
-#     icon.padding_right=12
-#     background.color=0x00000000
-#     background.corner_radius=5
-#     background.height=25
-#     background.drawing=off
-#     label.drawing=off
-#     script="$PLUGIN_DIR/space.sh"
-#     click_script="yabai -m space --focus $sid"
-#   )
-#   sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
-# done
+# Create all 10 space items upfront (they'll be shown/hidden by the script)
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  sketchybar --add space space.$sid left \
+             --set space.$sid \
+                   space=$sid \
+                   icon="${SPACE_ICONS[i]}" \
+                   icon.padding_left=8 \
+                   icon.padding_right=8 \
+                   label.padding_left=4 \
+                   label.padding_right=4 \
+                   background.color=$BAR_COLOR \
+                   background.corner_radius=9 \
+                   background.height=25 \
+                   background.drawing=off \
+                   script="$PLUGIN_DIR/space.sh" \
+                   click_script="yabai -m space --focus $sid" \
+             --subscribe space.$sid space_change space_windows_change
+done
 
 ##### Adding Left Items #####
 # We add some regular items to the left side of the bar, where
@@ -161,10 +145,10 @@ done
 
 # Create brackets for each island
 if [ ${#LEFT_ITEMS[@]} -gt 0 ]; then
-  # Add padding to first and last items in left island
-  sketchybar --set ${LEFT_ITEMS[0]} padding_left=2
-  sketchybar --set ${LEFT_ITEMS[1]} padding_left=2
-  sketchybar --set ${LEFT_ITEMS[-1]} padding_right=2
+  # Add padding to all items in left island
+  for item in ${LEFT_ITEMS[@]}; do
+    sketchybar --set ${item} padding_left=2 padding_right=2
+  done
 
   sketchybar --add bracket left_items ${LEFT_ITEMS[@]} \
              --set left_items background.color=$SPACE_BG_COLOR \
@@ -196,6 +180,3 @@ fi
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
-
-# Trigger initial workspace state for aerospace
-sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused) PREV_WORKSPACE=""

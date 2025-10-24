@@ -15,7 +15,7 @@
     };
 
     extraConfig = ''
-      yabai -m signal --add event=dock_did_resttart action="sudo yabai --load-sa"
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
       sudo yabai --load-sa
       yabai -m space --layout bsp
       yabai -m config mouse_modifier cmd
@@ -36,6 +36,11 @@
       yabai -m config --space 8 layout bsp
       yabai -m config --space 9 layout bsp
       yabai -m config --space 10 layout bsp
+
+      # Signal sketchybar to update when windows are created/destroyed/moved
+      yabai -m signal --add event=window_created action="sketchybar --trigger space_windows_change"
+      yabai -m signal --add event=window_destroyed action="sketchybar --trigger space_windows_change"
+      yabai -m signal --add event=window_moved action="sketchybar --trigger space_windows_change"
     '';
   };
 }
