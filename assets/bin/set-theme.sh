@@ -5,7 +5,7 @@ set -e
 THEME="$1"
 WALLPAPER_DIR="$HOME/Nix/assets/backgrounds"
 
-WAYBAR_THEME_DIR="$HOME/Nix/assets/waybar-themes"
+WAYBAR_THEME_DIR="$HOME/Nix/modules/home-manager/waybar"
 WAYBAR_CURRENT_THEME_DIR="$HOME/.config/waybar"
 
 KITTY_THEME_DIR="$HOME/Nix/assets/kitty-themes"

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hostname, ... }:
 
 {
   imports = [
@@ -10,7 +10,7 @@
     # ../../modules/nixos/kodi.nix
   ];
 
-  networking.hostName = "shedservarr";
+  networking.hostName = hostname;
 
   services.openssh.enable = true;
 
