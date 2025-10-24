@@ -3,14 +3,20 @@
 {
   programs.git = {
       enable = true;
-      userName  = "Max Attwell";
-      userEmail = "max.attwell@hotmail.com";
-      extraConfig.init.defaultBranch = "main";
-      delta = {
-        enable = true;
-        options = {
-          line-numbers = true;
+      settings = {
+        user = {
+          name = "Max Attwell";
+          email = "max.attwell@hotmail.com";
         };
+        init.defaultBranch = "main";
       };
     };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+    };
+  };
 }
