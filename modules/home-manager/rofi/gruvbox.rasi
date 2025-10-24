@@ -1,0 +1,111 @@
+* {
+    /* Gruvbox Dark colors matching your Waybar theme */
+    bg0:     #282828;
+    bg1:     #3c3836;
+    bg2:     #504945;
+    bg3:     #665c54;
+
+    fg0:     #fbf1c7;
+    fg1:     #ebdbb2;
+    fg2:     #d5c4a1;
+
+    red:     #cc241d;
+    green:   #98971a;
+    yellow:  #d79921;
+    blue:    #458588;
+    purple:  #b16286;
+    aqua:    #689d6a;
+    gray:    #928374;
+    orange:  #d65d0e;
+
+    background-color: transparent;
+    text-color:       @fg1;
+
+    font: "Overpass Nerd Font 13";
+}
+
+window {
+    location:         center;
+    width:            600px;
+    background-color: @bg0;
+    border:           0px;
+    border-radius:    10px;
+    padding:          0px;
+}
+
+mainbox {
+    background-color: transparent;
+    padding:          10px;
+}
+
+inputbar {
+    children:         [ prompt, entry ];
+    background-color: @bg1;
+    border-radius:    7px;
+    padding:          10px;
+    margin:           0px 0px 10px 0px;
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @blue;
+    padding:          0px 10px 0px 0px;
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @fg1;
+    placeholder:      "Search...";
+    placeholder-color: @fg2;
+}
+
+listview {
+    background-color: transparent;
+    lines:            8;
+    scrollbar:        false;
+    spacing:          2px;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @fg2;
+    border-radius:    7px;
+    padding:          8px 10px;
+    cursor:           pointer;
+}
+
+element selected {
+    background-color: @bg2;
+    text-color:       @fg1;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @fg2;
+}
+
+element normal.active {
+    background-color: @blue;
+    text-color:       @bg0;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @fg2;
+}
+
+element alternate.active {
+    background-color: @blue;
+    text-color:       @bg0;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             1.2em;
+    padding:          0px 8px 0px 0px;
+}
