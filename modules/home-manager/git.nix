@@ -9,6 +9,7 @@
           email = "max.attwell@hotmail.com";
         };
         init.defaultBranch = "main";
+        github.user = "maxattwell";
       };
     };
 

@@ -4,7 +4,8 @@
 (setq doom-font (font-spec :family "Mononoki Nerd Font Mono" :size 15 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font Mono" :size 16))
 
-(setq nerd-icons-font-family (font-spec :family "Mononoki Nerd Font Mono" :size 22 :weight 'normal))
+;; nerd-icons-font-family should be a string, not a font-spec
+(setq nerd-icons-font-family "Mononoki Nerd Font Mono")
 
 ;; Auto-dark mode configuration
 (use-package! auto-dark
@@ -74,9 +75,41 @@
 ;; Web lsp
 (add-hook 'web-mode-hook #'lsp-deferred)
 
+;; Vue.js with Volar Language Server
+(use-package! lsp-volar
+  :after lsp-mode
+  :config
+  ;; Set to nil to disable take-over mode (if you want separate TS server)
+  (setq lsp-volar-take-over-mode nil)
+
+  ;; Customize completion settings
+  (setq lsp-volar-completion-tag-casing 'both)
+  (setq lsp-volar-completion-attr-casing 'kebabCase)
+
+  ;; Filter out \u0000 warnings in completions (known issue fix)
+  (defun my-lsp-volar-filter-null-chars (orig-fun &rest args)
+    "Filter null characters from Volar responses."
+    (let ((result (apply orig-fun args)))
+      (when (and result (stringp result))
+        (setq result (replace-regexp-in-string "\u0000" "" result)))
+      result))
+  (advice-add 'lsp--render-element :around #'my-lsp-volar-filter-null-chars))
+
+;; Ensure web-mode uses LSP for .vue files
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "vue" (file-name-extension buffer-file-name))
+              (lsp-deferred))))
+
 ;; Dont create new workspace when calling emacsclient
 (after! persp-mode
   (setq! persp-emacsclient-init-frame-behaviour-override "main"))
+
+(after! forge
+  (setq forge-alist
+        '(("github.com" "api.github.com" "github.com"
+           forge-github-repository))))
 
 (setq treesit-language-source-alist
       '((javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
@@ -120,3 +153,56 @@
     '(org-latex-and-related :inherit default :foreground nil :background nil)
     '(org-block :background nil)
     '(org-formula :inherit default :foreground nil :background nil)))
+
+;; Code Review configuration
+(use-package! code-review
+  :after forge
+  :config
+  ;; Enable emoji support in code review buffers
+  (add-hook 'code-review-mode-hook #'emojify-mode)
+
+  ;; Configure line wrap for comments
+  (setq code-review-fill-column 80)
+
+  ;; Set download directory for binary files
+  (setq code-review-download-dir "/tmp/code-review/")
+
+  ;; Use forge authentication
+  (setq code-review-auth-login-marker 'forge)
+
+  ;; Doom Emacs workspace integration
+  (add-hook 'code-review-mode-hook
+            (lambda ()
+              (when (bound-and-fun-p 'persp-add-buffer)
+                (persp-add-buffer (current-buffer)))))
+
+  ;; Keybindings
+  (map! :leader
+        (:prefix ("c" . "code")
+         :desc "Start code review" "r" #'code-review-start
+         :desc "Review PR at point" "v" #'code-review-forge-pr-at-point))
+
+  ;; Add keybinding in forge topic mode
+  (map! :map forge-topic-mode-map
+        :n "C-c r" #'code-review-forge-pr-at-point)
+
+  ;; Add magit menu integration
+  (after! magit
+    (transient-append-suffix 'magit-merge "i"
+      '("y" "Review pull request" code-review-forge-pr-at-point))))
+
+;; Agent Shell configuration for Claude AI
+(use-package! shell-maker
+  :defer t)
+
+(use-package! acp
+  :defer t)
+
+(use-package! agent-shell
+  :after (shell-maker acp)
+  :config
+  ;; Optional: Add keybindings for quick access
+  (map! :leader
+        (:prefix ("a" . "AI")
+         :desc "Start Agent Shell" "a" #'agent-shell
+         :desc "Claude Code Shell" "c" #'agent-shell-anthropic-start-claude-code)))
