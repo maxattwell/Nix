@@ -27,6 +27,7 @@
       yabai -m rule --add app="^qemu-system-aarch64$" manage=off
       yabai -m rule --add app="^Emacs$" manage=on
       # Force management of all workspaces
+      yabai -m config --space 1 layout bsp
       yabai -m config --space 2 layout bsp
       yabai -m config --space 3 layout bsp
       yabai -m config --space 4 layout bsp
