@@ -6,7 +6,7 @@
     ../../modules/home-manager/hypr
     # ../../modules/home-manager/quickshell
     ../../modules/home-manager/waybar
-    ../../modules/home-manager/kitty.nix
+    ../../modules/home-manager/kitty
     ../../modules/home-manager/doom
   ];
 
