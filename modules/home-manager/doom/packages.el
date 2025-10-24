@@ -72,3 +72,10 @@
 ;; Code review for GitHub PRs
 (package! code-review)
 (package! emojify)
+
+;; Agent Shell - LLM interaction in Emacs
+(package! shell-maker)
+(package! acp
+  :recipe (:host github :repo "xenodium/acp.el"))
+(package! agent-shell
+  :recipe (:host github :repo "xenodium/agent-shell"))
