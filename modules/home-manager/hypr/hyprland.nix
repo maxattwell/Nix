@@ -33,18 +33,8 @@
     workspace = [
       "1,monitor:DP-4"
       "2,monitor:DP-3"
-      # Smart gaps for full screen
-      # "w[tv1], gapsout:0, gapsin:0"
-      # "f[1], gapsout:0, gapsin:0"
     ];
 
-    # Smart gaps for full screen
-    # windowrule = [
-    #   "bordersize 0, floating:0, onworkspace:w[tv1]"
-    #   "rounding 0, floating:0, onworkspace:w[tv1]"
-    #   "bordersize 0, floating:0, onworkspace:f[1]"
-    #   "rounding 0, floating:0, onworkspace:f[1]"
-    # ];
 
     windowrulev2 = [
       "float, center, title:^(Bluetooth Devices)$"
@@ -122,8 +112,6 @@
       gaps_in = 1;
       gaps_out = 2;
       border_size = 0;
-      # "col.active_border" = "rgba(ffffffff)";
-      # "col.inactive_border" = "rgba(595959aa)";
     };
 
     dwindle = {
