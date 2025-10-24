@@ -1,8 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  doomSource = "$HOME/Nix/modules/home-manager/doom";
-in
 {
   home = {
     sessionVariables = {
@@ -13,12 +10,13 @@ in
     ];
   };
 
-  # Use an activation hook to symlink directly to working files
-  home.activation.linkDoomConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p $HOME/.config/doom
-
-    ln -sf ${doomSource}/init.el $HOME/.config/doom/init.el
-    ln -sf ${doomSource}/config.el $HOME/.config/doom/config.el
-    ln -sf ${doomSource}/packages.el $HOME/.config/doom/packages.el
-  '';
+  # Symlink config files for easy editing without rebuilds
+  xdg.configFile = {
+    "doom/init.el".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Nix/modules/home-manager/doom/init.el";
+    "doom/config.el".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Nix/modules/home-manager/doom/config.el";
+    "doom/packages.el".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Nix/modules/home-manager/doom/packages.el";
+  };
 }
