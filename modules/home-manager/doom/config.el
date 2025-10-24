@@ -190,3 +190,19 @@
   (after! magit
     (transient-append-suffix 'magit-merge "i"
       '("y" "Review pull request" code-review-forge-pr-at-point))))
+
+;; Agent Shell configuration for Claude AI
+(use-package! shell-maker
+  :defer t)
+
+(use-package! acp
+  :defer t)
+
+(use-package! agent-shell
+  :after (shell-maker acp)
+  :config
+  ;; Optional: Add keybindings for quick access
+  (map! :leader
+        (:prefix ("a" . "AI")
+         :desc "Start Agent Shell" "a" #'agent-shell
+         :desc "Claude Code Shell" "c" #'agent-shell-anthropic-start-claude-code)))

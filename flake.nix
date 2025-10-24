@@ -12,10 +12,6 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    darwin-emacs = {
-      url = "github:nix-giant/nix-darwin-emacs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
@@ -29,7 +25,6 @@
     nixpkgs,
     home-manager,
     nix-darwin,
-    darwin-emacs,
     nix-homebrew,
     nixarr,
     ...
@@ -77,8 +72,6 @@
           system = darwinSystem;
           modules = [
             ./hosts/macbookair
-
-            { nixpkgs.overlays = [ darwin-emacs.overlays.emacs ]; }
 
             nix-homebrew.darwinModules.nix-homebrew {
               nix-homebrew = {
