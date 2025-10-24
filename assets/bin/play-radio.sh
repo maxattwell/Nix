@@ -9,11 +9,11 @@ declare -A stations=(
     ["Stop all stations"]="stop"
 )
 
-# Get only the station names (keys) for wofi to display
+# Get only the station names (keys) for rofi to display
 station_names=$(printf "%s\n" "${!stations[@]}")
 
-# Use wofi to display the list of station names and capture the selected station
-selection=$(printf '%s\n' "$station_names" | wofi --dmenu --style=$HOME/Nix/assets/wofi_styles.css --prompt "Select a radio station")
+# Use rofi to display the list of station names and capture the selected station
+selection=$(printf '%s\n' "$station_names" | rofi -dmenu -p "Select a radio station")
 
 # Get the URL associated with the selected station
 station_url="${stations[$selection]}"

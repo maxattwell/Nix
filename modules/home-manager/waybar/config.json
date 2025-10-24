@@ -1,0 +1,52 @@
+{
+  "position": "bottom",
+  "height": 37,
+  "spacing": 0,
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["disk", "memory", "cpu"],
+  "modules-right": ["bluetooth", "custom/radioplayer", "clock"],
+  "custom/radioplayer": {
+    "format": "",
+    "return-type": "json",
+    "on-click": "$HOME/Nix/assets/bin/play-radio.sh",
+    "tooltip": false
+  },
+  "hyprland/workspaces": {
+    "format": "{icon} <small>{windows}</small>",
+    "window-rewrite-default": " ",
+    "window-rewrite": {
+      "kitty": " ",
+      "chrome": " ",
+      "emacs": " ",
+      "GitHub": " ",
+      "Outlook": " ",
+      "WhatsApp": " ",
+      "class<chrome> title<*.github.*>": " "
+    }
+  },
+  "custom/gpu": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{print $1}'",
+    "format": "{}% 󰢮",
+    "interval": 5
+  },
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-connected": "{num_connections} ",
+    "on-click": "overskride"
+  },
+  "clock": {
+    "timezone": "Pacific/Auckland",
+    "format": "<small>󰃭</small> {:%a %d %b     <small></small>  %I:%M  %p}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "disk": {
+    "format": "{percentage_used}% "
+  },
+  "cpu": {
+    "format": "{usage}% "
+  },
+  "memory": {
+    "format": "{}% "
+  }
+}
