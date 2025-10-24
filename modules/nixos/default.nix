@@ -23,6 +23,7 @@
     nh
     pass
     gnupg
+    overskride
   ];
 
   services.logind = {

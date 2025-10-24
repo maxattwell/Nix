@@ -3,7 +3,18 @@
 {
   wayland.windowManager.hyprland.enable = true;
 
-  programs.wofi.enable = true;
+  programs.rofi = {
+    enable = true;
+    theme = "${config.home.homeDirectory}/Nix/modules/home-manager/rofi/gruvbox.rasi";
+    extraConfig = {
+      modi = "drun,run,window";
+      show-icons = true;
+      click-to-exit = true;
+      hover-select = true;
+      me-select-entry = "";
+      me-accept-entry = "MousePrimary";
+    };
+  };
 
   home.packages = with pkgs; [
     hyprpaper
