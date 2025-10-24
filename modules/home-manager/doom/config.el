@@ -139,15 +139,15 @@
 
   ;; Better LaTeX preview scaling and options for Homebrew setup
   (setq org-format-latex-options
-        (plist-put org-format-latex-options 
+        (plist-put org-format-latex-options
                    :scale 1.5))
-  
+
   ;; Add leader key shortcuts for LaTeX preview in org-mode
   (map! :leader
         (:prefix ("l" . "LaTeX")
          :map org-mode-map
          :desc "Toggle LaTeX preview" "p" #'org-latex-preview))
-  
+
   ;; Fix LaTeX syntax highlighting colors
   (custom-set-faces!
     '(org-latex-and-related :inherit default :foreground nil :background nil)
@@ -199,10 +199,51 @@
   :defer t)
 
 (use-package! agent-shell
+  :commands (agent-shell agent-shell-anthropic-start-claude-code agent-shell-toggle)
   :after (shell-maker acp)
+  :init
+  ;; Set agent-shell to use side window display action BEFORE loading
+  (setq agent-shell-display-action
+        '((display-buffer-in-side-window)
+          (side . right)
+          (window-width . 0.33)))
   :config
-  ;; Optional: Add keybindings for quick access
-  (map! :leader
-        (:prefix ("a" . "AI")
-         :desc "Start Agent Shell" "a" #'agent-shell
-         :desc "Claude Code Shell" "c" #'agent-shell-anthropic-start-claude-code)))
+  ;; Close agent-shell window with 'q' in normal mode
+  (map! :map agent-shell-mode-map
+        :n "q" #'delete-window))
+
+;; Agent Shell keybinding - just use built-in toggle
+(map! :leader
+      :desc "Toggle Agent Shell" "o i" #'agent-shell-toggle)
+
+;; Terminal popup configuration (VSCode-style bottom terminal)
+(add-to-list 'display-buffer-alist
+             '("\\*terminal\\*"
+               (display-buffer-in-side-window)
+               (side . bottom)
+               (window-height . 0.3)))
+
+(defun my/toggle-terminal ()
+  "Toggle terminal at the bottom of the screen, VSCode-style."
+  (interactive)
+  (let* ((term-buffer (get-buffer "*terminal*"))
+         (term-window (and term-buffer (get-buffer-window term-buffer))))
+    (if term-window
+        ;; Terminal is visible, hide it
+        (delete-window term-window)
+      ;; Terminal not visible, show or create it
+      (if term-buffer
+          ;; Buffer exists, just display it
+          (select-window (display-buffer term-buffer))
+        ;; Create new terminal
+        (let ((default-directory (or (projectile-project-root) default-directory)))
+          (term "/run/current-system/sw/bin/zsh")
+          (select-window (get-buffer-window "*terminal*")))))))
+
+;; Keybinding for terminal toggle (like Ctrl+` in VSCode)
+(map! :leader
+      :desc "Toggle terminal" "o t" #'my/toggle-terminal)
+
+;; Close terminal window with 'q' in normal mode
+(map! :map term-mode-map
+      :n "q" #'delete-window)
