@@ -13,7 +13,7 @@
   },
   "hyprland/workspaces": {
     "format": "{icon} <small>{windows}</small>",
-    "window-rewrite-default": " ",
+    "window-rewrite-default": " ",
     "window-rewrite": {
       "kitty": " ",
       "chrome": " ",
