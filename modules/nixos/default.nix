@@ -12,6 +12,7 @@
   };
 
   programs.zsh.enable = true;
+  programs.hyprland.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
