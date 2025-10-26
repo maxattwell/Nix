@@ -218,9 +218,4 @@
   (llm-warn-on-nonfree nil)
   :config
   ;; Enable in magit status buffer
-  (magit-gptcommit-status-buffer-setup)
-
-  ;; Keybinding in magit commit buffer
-  (map! :map git-commit-mode-map
-        :localleader
-        :desc "Generate commit message with GPT" "g" #'magit-gptcommit-generate))
+  (magit-gptcommit-status-buffer-setup))
