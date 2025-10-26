@@ -150,43 +150,6 @@
     '(org-block :background nil)
     '(org-formula :inherit default :foreground nil :background nil)))
 
-;; Code Review configuration
-(use-package! code-review
-  :after forge
-  :config
-  ;; Enable emoji support in code review buffers
-  (add-hook 'code-review-mode-hook #'emojify-mode)
-
-  ;; Configure line wrap for comments
-  (setq code-review-fill-column 80)
-
-  ;; Set download directory for binary files
-  (setq code-review-download-dir "/tmp/code-review/")
-
-  ;; Use forge authentication
-  (setq code-review-auth-login-marker 'forge)
-
-  ;; Doom Emacs workspace integration
-  (add-hook 'code-review-mode-hook
-            (lambda ()
-              (when (bound-and-fun-p 'persp-add-buffer)
-                (persp-add-buffer (current-buffer)))))
-
-  ;; Keybindings
-  (map! :leader
-        (:prefix ("c" . "code")
-         :desc "Start code review" "r" #'code-review-start
-         :desc "Review PR at point" "v" #'code-review-forge-pr-at-point))
-
-  ;; Add keybinding in forge topic mode
-  (map! :map forge-topic-mode-map
-        :n "C-c r" #'code-review-forge-pr-at-point)
-
-  ;; Add magit menu integration
-  (after! magit
-    (transient-append-suffix 'magit-merge "i"
-      '("y" "Review pull request" code-review-forge-pr-at-point))))
-
 ;; Shell toggle keybindings
 (map! :leader
       (:prefix ("o" . "open")
