@@ -191,6 +191,11 @@
     (transient-append-suffix 'magit-merge "i"
       '("y" "Review pull request" code-review-forge-pr-at-point))))
 
+;; Shell toggle keybindings
+(map! :leader
+      (:prefix ("o" . "open")
+       :desc "Toggle eshell" "e" #'+eshell/toggle))
+
 ;; Agent Shell configuration for Claude AI
 (use-package! shell-maker
   :defer t)
@@ -199,59 +204,37 @@
   :defer t)
 
 (use-package! agent-shell
-  :commands (agent-shell agent-shell-anthropic-start-claude-code agent-shell-toggle)
+  :commands (agent-shell agent-shell-anthropic-start-claude-code)
   :after (shell-maker acp)
-  :init
-  ;; Set agent-shell to use side window display action BEFORE loading
-  (setq agent-shell-display-action
-        '((display-buffer-in-side-window)
-          (side . right)
-          (window-width . 0.33)))
   :config
   ;; Enable agent-shell-completion-mode by default
   (add-hook 'agent-shell-mode-hook #'agent-shell-completion-mode)
 
-  ;; Close agent-shell window with 'q' in normal mode
-  (map! :map agent-shell-mode-map
-        :n "q" #'delete-window)
+  ;; Use delta for syntax-highlighted diffs in agent-shell
+  (setq agent-shell-diff-use-delta t)
 
   ;; Mode switching keybindings
   (map! :map agent-shell-mode-map
         :n "m" #'agent-shell-cycle-session-mode
         :n "M" #'agent-shell-set-session-mode))
 
-;; Agent Shell keybinding - just use built-in toggle
+(use-package! agent-shell-sidebar
+  :after agent-shell
+  :config
+  ;; Sidebar appearance
+  (setq agent-shell-sidebar-width "30%")
+  (setq agent-shell-sidebar-minimum-width 40)  ; columns, not percentage
+  (setq agent-shell-sidebar-position 'right)
+  (setq agent-shell-sidebar-locked nil)
+
+  ;; Set default agent provider
+  (setq agent-shell-sidebar-default-config
+        (agent-shell-anthropic-make-claude-code-config))
+
+  ;; Close sidebar with 'q' in normal mode
+  (map! :map agent-shell-mode-map
+        :n "q" #'agent-shell-sidebar-toggle))
+
+;; Bind SPC o i to toggle agent-shell sidebar (outside use-package! so it loads immediately)
 (map! :leader
-      :desc "Toggle Agent Shell" "o i" #'agent-shell-toggle)
-
-;; Terminal popup configuration (VSCode-style bottom terminal)
-(add-to-list 'display-buffer-alist
-             '("\\*terminal\\*"
-               (display-buffer-in-side-window)
-               (side . bottom)
-               (window-height . 0.3)))
-
-(defun my/toggle-terminal ()
-  "Toggle terminal at the bottom of the screen, VSCode-style."
-  (interactive)
-  (let* ((term-buffer (get-buffer "*terminal*"))
-         (term-window (and term-buffer (get-buffer-window term-buffer))))
-    (if term-window
-        ;; Terminal is visible, hide it
-        (delete-window term-window)
-      ;; Terminal not visible, show or create it
-      (if term-buffer
-          ;; Buffer exists, just display it
-          (select-window (display-buffer term-buffer))
-        ;; Create new terminal
-        (let ((default-directory (or (projectile-project-root) default-directory)))
-          (term "/run/current-system/sw/bin/zsh")
-          (select-window (get-buffer-window "*terminal*")))))))
-
-;; Keybinding for terminal toggle (like Ctrl+` in VSCode)
-(map! :leader
-      :desc "Toggle terminal" "o t" #'my/toggle-terminal)
-
-;; Close terminal window with 'q' in normal mode
-(map! :map term-mode-map
-      :n "q" #'delete-window)
+      :desc "Toggle Agent Sidebar" "o i" #'agent-shell-sidebar-toggle)
