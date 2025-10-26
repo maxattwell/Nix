@@ -119,10 +119,6 @@
 (use-package! magit-delta
   :hook (magit-mode . magit-delta-mode))
 
-(use-package! gptel-magit
-  :after (magit gptel)
-  :hook (magit-mode . gptel-magit-install))
-
 ;; Org-LaTeX configuration
 (after! org
   ;; Enable LaTeX preview in org-mode
@@ -223,7 +219,7 @@
   :config
   ;; Sidebar appearance
   (setq agent-shell-sidebar-width "30%")
-  (setq agent-shell-sidebar-minimum-width 40)  ; columns, not percentage
+  (setq agent-shell-sidebar-minimum-width 60)
   (setq agent-shell-sidebar-position 'right)
   (setq agent-shell-sidebar-locked nil)
 
@@ -238,3 +234,28 @@
 ;; Bind SPC o i to toggle agent-shell sidebar (outside use-package! so it loads immediately)
 (map! :leader
       :desc "Toggle Agent Sidebar" "o i" #'agent-shell-sidebar-toggle)
+
+;; LLM provider setup for Gemini
+(use-package! llm
+  :init
+  (require 'llm-gemini)
+  :config
+  (setq llm-gemini-provider
+        (make-llm-gemini
+         :key (string-trim (shell-command-to-string "pass Google/gemini-api-key"))
+         :chat-model "gemini-2.0-flash-exp")))
+
+;; Magit GPT Commit - AI-powered commit message generation
+(use-package! magit-gptcommit
+  :after (magit llm)
+  :demand t
+  :custom
+  (magit-gptcommit-llm-provider llm-gemini-provider)
+  :config
+  ;; Enable in magit status buffer
+  (magit-gptcommit-status-buffer-setup)
+
+  ;; Keybinding in magit commit buffer
+  (map! :map git-commit-mode-map
+        :localleader
+        :desc "Generate commit message with GPT" "g" #'magit-gptcommit-generate))
