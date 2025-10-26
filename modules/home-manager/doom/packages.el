@@ -55,8 +55,6 @@
 
 (package! magit-delta)
 
-(package! gptel-magit)
-
 (package! pdf-tools)
 
 (package! auto-dark)
@@ -78,6 +76,12 @@
 (package! acp
   :recipe (:host github :repo "xenodium/acp.el"))
 (package! agent-shell
-  :recipe (:host github :repo "xenodium/agent-shell"))
+  :recipe (:host github :repo "xenodium/agent-shell")
+  :pin "dfdcae94a72b0d689faa9556ee9ea2e1c006cf9a")
 (package! agent-shell-sidebar
   :recipe (:host github :repo "cmacrae/agent-shell-sidebar"))
+
+;; GPT-powered commit message generation
+(package! llm)
+(package! magit-gptcommit
+  :recipe (:host github :repo "douo/magit-gptcommit"))
