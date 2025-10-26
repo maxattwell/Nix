@@ -214,6 +214,8 @@
   :demand t
   :custom
   (magit-gptcommit-llm-provider llm-gemini-provider)
+  ;; Disable warning about non-free LLM services
+  (llm-warn-on-nonfree nil)
   :config
   ;; Enable in magit status buffer
   (magit-gptcommit-status-buffer-setup)
