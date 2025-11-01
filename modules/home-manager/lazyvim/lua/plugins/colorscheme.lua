@@ -8,7 +8,7 @@ return {
         contrast = "hard", -- can be "hard", "soft" or empty string
       })
       -- Set to light mode
-      vim.o.background = "light"
+      -- vim.o.background = "light"
     end,
   },
   {
