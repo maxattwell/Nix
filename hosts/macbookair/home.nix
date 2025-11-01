@@ -5,6 +5,7 @@
     ../../modules/home-manager
     ../../modules/home-manager/doom
     ../../modules/home-manager/lazyvim
+    ../../modules/home-manager/lazygit
   ];
 
   home = {
@@ -18,6 +19,7 @@
       ANDROID_HOME = "/Users/max/Library/Android/sdk";
       NPM_CONFIG_PREFIX = "~/.npm-global";
       PNPM_HOME = "~/.local/share/pnpm";
+      XDG_CONFIG_HOME ="~/.config";
     };
 
     sessionPath = [

@@ -61,6 +61,9 @@
        # Set pnpm global config
        export PNPM_HOME=~/.local/share/pnpm
        export PATH=$PNPM_HOME:$PATH
+
+       # Set XDG config home
+       export XDG_CONFIG_HOME=~/.config
       '';
     };
 
