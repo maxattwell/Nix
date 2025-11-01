@@ -12,16 +12,10 @@
     # Java OpenJDK
     zulu17
     eas-cli
-    # claude-code
-    # opencode
 
     azure-cli
     uv
     python312
-
-    # Vue language server for Emacs LSP (requires TypeScript)
-    nodePackages."@vue/language-server"
-    nodePackages.typescript
   ];
 
   environment.variables = {

@@ -57,6 +57,10 @@
        # Set npm global config
        export NPM_CONFIG_PREFIX=~/.npm-global
        export PATH=~/.npm-global/bin:$PATH
+
+       # Set pnpm global config
+       export PNPM_HOME=~/.local/share/pnpm
+       export PATH=$PNPM_HOME:$PATH
       '';
     };
 
