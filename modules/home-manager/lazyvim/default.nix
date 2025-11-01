@@ -2,10 +2,6 @@
 
 {
   home = {
-    packages = with pkgs; [
-      lazygit
-    ];
-
     sessionVariables = {
       NVIM_DIR = "$HOME/.config/nvim";
     };
