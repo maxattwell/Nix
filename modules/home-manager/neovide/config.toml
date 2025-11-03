@@ -1,0 +1,33 @@
+# Neovide Configuration
+# See: https://neovide.dev/config-file
+
+# General settings
+fork = true
+frame = "transparent"
+idle = true
+maximized = false
+mouse-cursor-icon = "i-beam"
+no-multigrid = false
+tabs = true
+theme = "auto"
+title-hidden = false
+vsync = true
+wsl = false
+
+# Font settings
+[font]
+size = 14.0
+normal = ["Mononoki Nerd Font Mono"]  # Uncomment and customize as needed
+hinting = "full"
+edging = "antialias"
+
+# Font features (example configuration)
+# [font.features]
+# "MonoLisa Nerd Font" = ["+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14"]
+
+# Box drawing configuration
+[box-drawing]
+mode = "font-glyph"  # Options: "font-glyph", "native", or "selected-native"
+
+[box-drawing.sizes]
+default = [2, 4]  # Thin and thick values respectively

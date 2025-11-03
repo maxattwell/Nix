@@ -5,7 +5,7 @@ return {
     config = function()
       require("gruvbox").setup({
         transparent_mode = false,
-        contrast = "hard", -- can be "hard", "soft" or empty string
+        contrast = "soft", -- can be "hard", "soft" or empty string
       })
       -- Set to light mode
       -- vim.o.background = "light"
