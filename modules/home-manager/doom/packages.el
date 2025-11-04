@@ -64,11 +64,6 @@
 (package! gogs)
 (package! buck)
 
-;; Vue.js support with Volar language server
-(package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
-
-
-
 ;; Agent Shell - LLM interaction in Emacs
 (package! shell-maker)
 (package! acp

@@ -64,57 +64,12 @@
 ;; Set the flags for dired when calling the ls command
 (setq dired-listing-switches "-ahlgo")
 
-;; Org-mode SQL source blocks
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((sql . t)))
-
 ;; Set vterm shell
 (setq vterm-shell "/bin/zsh")
-
-;; Web lsp
-(add-hook 'web-mode-hook #'lsp-deferred)
-
-;; Vue.js with Volar Language Server
-(use-package! lsp-volar
-  :after lsp-mode
-  :config
-  ;; Set to nil to disable take-over mode (if you want separate TS server)
-  (setq lsp-volar-take-over-mode nil)
-
-  ;; Customize completion settings
-  (setq lsp-volar-completion-tag-casing 'both)
-  (setq lsp-volar-completion-attr-casing 'kebabCase)
-
-  ;; Filter out \u0000 warnings in completions (known issue fix)
-  (defun my-lsp-volar-filter-null-chars (orig-fun &rest args)
-    "Filter null characters from Volar responses."
-    (let ((result (apply orig-fun args)))
-      (when (and result (stringp result))
-        (setq result (replace-regexp-in-string "\u0000" "" result)))
-      result))
-  (advice-add 'lsp--render-element :around #'my-lsp-volar-filter-null-chars))
-
-;; Ensure web-mode uses LSP for .vue files
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (string-equal "vue" (file-name-extension buffer-file-name))
-              (lsp-deferred))))
 
 ;; Dont create new workspace when calling emacsclient
 (after! persp-mode
   (setq! persp-emacsclient-init-frame-behaviour-override "main"))
-
-(after! forge
-  (setq forge-alist
-        '(("github.com" "api.github.com" "github.com"
-           forge-github-repository))))
-
-(setq treesit-language-source-alist
-      '((javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (go "https://github.com/tree-sitter/tree-sitter-go")
-        (gomod "https://github.com/camdencheek/tree-sitter-go-mod")))
 
 (use-package! magit-delta
   :hook (magit-mode . magit-delta-mode))
