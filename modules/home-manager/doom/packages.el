@@ -69,8 +69,7 @@
 (package! acp
   :recipe (:host github :repo "xenodium/acp.el"))
 (package! agent-shell
-  :recipe (:host github :repo "xenodium/agent-shell")
-  :pin "dfdcae94a72b0d689faa9556ee9ea2e1c006cf9a")
+  :recipe (:host github :repo "xenodium/agent-shell"))
 (package! agent-shell-sidebar
   :recipe (:host github :repo "cmacrae/agent-shell-sidebar"))
 
