@@ -1,3 +1,5 @@
+config.load_autoconfig()
+
 c.fonts.default_family = 'Overpass Nerd Font'
 c.fonts.default_size = "16pt"
 c.tabs.show = "multiple"
