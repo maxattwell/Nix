@@ -12,6 +12,7 @@ in
     # config = builtins.readFile ./sketchybarrc;
   };
 
+  # pr test claude code
   system.activationScripts.extraActivation.text = ''
     sudo -u ${username} mkdir -p ${userHome}/.config/sketchybar
     sudo -u ${username} ln -sf ${sketchybarSourcePath}/sketchybarrc ${userHome}/.config/sketchybar/sketchybarrc
