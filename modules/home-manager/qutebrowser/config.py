@@ -1,10 +1,13 @@
 config.load_autoconfig()
 
 c.fonts.default_family = 'Overpass Nerd Font'
-c.fonts.default_size = "16pt"
+c.fonts.default_size = "12pt"
 c.tabs.show = "multiple"
 c.tabs.position = "top"
 c.window.hide_decoration = False
+
+# Adding a custom search engine for ChatGPT (using OpenAI's ChatGPT interface)
+c.url.searchengines['c'] = 'https://chat.openai.com/?q={}'
 
 # gruvbox dark hard qutebrowser theme by Florian Bruhin <me@the-compiler.org>
 #

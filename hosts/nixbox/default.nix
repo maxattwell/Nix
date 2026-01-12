@@ -21,6 +21,12 @@
     nameserver 8.8.8.8
   '';
 
+  # Swap configuration
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16384; # 16GB swap file
+  }];
+
   # Auto-login configuration
   services.greetd = {
     enable = true;

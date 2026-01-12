@@ -20,6 +20,9 @@
     hyprpaper
     slurp
     grim
+    gpu-screen-recorder
+    jq
+    libnotify
   ];
 
   home.sessionVariables = {
