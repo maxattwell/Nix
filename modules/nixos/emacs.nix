@@ -12,6 +12,9 @@
   environment.systemPackages = with pkgs; [
     ripgrep
     ispell
+    whisper-cpp
+    wtype
+    wl-clipboard
     emacs
     # Latex pkgs
     (texlive.combine {

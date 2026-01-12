@@ -141,10 +141,6 @@
   (setq agent-shell-sidebar-position 'right)
   (setq agent-shell-sidebar-locked nil)
 
-  ;; Set default agent provider
-  (setq agent-shell-sidebar-default-config
-        (agent-shell-anthropic-make-claude-code-config))
-
   ;; Close sidebar with 'q' in normal mode
   (map! :map agent-shell-mode-map
         :n "q" #'agent-shell-sidebar-toggle))

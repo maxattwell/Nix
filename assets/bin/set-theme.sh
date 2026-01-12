@@ -11,6 +11,9 @@ WAYBAR_CURRENT_THEME_DIR="$HOME/.config/waybar"
 KITTY_THEME_DIR="$HOME/Nix/assets/kitty-themes"
 KITTY_CURRENT_THEME="$HOME/.config/kitty/current_theme.conf"
 
+MAKO_THEME_DIR="$HOME/.config/mako"
+MAKO_CONFIG="$HOME/.config/mako/config"
+
 if [ "$THEME" = "light" ]; then
     emacsclient -e "(progn (mapc #'disable-theme custom-enabled-themes) (load-theme 'doom-gruvbox-light t))"
     WALLPAPER="keys-l.png"
@@ -44,3 +47,9 @@ pkill -SIGUSR2 waybar
 
 # Reload Kitty
 pkill -SIGUSR1 kitty
+
+# Update Mako theme
+ln -sf "$MAKO_THEME_DIR/$THEME" "$MAKO_CONFIG"
+
+# Reload Mako
+makoctl reload

@@ -3,7 +3,7 @@
 
 # General settings
 fork = true
-frame = "transparent"
+frame = "none"
 idle = true
 maximized = false
 mouse-cursor-icon = "i-beam"
@@ -16,7 +16,7 @@ wsl = false
 
 # Font settings
 [font]
-size = 14.0
+size = 12.0
 normal = ["Mononoki Nerd Font Mono"]  # Uncomment and customize as needed
 hinting = "full"
 edging = "antialias"
