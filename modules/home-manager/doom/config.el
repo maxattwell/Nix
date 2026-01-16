@@ -110,45 +110,6 @@
       (:prefix ("o" . "open")
        :desc "Toggle eshell" "e" #'+eshell/toggle))
 
-;; Agent Shell configuration for Claude AI
-(use-package! shell-maker
-  :defer t)
-
-(use-package! acp
-  :defer t)
-
-(use-package! agent-shell
-  :commands (agent-shell agent-shell-anthropic-start-claude-code)
-  :after (shell-maker acp)
-  :config
-  ;; Enable agent-shell-completion-mode by default
-  (add-hook 'agent-shell-mode-hook #'agent-shell-completion-mode)
-
-  ;; Use delta for syntax-highlighted diffs in agent-shell
-  (setq agent-shell-diff-use-delta t)
-
-  ;; Mode switching keybindings
-  (map! :map agent-shell-mode-map
-        :n "m" #'agent-shell-cycle-session-mode
-        :n "M" #'agent-shell-set-session-mode))
-
-(use-package! agent-shell-sidebar
-  :after agent-shell
-  :config
-  ;; Sidebar appearance
-  (setq agent-shell-sidebar-width "30%")
-  (setq agent-shell-sidebar-minimum-width 60)
-  (setq agent-shell-sidebar-position 'right)
-  (setq agent-shell-sidebar-locked nil)
-
-  ;; Close sidebar with 'q' in normal mode
-  (map! :map agent-shell-mode-map
-        :n "q" #'agent-shell-sidebar-toggle))
-
-;; Bind SPC o i to toggle agent-shell sidebar (outside use-package! so it loads immediately)
-(map! :leader
-      :desc "Toggle Agent Sidebar" "o i" #'agent-shell-sidebar-toggle)
-
 ;; LLM provider setup for Gemini
 (use-package! llm
   :init
@@ -170,3 +131,9 @@
   :config
   ;; Enable in magit status buffer
   (magit-gptcommit-status-buffer-setup))
+
+(setq opencode-event-log-max-lines 200)
+
+;; Bind SPC o i to run opencode
+(map! :leader
+      :desc "Run OpenCode" "o i" #'opencode)
