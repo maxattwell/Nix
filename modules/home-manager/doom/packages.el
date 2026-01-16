@@ -64,16 +64,10 @@
 (package! gogs)
 (package! buck)
 
-;; Agent Shell - LLM interaction in Emacs
-(package! shell-maker)
-(package! acp
-  :recipe (:host github :repo "xenodium/acp.el"))
-(package! agent-shell
-  :recipe (:host github :repo "xenodium/agent-shell"))
-(package! agent-shell-sidebar
-  :recipe (:host github :repo "rynffoll/agent-shell-sidebar" :branch "fix-passing-args"))
-
 ;; GPT-powered commit message generation
 (package! llm)
 (package! magit-gptcommit
   :recipe (:host github :repo "douo/magit-gptcommit"))
+
+(package! opencode
+  :recipe (:host codeberg :repo "sczi/opencode.el"))
