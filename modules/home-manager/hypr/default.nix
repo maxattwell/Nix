@@ -23,6 +23,7 @@
     gpu-screen-recorder
     jq
     libnotify
+    bluetuith
   ];
 
   home.sessionVariables = {

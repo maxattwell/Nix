@@ -4,7 +4,7 @@
   "spacing": 0,
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["disk", "memory", "cpu"],
-  "modules-right": ["bluetooth", "custom/radioplayer", "clock"],
+  "modules-right": ["network", "bluetooth", "custom/radioplayer", "clock"],
   "custom/radioplayer": {
     "format": "",
     "return-type": "json",
@@ -34,7 +34,15 @@
     "format": "󰂯",
     "format-disabled": "󰂲",
     "format-connected": "{num_connections} ",
-    "on-click": "overskride"
+    "on-click": "kitty --class floating_terminal --title floating_terminal -e bluetuith"
+  },
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "󰈀",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "⚠",
+    "on-click": "kitty --class floating_terminal --title floating_terminal -e nmtui"
   },
   "clock": {
     "timezone": "Pacific/Auckland",
