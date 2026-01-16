@@ -107,6 +107,7 @@ button:hover {
 }
 
 #bluetooth,
+#network,
 #custom-radioplayer {
     padding: 0 10px;
     background-color: @bg1;
@@ -116,6 +117,7 @@ button:hover {
 }
 
 #bluetooth:hover,
+#network:hover,
 #custom-radioplayer:hover {
     background-color: @bg2;
 }
@@ -224,14 +226,6 @@ label:focus {
 
 #backlight {
     background-color: #90b1b1;
-}
-
-#network {
-    background-color: #2980b9;
-}
-
-#network.disconnected {
-    background-color: #f53c3c;
 }
 
 #pulseaudio {
