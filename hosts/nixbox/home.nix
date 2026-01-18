@@ -4,7 +4,6 @@
   imports = [
     ../../modules/home-manager
     ../../modules/home-manager/hypr
-    # ../../modules/home-manager/quickshell
     ../../modules/home-manager/waybar
     ../../modules/home-manager/swaync
     ../../modules/home-manager/kitty
@@ -12,7 +11,6 @@
     ../../modules/home-manager/lazyvim
     ../../modules/home-manager/lazygit
     ../../modules/home-manager/neovide
-    ../../modules/home-manager/qutebrowser
   ];
 
   home = {
