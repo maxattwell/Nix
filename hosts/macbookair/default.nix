@@ -10,6 +10,7 @@
     ../../modules/darwin/qutebrowser.nix
     # ../../modules/darwin/aerospace.nix
     ../../modules/darwin/sketchybar
+    ../../modules/darwin/remote-access.nix
   ];
 
   networking.hostName = hostname;
