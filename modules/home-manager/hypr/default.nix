@@ -16,6 +16,8 @@
     };
   };
 
+  programs.bluetuith.enable = true;
+
   home.packages = with pkgs; [
     hyprpaper
     slurp
@@ -23,7 +25,6 @@
     gpu-screen-recorder
     jq
     libnotify
-    bluetuith
   ];
 
   home.sessionVariables = {

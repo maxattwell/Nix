@@ -7,6 +7,7 @@
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/dev.nix
+    ../../modules/nixos/remote-access.nix
   ];
 
   networking = {
