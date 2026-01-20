@@ -60,7 +60,7 @@
 
         # Shortcuts
         cmd-enter = "exec-and-forget osascript -e 'tell application \"iTerm2\" to create window with default profile'";
-        cmd-e = "exec-and-forget emacsclient -cn";
+        cmd-e = "exec-and-forget ${pkgs.emacs}/bin/emacsclient -cn";
         cmd-shift-enter = "exec-and-forget osascript -e 'tell application \"Google Chrome\" to make new window'";
         cmd-q = "close";
         cmd-p = "workspace-back-and-forth";
