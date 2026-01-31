@@ -2,7 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
+    teams-for-linux
+
     azure-cli
+
+    dbeaver-bin
 
     cacert
 
