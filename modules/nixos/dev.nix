@@ -17,7 +17,6 @@
     yarn
     supabase-cli
     docker-compose
-    tmux
 
     uv
     python312

@@ -10,5 +10,7 @@
     };
   };
 
+  programs.mosh.enable = true;
+
   services.tailscale.enable = true;
 }

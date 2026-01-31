@@ -118,7 +118,7 @@
   (setq llm-gemini-provider
         (make-llm-gemini
          :key (string-trim (shell-command-to-string "pass Google/gemini-api-key"))
-         :chat-model "gemini-2.0-flash-exp")))
+         :chat-model "gemini-3-flash-preview")))
 
 ;; Magit GPT Commit - AI-powered commit message generation
 (use-package! magit-gptcommit
@@ -137,3 +137,7 @@
 ;; Bind SPC o i to run opencode
 (map! :leader
       :desc "Run OpenCode" "o i" #'opencode)
+
+;; Prefer minibuffer prompts over system dialog windows
+(setq use-file-dialog nil)
+(setq use-dialog-box nil)
