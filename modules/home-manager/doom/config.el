@@ -141,3 +141,6 @@
 ;; Prefer minibuffer prompts over system dialog windows
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
+
+(use-package! msgpack)
+(use-package! tramp-rpc)

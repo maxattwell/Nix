@@ -71,3 +71,7 @@
 
 (package! opencode
   :recipe (:host codeberg :repo "sczi/opencode.el"))
+
+(package! msgpack)
+(package! tramp-rpc
+  :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))
