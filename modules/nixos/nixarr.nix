@@ -9,9 +9,6 @@
   # Enable nixarr server
   nixarr = {
     enable = true;
-    # Move state/databases to SSD to allow HDD to spin down
-    stateDir = "/var/lib/nixarr";  # This will be on your SSD (/ filesystem)
-    mediaDir = "/data/media";      # Keep media on HDD
 
     jellyfin.enable = true;
     jellyseerr.enable = true;
