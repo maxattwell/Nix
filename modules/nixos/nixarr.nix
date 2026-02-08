@@ -12,10 +12,17 @@
 
     jellyfin.enable = true;
     jellyseerr.enable = true;
-    transmission.enable = true;
     prowlarr.enable = true;
     radarr.enable = true;
     sonarr.enable = true;
-    readarr.enable = true;
+    transmission = {
+      enable = true;
+      credentialsFile = "/var/lib/secrets/transmission/settings.json";
+      extraSettings = {
+          rpc-whitelist-enabled = false;
+          rpc-host-whitelist-enabled = false;
+          rpc-bind-address = "0.0.0.0"; 
+        };
+    };
   };
 }
