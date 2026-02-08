@@ -1,33 +1,38 @@
 { config, lib, pkgs, ... }:
 
 let
-  networkIP = "192.168.31.220";
+  networkIP = "shedservarr";
 
   sonarrPort = 8989;
-  sonarrKey = "1fb854a00ed2474ead57e9e3cc81e77d";
+  sonarrKey = "{{HOMEPAGE_VAR_SONARR_KEY}}";
 
   radarrPort = 7878;
-  radarrKey = "3f7a89922d184f8b9192dc27afb29808";
+  radarrKey = "{{HOMEPAGE_VAR_RADARR_KEY}}";
+
+  jellySeerrPort = 5055;
+  jellySeerrKey = "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}";
+
+  calibrePort = 8083;
+  calibreUsername = "admin";
+  calibrePassword = "{{HOMEPAGE_VAR_CALIBRE_PASSWORD}}";
 
   transmissionPort = 9091;
   transmissionUsername = "max";
-  transmissionPassword = "land";
+  transmissionPassword = "{{HOMEPAGE_VAR_TRANSMISSION_PASSWORD}}";
 
   jellyfinPort = 8096;
-  jellyfinKey = "00bd060650044ab098e9f945f1c79ad9";
+  jellyfinKey = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
 
   prowlarrPort = 9696;
-  prowlarrKey = "6c6deb549af5414298eb900aad4d7c13";
-
-  jellySeerPort = 5055;
-  jellySeerKey = "7e4986d611dd401f8ccd87362eb2372c";
+  prowlarrKey = "{{HOMEPAGE_VAR_PROWLARR_KEY}}";
 in
 {
   services.homepage-dashboard = {
     enable = true;
+    environmentFile = "/etc/homepage.env";
     openFirewall = true;
     settings.title = "ShedServarr";
-    allowedHosts = "192.168.31.220:8082";
+    allowedHosts = "shedservarr:8082";
     services = [
       {
         "Manage" = [
@@ -58,12 +63,26 @@ in
           {
             "Jellyseerr" = {
               icon = "jellyseerr.png";
-              href = "http://${networkIP}:${toString jellySeerPort}";
+              href = "http://${networkIP}:${toString jellySeerrPort}";
               description = "Media Requests";
               widget = {
-                type = "radarr";
-                url = "http://localhost:${toString jellySeerPort}";
-                key = jellySeerKey;
+                type = "jellyseerr";
+                url = "http://localhost:${toString jellySeerrPort}";
+                key = jellySeerrKey;
+              };
+            };
+          }
+          {
+            "Calibre" = {
+              icon = "calibre.png";
+              href = "http://${networkIP}:${toString calibrePort}";
+              description = "Book Library";
+              widget = {
+                type = "calibreweb";
+                url = "http://localhost:${toString calibrePort}";
+                username = calibreUsername;
+                password = calibrePassword;
+
               };
             };
           }
