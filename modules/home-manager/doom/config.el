@@ -144,3 +144,6 @@
 
 (use-package! msgpack)
 (use-package! tramp-rpc)
+
+(after! diff-hl
+  (setq diff-hl-disable-on-remote t))
