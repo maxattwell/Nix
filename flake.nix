@@ -21,6 +21,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ambxst.url = "github:Axenide/Ambxst";
+
+    radio-applet.url = "github:maxattwell/cosmic-ext-applet-radio";
+
+    cosmic-applets-collection.url = "git+file:///home/max/code/cosmic/ext-cosmic-applets-flake";
+
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,6 +39,7 @@
     home-manager,
     nix-darwin,
     nix-homebrew,
+    radio-applet,
     nixarr,
     ...
   }:

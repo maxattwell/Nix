@@ -13,6 +13,8 @@
 
   programs.zsh.enable = true;
 
+  services.envfs.enable = true; # Maps standard paths like /bin/bash to the Nix store for script compatibility
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
