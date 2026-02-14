@@ -7,8 +7,6 @@
     ../../modules/nixos/remote-access.nix
   ];
 
-  services.displayManager.cosmic-greeter.enable = true;
-
   services.upower.enable = true;
   
   programs.hyprland.enable = true;

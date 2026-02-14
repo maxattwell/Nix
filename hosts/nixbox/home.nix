@@ -4,8 +4,8 @@
   imports = [
     ../../modules/home-manager
     ../../modules/home-manager/doom
-    ../../modules/home-manager/ambxst
     ../../modules/home-manager/kitty
+    ../../modules/home-manager/noctalia
   ];
 
   home = {
@@ -16,6 +16,8 @@
 
   services.emacs = {
     enable = true;
+    package = pkgs.emacs-pgtk;
+    startWithUserSession = "graphical";
     defaultEditor = true;
     client.enable = true;
     socketActivation.enable = true;

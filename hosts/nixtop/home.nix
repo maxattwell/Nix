@@ -4,7 +4,6 @@
   imports = [
     ../../modules/home-manager
     ../../modules/home-manager/doom
-    ../../modules/home-manager/tmux.nix
     ../../modules/home-manager/kitty
     ../../modules/home-manager/noctalia
   ];
