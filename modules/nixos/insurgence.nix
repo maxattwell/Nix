@@ -8,6 +8,10 @@
 
     dbeaver-bin
 
+    go-task
+
+    gh
+
     cacert
 
     cloudflare-warp

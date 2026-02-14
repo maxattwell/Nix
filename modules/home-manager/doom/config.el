@@ -118,7 +118,7 @@
   (setq llm-gemini-provider
         (make-llm-gemini
          :key (string-trim (shell-command-to-string "pass Google/gemini-api-key"))
-         :chat-model "gemini-3-flash-preview")))
+         :chat-model "gemini-2.5-flash-lite")))
 
 ;; Magit GPT Commit - AI-powered commit message generation
 (use-package! magit-gptcommit
