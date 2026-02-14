@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  # programs.kitty.enable = true;
+  programs.kitty.enable = true;
 
   # Symlink config file for easy editing without rebuilds
   xdg.configFile = {
