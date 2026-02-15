@@ -11,7 +11,7 @@
   home = {
     username = "max";
     homeDirectory = "/home/max";
-    stateVersion = "24.11";
+    stateVersion = "25.11";
   };
 
   services.emacs = {
