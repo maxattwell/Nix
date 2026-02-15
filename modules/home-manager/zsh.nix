@@ -13,7 +13,7 @@
       #bindkey '^j' history-search-forward
       bindkey '^h' backward-word
       bindkey '^l' forward-word
-      bindkey '^[[3;5~' backward-kill-word
+      bindkey '^[[127;5u' backward-kill-word
       # Highlight selected item in completion menu
       zstyle ':completion:*' menu select
 

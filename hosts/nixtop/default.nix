@@ -16,8 +16,13 @@
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
     chromium
     hyprcursor
-
   ];
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "gtk"; 
+  };
 
   nix.settings = {
     extra-substituters = [
