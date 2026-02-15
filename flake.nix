@@ -74,7 +74,7 @@
 
         nixtop = lib.mkNixosSystem {
           hostname = "nixtop";
-          extraModules = [ apple-silicon.nixosModules.default ];
+          extraModules = [ apple-silicon.nixosModules.apple-silicon-support ];
         };
 
         shedservarr = lib.mkNixosSystem {
