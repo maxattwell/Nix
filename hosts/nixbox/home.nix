@@ -4,7 +4,7 @@
   imports = [
     ../../modules/home-manager
     ../../modules/home-manager/doom
-    ../../modules/home-manager/kitty
+    ../../modules/home-manager/ghostty
     ../../modules/home-manager/noctalia
   ];
 
@@ -21,6 +21,14 @@
     defaultEditor = true;
     client.enable = true;
     socketActivation.enable = true;
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark"; # Or your preferred theme
+      package = pkgs.gnome-themes-extra;
+    };
   };
 
   programs.home-manager.enable = true;
