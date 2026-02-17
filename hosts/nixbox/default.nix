@@ -16,8 +16,16 @@
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
     chromium
     hyprcursor
-
+    spotify
   ];
+
+  hardware.bluetooth.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "gtk"; 
+  };
 
   networking = {
     hostName = hostname;
