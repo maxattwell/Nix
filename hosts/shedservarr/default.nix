@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/nix-cache.nix
     ../../modules/nixos
     ../../modules/nixos/remote-access.nix
     ../../modules/nixos/nixarr.nix
