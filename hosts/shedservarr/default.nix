@@ -15,7 +15,7 @@
   networking.hostName = hostname;
 
   environment.systemPackages = with pkgs; [
-    kitty.terminfo
+    ghostty.terminfo
   ];
 
   # Before changing this value read the documentation for this option
