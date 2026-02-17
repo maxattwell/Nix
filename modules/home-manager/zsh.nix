@@ -54,6 +54,11 @@
         nitch
       fi
 
+      # Only set TERM=linux for Ghostty
+      if [ "$SSH_TTY" ] && [ "$TERM_PROGRAM" = "ghostty" ]; then
+          export TERM=linux
+      fi
+
        # Set npm global config
        export NPM_CONFIG_PREFIX=~/.npm-global
        export PATH=~/.npm-global/bin:$PATH
