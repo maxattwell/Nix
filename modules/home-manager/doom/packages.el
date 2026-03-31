@@ -69,9 +69,12 @@
 (package! magit-gptcommit
   :recipe (:host github :repo "douo/magit-gptcommit"))
 
-(package! opencode
-  :recipe (:host codeberg :repo "sczi/opencode.el"))
-
 (package! msgpack)
 (package! tramp-rpc
   :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))
+
+(package! shell-maker)
+(package! acp)
+(package! agent-shell)
+(package! agent-shell-sidebar
+  :recipe (:host github :repo "cmacrae/agent-shell-sidebar"))
