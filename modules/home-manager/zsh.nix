@@ -64,6 +64,9 @@
 
        # Set XDG config home
        export XDG_CONFIG_HOME=~/.config
+
+       # Add .local/bin to path
+       export PATH="$HOME/.local/bin:$PATH"
       '';
     };
 
