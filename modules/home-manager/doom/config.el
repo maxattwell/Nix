@@ -132,12 +132,6 @@
   ;; Enable in magit status buffer
   (magit-gptcommit-status-buffer-setup))
 
-(setq opencode-event-log-max-lines 200)
-
-;; Bind SPC o i to run opencode
-(map! :leader
-      :desc "Run OpenCode" "o i" #'opencode)
-
 ;; Prefer minibuffer prompts over system dialog windows
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
@@ -147,3 +141,65 @@
 
 (after! diff-hl
   (setq diff-hl-disable-on-remote t))
+
+;; Agent Shell Sidebar - AI assistant sidebar
+(use-package! agent-shell-sidebar
+  :after agent-shell
+  :vc (:url "https://github.com/cmacrae/agent-shell-sidebar")
+  :custom
+  (agent-shell-sidebar-width "25%")
+  (agent-shell-sidebar-minimum-width 80)
+  (agent-shell-sidebar-maximum-width "50%")
+  (agent-shell-sidebar-position 'right)
+  (agent-shell-sidebar-locked t)
+  :config
+  ;; Custom OpenCode agent configuration with Kimi model
+  (setq agent-shell-sidebar-default-config
+        (agent-shell-make-agent-config
+         :identifier 'opencode-kimi
+         :mode-line-name "OpenCode"
+         :buffer-name "OpenCode"
+         :shell-prompt "> "
+         :shell-prompt-regexp "> "
+         :icon-name "opencode.png"
+         :client-maker (lambda (buffer)
+                         (agent-shell--make-acp-client
+                          :command "opencode"
+                          :command-params '("acp")
+                          :environment-variables '()
+                          :context-buffer buffer))
+         :needs-authentication nil
+         :default-model-id (lambda () "kimi-for-coding/k2p5"))))
+
+;; Agent Shell Sidebar keybindings
+(map! :leader
+      (:prefix ("a" . "AI/Agent")
+       ;; Sidebar control
+       :desc "Toggle sidebar" "s" #'agent-shell-sidebar-toggle
+       :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
+       :desc "Reset sidebar" "r" #'agent-shell-sidebar-reset
+
+       ;; Model & session management
+       :desc "Set model" "m" #'agent-shell-set-session-model
+       :desc "Cycle session mode" "t" #'agent-shell-cycle-session-mode
+       :desc "Set session mode" "T" #'agent-shell-set-session-mode
+
+       ;; Interaction control
+       :desc "Interrupt" "i" #'agent-shell-interrupt
+       :desc "Clear buffer" "k" #'agent-shell-clear-buffer
+
+       ;; Send content
+       :desc "Send current file" "." #'agent-shell-send-current-file
+       :desc "Send file" "," #'agent-shell-send-file
+       :desc "Send region" "v" #'agent-shell-send-region
+       :desc "Send screenshot" "p" #'agent-shell-send-screenshot
+       :desc "Send clipboard image" "y" #'agent-shell-send-clipboard-image
+
+       ;; Shell management
+       :desc "New shell" "n" #'agent-shell-new-shell
+       :desc "Kill shell" "K" #'agent-shell-kill-buffer
+       :desc "Rename shell" "R" #'agent-shell-rename-buffer
+       :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
+
+       ;; Help
+       :desc "Help menu" "h" #'agent-shell-help-menu))
