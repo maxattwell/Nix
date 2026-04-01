@@ -153,23 +153,7 @@
   (agent-shell-sidebar-position 'right)
   (agent-shell-sidebar-locked t)
   :config
-  ;; Custom OpenCode agent configuration with Kimi model
-  (setq agent-shell-sidebar-default-config
-        (agent-shell-make-agent-config
-         :identifier 'opencode-kimi
-         :mode-line-name "OpenCode"
-         :buffer-name "OpenCode"
-         :shell-prompt "> "
-         :shell-prompt-regexp "> "
-         :icon-name "opencode.png"
-         :client-maker (lambda (buffer)
-                         (agent-shell--make-acp-client
-                          :command "opencode"
-                          :command-params '("acp")
-                          :environment-variables '()
-                          :context-buffer buffer))
-         :needs-authentication nil
-         :default-model-id (lambda () "kimi-for-coding/k2p5"))))
+  (setq agent-shell-opencode-default-model-id "kimi-for-coding/k2p5"))
 
 ;; Agent Shell Sidebar keybindings
 (map! :leader
