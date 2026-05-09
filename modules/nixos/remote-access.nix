@@ -12,5 +12,8 @@
 
   programs.mosh.enable = true;
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "both";
+  };
 }
