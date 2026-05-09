@@ -14,6 +14,8 @@
 
   networking.hostName = hostname;
 
+  networking.firewall.allowedTCPPorts = [ 443 ];
+
   environment.systemPackages = with pkgs; [
     ghostty.terminfo
   ];
