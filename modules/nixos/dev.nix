@@ -11,7 +11,7 @@
     unzip
     brave
     google-chrome
-    nodejs_22
+    nodejs
     bun
     pnpm
     yarn
@@ -26,6 +26,8 @@
     pre-commit
 
     mitmproxy
+
+    slack
   ];
 
   # Enable gpu-screen-recorder with proper permissions

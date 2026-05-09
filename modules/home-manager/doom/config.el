@@ -153,7 +153,7 @@
   (agent-shell-sidebar-position 'right)
   (agent-shell-sidebar-locked t)
   :config
-  (setq agent-shell-opencode-default-model-id "kimi-for-coding/k2p5"))
+  (setq agent-shell-opencode-default-model-id "openai/gpt-5.3-codex/medium"))
 
 ;; Agent Shell Sidebar keybindings
 (map! :leader

@@ -12,6 +12,8 @@
 
     gh
 
+    terraform
+
     cacert
 
     cloudflare-warp
