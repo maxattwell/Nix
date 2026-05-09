@@ -16,4 +16,6 @@
     enable = true;
     useRoutingFeatures = "both";
   };
+
+  networking.firewall.allowedTCPPorts = [ 443 ];
 }
