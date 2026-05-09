@@ -1,7 +1,7 @@
 { config, inputs, pkgs, ... }: {
   home.packages = [
     inputs.ambxst.packages.${pkgs.system}.default
-    pkgs.spotify
+    # pkgs.spotify
   ];
 
 

@@ -11,4 +11,13 @@
       exec start-hyprland
     fi
   '';
+
+  home.packages = with pkgs; [
+    # For screenshot & record plugin
+    grim
+    imagemagick
+    satty
+    swappy
+    wf-recorder
+  ];
 }
