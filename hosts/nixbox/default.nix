@@ -14,13 +14,15 @@
 
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     chromium
     hyprcursor
-    spotify
+    # spotify
   ];
 
   hardware.bluetooth.enable = true;
+
+  services.flatpak.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -33,12 +35,13 @@
     networkmanager.enable = true;
     useNetworkd = false;
     firewall.enable = false;
+
   };
 
-  environment.etc."resolv.conf".text = ''
-    nameserver 1.1.1.1
-    nameserver 8.8.8.8
+  environment.etc."gai.conf".text = ''
+    precedence ::ffff:0:0/96 100
   '';
+
 
   # Swap configuration
   swapDevices = [{

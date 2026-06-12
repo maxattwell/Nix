@@ -16,7 +16,7 @@ in
   inherit mkHomeManager;
 
   # Helper to build NixOS systems
-  mkNixosSystem = { hostname, extraModules ? [] }: inputs.nixpkgs.lib.nixosSystem {
+  mkNixosSystem = { hostname, extraModules ? [], pkgsInput ? inputs.nixpkgs }: pkgsInput.lib.nixosSystem {
     system = linuxSystem;
     modules = [
       ../hosts/${hostname}

@@ -8,6 +8,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    gcc
     ripgrep
     ispell
     emacs-pgtk
