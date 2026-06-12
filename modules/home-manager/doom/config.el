@@ -142,6 +142,20 @@
 (after! diff-hl
   (setq diff-hl-disable-on-remote t))
 
+;; pi-coding-agent (Doom Emacs)
+(use-package! pi-coding-agent
+  :commands (pi-coding-agent pi)
+  :init
+  (defalias 'pi #'pi-coding-agent)
+  :config
+  ;; Optional defaults
+  (setq pi-coding-agent-input-window-height 10
+        pi-coding-agent-tool-preview-lines 10
+        pi-coding-agent-bash-preview-lines 5
+        pi-coding-agent-context-warning-threshold 70
+        pi-coding-agent-context-error-threshold 90
+        pi-coding-agent-visit-file-other-window t))
+
 ;; Agent Shell Sidebar - AI assistant sidebar
 (use-package! agent-shell-sidebar
   :after agent-shell
@@ -153,11 +167,12 @@
   (agent-shell-sidebar-position 'right)
   (agent-shell-sidebar-locked t)
   :config
-  (setq agent-shell-opencode-default-model-id "openai/gpt-5.3-codex/medium"))
+  (setq agent-shell-opencode-default-model-id "openai/gpt-5.4/medium"))
 
 ;; Agent Shell Sidebar keybindings
 (map! :leader
       (:prefix ("a" . "AI/Agent")
+       :desc "pi coding agent" "P" #'pi-coding-agent
        ;; Sidebar control
        :desc "Toggle sidebar" "s" #'agent-shell-sidebar-toggle
        :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
@@ -187,3 +202,23 @@
 
        ;; Help
        :desc "Help menu" "h" #'agent-shell-help-menu))
+
+(after! lsp-mode
+  (add-to-list 'lsp-disabled-clients 'vetur)
+  (add-to-list 'lsp-disabled-clients 'vls)
+  (add-to-list 'lsp-disabled-clients 'tailwindcss)
+  (setq lsp-auto-guess-root t))
+
+(after! lsp-volar
+  (setq lsp-volar-location-for-typescript-plugin :auto
+        lsp-volar-typescript-server-id 'ts-ls))
+
+(after! lsp-clients
+  (defun my/lsp-use-project-typescript-tsdk ()
+    (when (and buffer-file-name (string-match-p "\\.vue\\'" buffer-file-name))
+      (when-let* ((root (or (locate-dominating-file default-directory "package.json")
+                            (locate-dominating-file default-directory "tsconfig.json")))
+                  (tsdk (expand-file-name "node_modules/typescript/lib" root)))
+        (when (file-directory-p tsdk)
+          (setq-local lsp-clients-typescript-tsdk tsdk)))))
+  (add-hook 'web-mode-hook #'my/lsp-use-project-typescript-tsdk))

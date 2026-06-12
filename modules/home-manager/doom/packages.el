@@ -59,10 +59,10 @@
 
 (package! auto-dark)
 
-(package! glab)
-(package! gtea)
-(package! gogs)
-(package! buck)
+;; (package! glab)
+;; (package! gtea)
+;; (package! gogs)
+;; (package! buck)
 
 ;; GPT-powered commit message generation
 (package! llm)
@@ -75,6 +75,7 @@
 
 (package! shell-maker)
 (package! acp)
+(package! pi-coding-agent)
 (package! agent-shell)
 (package! agent-shell-sidebar
   :recipe (:host github :repo "cmacrae/agent-shell-sidebar"))

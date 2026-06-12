@@ -72,6 +72,9 @@
 
        # Add .local/bin to path
        export PATH="$HOME/.local/bin:$PATH"
+
+       # Add .bun to path
+       export PATH="$HOME/.bun/bin:$PATH"
       '';
     };
 
