@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, hostname, ... }:
 
 {
+  networking.hostName = hostname;
+
   nix.settings.experimental-features = ["nix-command flakes"];
 
   users.users.max = {
