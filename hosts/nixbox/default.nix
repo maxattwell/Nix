@@ -5,6 +5,8 @@
     ../../modules/nix-cache.nix
     ../../modules/nixos
     ../../modules/nixos/networkmanager.nix
+    ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/noctalia.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/dev.nix
@@ -17,25 +19,14 @@
   # supported legacy_580 NVIDIA driver, so stay on the 6.12 LTS line.
   boot.kernelPackages = pkgs.linuxPackages_6_12;
 
-  programs.hyprland.enable = true;
-
   environment.systemPackages = with pkgs; [
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     chromium
-    hyprcursor
     # spotify
   ];
 
   hardware.bluetooth.enable = true;
 
   services.flatpak.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "gtk"; 
-  };
 
   services.resolved.enable = true;
   networking.networkmanager.dns = "systemd-resolved";

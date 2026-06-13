@@ -5,26 +5,17 @@
     ../../modules/nix-cache.nix
     ../../modules/nixos
     ../../modules/nixos/networkmanager.nix
+    ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/noctalia.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/remote-access.nix
   ];
 
   services.upower.enable = true;
   
-  programs.hyprland.enable = true;
-
   environment.systemPackages = with pkgs; [
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     chromium
-    hyprcursor
   ];
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "gtk"; 
-  };
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
