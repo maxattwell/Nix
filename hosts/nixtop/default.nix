@@ -1,12 +1,10 @@
-{ config, pkgs, inputs, hostname, ... }:
+{ config, pkgs, hostname, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nix-cache.nix
     ../../modules/nixos
-    ../../modules/nixos/networkmanager.nix
-    ../../modules/nixos/hyprland.nix
-    ../../modules/nixos/noctalia.nix
+    ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/remote-access.nix
   ];
