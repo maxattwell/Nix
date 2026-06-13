@@ -1,6 +1,6 @@
 { config, inputs, pkgs, ... }: {
   home.packages = [
-    inputs.ambxst.packages.${pkgs.system}.default
+    inputs.ambxst.packages.${pkgs.stdenv.hostPlatform.system}.default
     # pkgs.spotify
   ];
 

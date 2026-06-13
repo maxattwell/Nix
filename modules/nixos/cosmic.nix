@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let 
-    cosmic-bg-theme = inputs.cosmic-applets-collection.packages.${pkgs.system}.cosmic-ext-bg-theme;
+    cosmic-bg-theme = inputs.cosmic-applets-collection.packages.${pkgs.stdenv.hostPlatform.system}.cosmic-ext-bg-theme;
 in
 {
   services.displayManager.cosmic-greeter.enable = true;
@@ -8,8 +8,8 @@ in
 
   environment.systemPackages = with pkgs; [
     cosmic-ext-applet-minimon
-    inputs.cosmic-applets-collection.packages.${pkgs.system}.cosmic-ext-applet-clipboard-manager
-    inputs.radio-applet.packages.${pkgs.system}.default
+    inputs.cosmic-applets-collection.packages.${pkgs.stdenv.hostPlatform.system}.cosmic-ext-applet-clipboard-manager
+    inputs.radio-applet.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   fonts.packages = with pkgs; [
