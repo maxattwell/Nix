@@ -1,36 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
     ../../modules/home-manager
-    ../../modules/home-manager/doom
-    ../../modules/home-manager/ghostty
-    ../../modules/home-manager/noctalia
+    ../../modules/home-manager/linux/profiles/desktop-environment.nix
+    ../../modules/home-manager/linux/profiles/emacs.nix
   ];
 
-  home = {
-    username = "max";
-    homeDirectory = "/home/max";
-    stateVersion = "24.11";
-  };
-
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs-pgtk;
-    startWithUserSession = "graphical";
-    defaultEditor = true;
-    client.enable = true;
-    socketActivation.enable = true;
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark"; # Or your preferred theme
-      package = pkgs.gnome-themes-extra;
-    };
-    gtk4.theme = null;
-  };
-
-  programs.home-manager.enable = true;
+  home.stateVersion = "24.11";
 }
