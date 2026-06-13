@@ -37,7 +37,6 @@
   };
 
   networking = {
-    hostName = hostname;
     networkmanager.enable = true;
     useNetworkd = false;
     firewall.enable = false;
