@@ -9,8 +9,6 @@
     zip
     tree
     unzip
-    brave
-    google-chrome
     nodejs
     bun
     pnpm
