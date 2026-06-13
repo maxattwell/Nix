@@ -2,4 +2,5 @@ resize-overlay = never
 background-opacity = 0.85
 keybind = ctrl+backspace=text:\x1b[127;5u
 
+font-size = 10
 theme = noctalia

@@ -3,10 +3,12 @@
 {
   home = {
     sessionVariables = {
-      DOOM_DIR = "$HOME/.config/emacs/bin";
+      # Doom looks for user config in DOOMDIR. Keep the CLI on PATH
+      # separately; DOOM_DIR is not a Doom-recognised variable.
+      DOOMDIR = "$HOME/.config/doom";
     };
     sessionPath = [
-      "$DOOM_DIR"
+      "$HOME/.config/emacs/bin"
     ];
   };
 
