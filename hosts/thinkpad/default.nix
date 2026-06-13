@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
     ../../modules/nix-cache.nix
     ../../modules/nixos
+    ../../modules/nixos/networkmanager.nix
+    ../../modules/nixos/dns-public.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/dev.nix
     ../../modules/nixos/remote-access.nix
@@ -30,17 +32,6 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config.common.default = "gtk"; 
-  };
-
-  networking = {
-    networkmanager = {
-      enable = true;
-      dns = "none";
-    };
-    useNetworkd = false;
-    firewall.enable = false;
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
-
   };
 
   system.stateVersion = "26.05"; # Did you read the comment?

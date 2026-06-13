@@ -8,7 +8,7 @@
   users.users.max = {
     isNormalUser = true;
     description = "Max Attwell";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "wheel" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };

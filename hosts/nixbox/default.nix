@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/nix-cache.nix
     ../../modules/nixos
+    ../../modules/nixos/networkmanager.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/dev.nix
@@ -34,12 +35,6 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config.common.default = "gtk"; 
-  };
-
-  networking = {
-    networkmanager.enable = true;
-    useNetworkd = false;
-    firewall.enable = false;
   };
 
   services.resolved.enable = true;
