@@ -29,7 +29,7 @@ in
 {
   services.homepage-dashboard = {
     enable = true;
-    environmentFile = "/etc/homepage.env";
+    environmentFiles = [ "/etc/homepage.env" ];
     openFirewall = true;
     settings.title = "ShedServarr";
     allowedHosts = "shedservarr:8082";
