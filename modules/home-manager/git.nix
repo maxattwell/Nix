@@ -3,7 +3,8 @@
 {
   programs.git = {
     enable = true;
-    
+    signing.format = "openpgp";
+
     settings = {
       user = {
         name = "Max Attwell";
