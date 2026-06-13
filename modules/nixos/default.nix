@@ -3,7 +3,7 @@
 {
   networking.hostName = hostname;
 
-  nix.settings.experimental-features = ["nix-command flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   users.users.max = {
     isNormalUser = true;
