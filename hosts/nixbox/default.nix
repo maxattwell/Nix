@@ -10,6 +10,8 @@
     ../../modules/nixos/remote-access.nix
   ];
 
+  documentation.doc.enable = false;
+
   programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
