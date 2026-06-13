@@ -1,9 +1,19 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.noctalia.hyprland;
+in
 {
+  options.noctalia.hyprland.mod = lib.mkOption {
+    type = lib.types.enum [ "SUPER" "ALT" ];
+    default = "SUPER";
+    description = "Hyprland main modifier for the Noctalia config.";
+  };
+
+  config = {
   xdg.configFile = {
-    "hypr/hyprland.conf".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Nix/modules/home-manager/noctalia/hyprland.conf";
+    "hypr/hyprland.conf".text =
+      builtins.replaceStrings [ "$mod = SUPER" ] [ "$mod = ${cfg.mod}" ] (builtins.readFile ./hyprland.conf);
   };
 
   programs.zsh.profileExtra = ''
@@ -20,4 +30,5 @@
     swappy
     wf-recorder
   ];
+  };
 }

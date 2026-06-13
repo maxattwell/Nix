@@ -44,8 +44,8 @@
           # echo "Rebuild complete, reloading yabai..."
           sudo yabai --load-sa && echo "Yabai reload success"
         else
-          # sudo nixos-rebuild switch --flake $HOME/Nix --impure
-          nh os switch $HOME/Nix -- --impure
+          # sudo nixos-rebuild switch --flake $HOME/Nix
+          nh os switch $HOME/Nix
         fi
       }
 

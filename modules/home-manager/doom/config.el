@@ -1,30 +1,30 @@
 (setq user-full-name "Max Attwell"
       user-mail-address "max.attwell@hotmail.com")
 
-(setq doom-font (font-spec :family "Mononoki Nerd Font Mono" :size 15 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font Mono" :size 16))
+(setq doom-font (font-spec :family "Mononoki Nerd Font Mono" :size 13 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font Mono" :size 14))
 
 ;; nerd-icons-font-family should be a string, not a font-spec
 (setq nerd-icons-font-family "Mononoki Nerd Font Mono")
 
 ;; Auto-dark mode configuration
-(use-package! auto-dark
-  :defer t
-  :init
-  (setq auto-dark-allow-osascript t)
-  (setq auto-dark-themes '((doom-gruvbox) (doom-gruvbox-light)))
-  (setq! doom-theme nil)
-  (setq! custom-safe-themes t)
-  (defun my-auto-dark-init-h ()
-    (auto-dark-mode)
-    (remove-hook 'server-after-make-frame-hook #'my-auto-dark-init-h)
-    (remove-hook 'after-init-hook #'my-auto-dark-init-h))
-  (let ((hook (if (daemonp)
-                  'server-after-make-frame-hook
-                'after-init-hook)))
-    ;; Depth -95 puts this before doom-init-theme-h, which sounds like a good
-    ;; idea, if only for performance reasons.
-    (add-hook hook #'my-auto-dark-init-h -95)))
+;; (use-package! auto-dark
+;;   :defer t
+;;   :init
+;;   (setq auto-dark-allow-osascript t)
+;;   (setq auto-dark-themes '((doom-gruvbox) (doom-gruvbox-light)))
+;;   (setq! doom-theme nil)
+;;   (setq! custom-safe-themes t)
+;;   (defun my-auto-dark-init-h ()
+;;     (auto-dark-mode)
+;;     (remove-hook 'server-after-make-frame-hook #'my-auto-dark-init-h)
+;;     (remove-hook 'after-init-hook #'my-auto-dark-init-h))
+;;   (let ((hook (if (daemonp)
+;;                   'server-after-make-frame-hook
+;;                 'after-init-hook)))
+;;     ;; Depth -95 puts this before doom-init-theme-h, which sounds like a good
+;;     ;; idea, if only for performance reasons.
+;;     (add-hook hook #'my-auto-dark-init-h -95)))
 
 (setq display-line-numbers-type 'relative)
 
@@ -55,11 +55,11 @@
  :n "T" nil
  :m "T" #'evilem-motion-find-char-to-backward)
 
-;; Dired nav shortcuts
-(evil-define-key 'normal dired-mode-map
-  (kbd "h") 'dired-up-directory
-  (kbd "l") 'dired-find-file
-  )
+                                        ; ;; Dired nav shortcuts
+                                        ; (evil-define-key 'normal dired-mode-map
+                                        ;   (kbd "h") 'dired-up-directory
+                                        ;   (kbd "l") 'dired-find-file
+                                        ;   )
 
 ;; Set the flags for dired when calling the ls command
 (setq dired-listing-switches "-ahlgo")

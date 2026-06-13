@@ -72,6 +72,10 @@
           hostname = "nixbox";
         };
 
+        thinkpad = lib.mkNixosSystem {
+          hostname = "thinkpad";
+        };
+
         nixtop = lib.mkNixosSystem {
           hostname = "nixtop";
           extraModules = [ apple-silicon.nixosModules.apple-silicon-support ];
