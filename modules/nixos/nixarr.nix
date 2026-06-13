@@ -6,7 +6,9 @@
     "dotnet-sdk-6.0.428"
   ];
 
-  # Enable nixarr server
+  networking.firewall.allowedTCPPorts = [ 8096 3000 ];
+  networking.firewall.trustedInterfaces = [ "docker0" "br-239b11668d56" ];
+
   nixarr = {
     enable = true;
 
