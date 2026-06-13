@@ -17,11 +17,6 @@
   # supported legacy_580 NVIDIA driver, so stay on the 6.12 LTS line.
   boot.kernelPackages = pkgs.linuxPackages_6_12;
 
-  environment.systemPackages = with pkgs; [
-    chromium
-    # spotify
-  ];
-
   services.flatpak.enable = true;
 
   services.resolved.enable = true;

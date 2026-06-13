@@ -14,11 +14,6 @@
 
   documentation.doc.enable = false;
 
-  environment.systemPackages = with pkgs; [
-    chromium
-    # spotify
-  ];
-
   services.tuned.enable = true;
   services.upower.enable = true;
 
