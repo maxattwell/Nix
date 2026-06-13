@@ -1,14 +1,12 @@
-{ config, pkgs, inputs, hostname, ... }:
+{ config, pkgs, hostname, ... }:
 
 {
   imports = [ 
     ./hardware-configuration.nix
     ../../modules/nix-cache.nix
     ../../modules/nixos
-    ../../modules/nixos/networkmanager.nix
+    ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/dns-public.nix
-    ../../modules/nixos/hyprland.nix
-    ../../modules/nixos/noctalia.nix
     ../../modules/nixos/emacs.nix
     ../../modules/nixos/dev.nix
     ../../modules/nixos/remote-access.nix
@@ -21,7 +19,6 @@
     # spotify
   ];
 
-  hardware.bluetooth.enable = true;
   services.tuned.enable = true;
   services.upower.enable = true;
 
