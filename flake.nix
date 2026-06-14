@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/hyprland?ref=v0.36.0";
+
+    hyprland.url = "github:hyprwm/hyprland";
 
     apple-silicon = {
       url = "github:nix-community/nixos-apple-silicon";
@@ -51,55 +52,12 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = inputs@{
-    self,
-    nixpkgs,
-    apple-silicon,
-    home-manager,
-    nix-darwin,
-    nix-homebrew,
-    radio-applet,
-    nixarr,
-    ...
-  }:
+  outputs = inputs:
     let
       lib = import ./lib { inherit inputs; };
+      hosts = import ./hosts { inherit lib inputs; };
     in {
       inherit lib;
-
-      nixosConfigurations = {
-        nixbox = lib.mkNixosSystem {
-          hostname = "nixbox";
-        };
-
-        thinkpad = lib.mkNixosSystem {
-          hostname = "thinkpad";
-        };
-
-        nixtop = lib.mkNixosSystem {
-          hostname = "nixtop";
-          extraModules = [ apple-silicon.nixosModules.apple-silicon-support ];
-        };
-
-        shedservarr = lib.mkNixosSystem {
-          hostname = "shedservarr";
-          extraModules = [ nixarr.nixosModules.default ];
-        };
-      };
-
-      darwinConfigurations = {
-        macbookair = lib.mkDarwinSystem {
-          hostname = "macbookair";
-          extraModules = [
-            nix-homebrew.darwinModules.nix-homebrew {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = true;
-                user = "max";
-              };
-            }
-          ];
-        };
-      };
+      inherit (hosts) nixosConfigurations darwinConfigurations;
     };
 }
