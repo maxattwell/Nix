@@ -5,6 +5,7 @@
     ../../modules/nixos
     ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/profiles/laptop.nix
+    ../../modules/nixos/profiles/zram.nix
     ../../modules/nixos/profiles/emacs.nix
     ../../modules/nixos/profiles/remote-access.nix
   ];
