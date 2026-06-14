@@ -3,19 +3,12 @@
 {
   environment.systemPackages = with pkgs; [
     teams-for-linux
-
     azure-cli
-
     dbeaver-bin
-
     go-task
-
     gh
-
     terraform
-
     cacert
-
     cloudflare-warp
     cloudflared  # Add cloudflared for tunnels
     docker-buildx
