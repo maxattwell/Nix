@@ -11,8 +11,6 @@
     ../../modules/nixos/remote-access.nix
   ];
 
-  documentation.doc.enable = false;
-
   # Linux 6.18 currently blackscreens on this GTX 1070 with the
   # supported legacy_580 NVIDIA driver, so stay on the 6.12 LTS line.
   boot.kernelPackages = pkgs.linuxPackages_6_12;

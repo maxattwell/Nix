@@ -9,6 +9,12 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Keep package documentation outputs out of the system closure.
+  # This also avoids nixos-unstable python3.12-3.12.13-doc
+  # Sphinx/docutils build failures pulled in via dev Python packages.
+  # See NixOS/nixpkgs#499166 and #529084.
+  documentation.doc.enable = false;
+
   users.users.max = {
     isNormalUser = true;
     description = "Max Attwell";

@@ -13,8 +13,6 @@
     ../../modules/nixos/remote-access.nix
   ];
 
-  documentation.doc.enable = false;
-
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }
