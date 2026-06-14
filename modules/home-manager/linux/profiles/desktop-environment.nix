@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  fonts.fontconfig.enable = true;
+
   imports = [
     ../../ghostty
     ../noctalia
