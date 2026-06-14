@@ -21,11 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    darwin-emacs = {
-      url = "github:nix-giant/nix-darwin-emacs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,13 +31,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprlang.follows = "hyprland/hyprlang";
     };
-
-    radio-applet = {
-      url = "github:maxattwell/cosmic-ext-applet-radio";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # cosmic-applets-collection.url = "git+file:///home/max/code/cosmic/ext-cosmic-applets-flake";
 
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
