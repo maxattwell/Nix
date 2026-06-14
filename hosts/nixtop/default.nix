@@ -6,7 +6,7 @@
     ../../modules/nixos
     ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/profiles/laptop.nix
-    ../../modules/nixos/emacs.nix
+    ../../modules/nixos/profiles/emacs.nix
     ../../modules/nixos/remote-access.nix
   ];
 

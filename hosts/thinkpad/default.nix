@@ -8,7 +8,7 @@
     ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/profiles/laptop.nix
     ../../modules/nixos/dns-public.nix
-    ../../modules/nixos/emacs.nix
+    ../../modules/nixos/profiles/emacs.nix
     ../../modules/nixos/profiles/dev.nix
     ../../modules/nixos/profiles/insurgence.nix
     ../../modules/nixos/remote-access.nix
