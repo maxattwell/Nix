@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
-    ../../modules/nixos/remote-access.nix
+    ../../modules/nixos/profiles/remote-access.nix
     ../../modules/nixos/nixarr.nix
     ../../modules/nixos/homepage.nix
     ../../modules/nixos/calibre-web.nix

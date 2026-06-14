@@ -10,7 +10,7 @@
     ../../modules/nixos/profiles/emacs.nix
     ../../modules/nixos/profiles/dev.nix
     ../../modules/nixos/profiles/insurgence.nix
-    ../../modules/nixos/remote-access.nix
+    ../../modules/nixos/profiles/remote-access.nix
   ];
 
   system.stateVersion = "26.05"; # Did you read the comment?

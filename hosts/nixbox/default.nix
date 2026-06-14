@@ -8,7 +8,7 @@
     ../../modules/nixos/profiles/emacs.nix
     ../../modules/nixos/profiles/dev.nix
     ../../modules/nixos/profiles/insurgence.nix
-    ../../modules/nixos/remote-access.nix
+    ../../modules/nixos/profiles/remote-access.nix
   ];
 
   # Linux 6.18 currently blackscreens on this GTX 1070 with the

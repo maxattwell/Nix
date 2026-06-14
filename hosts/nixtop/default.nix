@@ -6,7 +6,7 @@
     ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/profiles/laptop.nix
     ../../modules/nixos/profiles/emacs.nix
-    ../../modules/nixos/remote-access.nix
+    ../../modules/nixos/profiles/remote-access.nix
   ];
 
   # Before changing this value read the documentation for this option
