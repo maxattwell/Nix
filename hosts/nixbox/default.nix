@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nix-cache.nix
     ../../modules/nixos
     ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/nvidia.nix

@@ -1,6 +1,10 @@
 { config, lib, pkgs, hostname, ... }:
 
 {
+  imports = [
+    ../nix-cache.nix
+  ];
+
   networking.hostName = hostname;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
