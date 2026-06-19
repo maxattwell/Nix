@@ -11,24 +11,14 @@ in
   };
 
   config = {
-  xdg.configFile = {
-    "hypr/hyprland.conf".text =
-      builtins.replaceStrings [ "$mod = SUPER" ] [ "$mod = ${cfg.mod}" ] (builtins.readFile ./hyprland.conf);
-  };
+    home.sessionVariables.NOCTALIA_HYPR_MOD = cfg.mod;
 
-  programs.zsh.profileExtra = ''
-    if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-      exec start-hyprland
-    fi
-  '';
+    programs.zsh.profileExtra = ''
+      export NOCTALIA_HYPR_MOD="${cfg.mod}"
 
-  home.packages = with pkgs; [
-    # For screenshot & record plugin
-    grim
-    imagemagick
-    satty
-    swappy
-    wf-recorder
-  ];
+      if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+        exec start-hyprland -- --config "$HOME/Nix/modules/home-manager/linux/noctalia/hyprland.lua"
+      fi
+    '';
   };
 }
