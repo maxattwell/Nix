@@ -185,11 +185,10 @@ hl.bind(mainMod .. " + p", hl.dsp.focus({ workspace = "previous" }))
 hl.bind(mainMod .. " + o", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + f", hl.dsp.window.float({ action = "toggle" }))
 
--- Tab navigation in grouped windows. Use hyprctl for dispatchers that are not
--- exposed as stable Lua helpers in every 0.55 build.
-hl.bind(mainMod .. " + t", cmd("hyprctl dispatch togglegroup"))
-hl.bind(mainMod .. " + TAB", cmd("hyprctl dispatch changegroupactive f"))
-hl.bind(mainMod .. " + SHIFT + TAB", cmd("hyprctl dispatch changegroupactive b"))
+-- Tab navigation in grouped windows.
+hl.bind(mainMod .. " + t", hl.dsp.group.toggle())
+hl.bind(mainMod .. " + TAB", hl.dsp.group.next())
+hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.group.prev())
 
 -- Workspace switching / moving
 for i = 1, 10 do

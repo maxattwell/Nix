@@ -84,6 +84,11 @@
   :after (ghostel evil)
   :hook (ghostel-mode . evil-ghostel-mode))
 
+;; Let left/right side windows occupy the full frame height. This makes the pi
+;; sidebar sit "over" bottom side windows instead of the bottom terminal spanning
+;; underneath it.
+(setq window-sides-vertical t)
+
 (defun my/ghostel-project-pi ()
   "Open or create a project-scoped Ghostel terminal running pi."
   (interactive)
@@ -141,6 +146,43 @@
           ;; window commands can move focus to it later too.
           (select-window side-window))))))
 
+(defun my/ghostel-project-terminal-bottom-toggle ()
+  "Toggle the current project's Ghostel terminal at the bottom of the frame."
+  (interactive)
+  (require 'ghostel)
+  (let* ((origin-window (selected-window))
+         (origin-buffer (current-buffer))
+         (project-root (project-root (project-current t)))
+         ;; Use a dedicated per-project buffer so this behaves like the pi
+         ;; sidebar: toggling reuses the same session instead of creating a new
+         ;; one each time.
+         (ghostel-buffer-name (project-prefixed-buffer-name "ghostel: terminal"))
+         (existing (ghostel--find-buffer-by-identity ghostel-buffer-name))
+         (existing-window (and existing (get-buffer-window existing))))
+    (if existing-window
+        (delete-window existing-window)
+      (let ((buffer (or existing
+                        (let ((default-directory project-root))
+                          (ghostel)))))
+        ;; `ghostel' may have switched the current window to the terminal while
+        ;; creating it. Restore the editor window, then show the terminal as a
+        ;; bottom side window.
+        (when (window-live-p origin-window)
+          (set-window-buffer origin-window origin-buffer))
+        (let ((side-window
+               (display-buffer-in-side-window
+                buffer
+                '((side . bottom)
+                  (slot . 0)
+                  (window-height . 0.30)
+                  (dedicated . t)
+                  (window-parameters . ((no-delete-other-windows . t)
+                                        (no-other-window . nil)))))))
+          (set-window-dedicated-p side-window t)
+          ;; Focus the terminal after toggling it open so typing goes straight
+          ;; into the shell, but keep it in the normal window cycle.
+          (select-window side-window))))))
+
 ;; Ghostel workspace/session workflow
 (map! :leader
       (:prefix ("a" . "Ghostel")
@@ -151,6 +193,7 @@
        :desc "Default terminal" "g" #'ghostel
        :desc "Other terminal" "o" #'ghostel-other
        :desc "Toggle pi sidebar" "s" #'my/ghostel-project-pi-sidebar-toggle
+       :desc "Toggle bottom terminal" "t" #'my/ghostel-project-terminal-bottom-toggle
        :desc "Next terminal" "]" #'ghostel-next
        :desc "Previous terminal" "[" #'ghostel-previous
 
