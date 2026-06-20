@@ -57,6 +57,9 @@
 
 (package! pdf-tools)
 
+(package! ghostel)
+(package! evil-ghostel)
+
 (package! auto-dark)
 
 ;; (package! glab)
