@@ -13,6 +13,20 @@
       #bindkey '^j' history-search-forward
       bindkey '^h' backward-word
       bindkey '^l' forward-word
+
+      # Accept the whole autosuggestion with Ctrl+Shift+L. Different terminals
+      # report this key as either CSI 76;6u or CSI 108;6u.
+      _accept_whole_autosuggestion() {
+        if (( $+widgets[autosuggest-accept] )); then
+          zle autosuggest-accept
+        else
+          zle end-of-line
+        fi
+      }
+      zle -N _accept_whole_autosuggestion
+      bindkey '^[[76;6u' _accept_whole_autosuggestion
+      bindkey '^[[108;6u' _accept_whole_autosuggestion
+
       bindkey '^[[127;5u' backward-kill-word
       # Highlight selected item in completion menu
       zstyle ':completion:*' menu select
