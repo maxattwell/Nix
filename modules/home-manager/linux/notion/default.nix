@@ -7,7 +7,7 @@
 
   xdg.desktopEntries.notion-electron = {
     name = "Notion";
-    exec = "appimage-run ${config.home.homeDirectory}/Applications/Notion_Electron-2.2.2-x86_64.AppImage";
+    exec = "appimage-run ${config.home.homeDirectory}/Applications/Notion_Electron-2.2.0-x86_64.AppImage --disable-update-functionality";
     icon = "${config.home.homeDirectory}/Applications/notion-electron.png";
     terminal = false;
     categories = [ "Office" ];
