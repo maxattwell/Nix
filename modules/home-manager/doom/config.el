@@ -64,8 +64,117 @@
 ;; Set the flags for dired when calling the ls command
 (setq dired-listing-switches "-ahlgo")
 
-;; Set vterm shell
-(setq vterm-shell "/bin/zsh")
+;; Ghostel terminal emulator
+(use-package! ghostel
+  :commands (ghostel ghostel-other ghostel-next ghostel-previous ghostel-list-buffers
+             ghostel-project ghostel-project-next ghostel-project-previous
+             ghostel-project-list-buffers)
+  :init
+  ;; Keep the native module outside straight's package tree so it survives
+  ;; package rebuilds/syncs. First use will ask to download a prebuilt module.
+  (setq ghostel-module-auto-install 'ask
+        ghostel-module-directory (expand-file-name "ghostel/" doom-cache-dir)
+        ghostel-shell "/bin/zsh")
+  :config
+  (add-to-list 'project-switch-commands '(ghostel-project "Ghostel") t)
+  (add-to-list 'project-switch-commands '(ghostel-project-list-buffers "Ghostel buffers") t)
+  (add-to-list 'ghostel-eval-cmds '("magit-status-setup-buffer" magit-status-setup-buffer)))
+
+(use-package! evil-ghostel
+  :after (ghostel evil)
+  :hook (ghostel-mode . evil-ghostel-mode))
+
+(defun my/ghostel-project-pi ()
+  "Open or create a project-scoped Ghostel terminal running pi."
+  (interactive)
+  (require 'ghostel)
+  (let* ((default-directory (project-root (project-current t)))
+         ;; This becomes a project-prefixed buffer name, e.g. a per-repo
+         ;; "ghostel: pi" session, and `ghostel' will switch to it if it
+         ;; already exists.
+         (ghostel-buffer-name (project-prefixed-buffer-name "ghostel: pi"))
+         (existing (ghostel--find-buffer-by-identity ghostel-buffer-name))
+         (buffer (ghostel)))
+    ;; Only start pi when the terminal was newly created; otherwise just switch.
+    (unless existing
+      (run-at-time
+       0.2 nil
+       (lambda (buf)
+         (when (buffer-live-p buf)
+           (with-current-buffer buf
+             (ghostel-send-string "pi\n"))))
+       buffer))
+    buffer))
+
+(defun my/ghostel-project-pi-sidebar-toggle ()
+  "Toggle the current project's pi Ghostel terminal in a right sidebar."
+  (interactive)
+  (require 'ghostel)
+  (let* ((origin-window (selected-window))
+         (origin-buffer (current-buffer))
+         (project-root (project-root (project-current t)))
+         (ghostel-buffer-name (project-prefixed-buffer-name "ghostel: pi"))
+         (existing (ghostel--find-buffer-by-identity ghostel-buffer-name))
+         (existing-window (and existing (get-buffer-window existing))))
+    (if existing-window
+        (delete-window existing-window)
+      (let ((buffer (or existing
+                        (let ((default-directory project-root))
+                          (my/ghostel-project-pi)))))
+        ;; `my/ghostel-project-pi' may have switched the current window to the
+        ;; terminal while creating it. Restore the editor window, then show the
+        ;; terminal as a side window.
+        (when (window-live-p origin-window)
+          (set-window-buffer origin-window origin-buffer))
+        (let ((side-window
+               (display-buffer-in-side-window
+                buffer
+                '((side . right)
+                  (slot . 0)
+                  (window-width . 0.35)
+                  (dedicated . t)
+                  (window-parameters . ((no-delete-other-windows . t)
+                                        (no-other-window . nil)))))))
+          (set-window-dedicated-p side-window t)
+          ;; Focus the sidebar after toggling it open so the cursor/input goes
+          ;; straight to pi.  Keep it in the normal window cycle so Doom/Emacs
+          ;; window commands can move focus to it later too.
+          (select-window side-window))))))
+
+;; Ghostel workspace/session workflow
+(map! :leader
+      (:prefix ("a" . "Ghostel")
+       ;; Global terminals
+       :desc "New project terminal" "n" (cmd! (ghostel-project '(4)))
+       :desc "New terminal" "N" (cmd! (ghostel '(4)))
+       :desc "List all terminals" "a" #'ghostel-list-buffers
+       :desc "Default terminal" "g" #'ghostel
+       :desc "Other terminal" "o" #'ghostel-other
+       :desc "Toggle pi sidebar" "s" #'my/ghostel-project-pi-sidebar-toggle
+       :desc "Next terminal" "]" #'ghostel-next
+       :desc "Previous terminal" "[" #'ghostel-previous
+
+       ;; Project terminals
+       (:prefix ("p" . "project")
+        :desc "Project terminal" "p" #'ghostel-project
+        :desc "New project terminal" "n" (cmd! (ghostel-project '(4)))
+        :desc "List project terminals" "a" #'ghostel-project-list-buffers
+        :desc "Next project terminal" "]" #'ghostel-project-next
+        :desc "Previous project terminal" "[" #'ghostel-project-previous)
+
+       ;; Current terminal actions / modes
+       :desc "Copy mode" "v" #'ghostel-copy-mode
+       :desc "Line mode" "l" #'ghostel-line-mode
+       :desc "Char mode" "c" #'ghostel-char-mode
+       :desc "Emacs mode" "e" #'ghostel-emacs-mode
+       :desc "Clear screen" "x" #'ghostel-clear
+       :desc "Clear scrollback" "X" #'ghostel-clear-scrollback
+       :desc "Force redraw" "r" #'ghostel-force-redraw
+       :desc "Kill current buffer" "k" #'kill-current-buffer))
+
+;; Fast terminal/session picker. Overrides Doom's default SPC ' ivy/vertico resume.
+(map! :leader
+      :desc "List Ghostel terminals" "'" #'ghostel-list-buffers)
 
 ;; Dont create new workspace when calling emacsclient
 (after! persp-mode
@@ -169,9 +278,11 @@
   :config
   (setq agent-shell-opencode-default-model-id "openai/gpt-5.4/medium"))
 
-;; Agent Shell Sidebar keybindings
-(map! :leader
-      (:prefix ("a" . "AI/Agent")
+;; Agent Shell Sidebar keybindings disabled for now; SPC a is used for Ghostel.
+;; Re-enable this block if you bring agent-shell-sidebar back.
+(when nil
+  (map! :leader
+        (:prefix ("a" . "AI/Agent")
        :desc "pi coding agent" "P" #'pi-coding-agent
        ;; Sidebar control
        :desc "Toggle sidebar" "s" #'agent-shell-sidebar-toggle
@@ -201,7 +312,7 @@
        :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
 
        ;; Help
-       :desc "Help menu" "h" #'agent-shell-help-menu))
+       :desc "Help menu" "h" #'agent-shell-help-menu)))
 
 (after! lsp-mode
   (add-to-list 'lsp-disabled-clients 'vetur)
