@@ -89,6 +89,17 @@ hl.config({
         preserve_split = true,
     },
 
+    group = {
+        groupbar = {
+            enabled = true,
+            height = 0,
+            rounding = 0,
+            indicator_height = 2,
+            gaps_in = 0,
+            gaps_out = 0,
+        },
+    },
+
     decoration = {
         rounding = 0,
         rounding_power = 4.0,
@@ -214,3 +225,6 @@ hl.bind("XF86MonBrightnessDown", cmd("noctalia msg brightness-down"), { locked =
 hl.bind("XF86AudioPlay", cmd("noctalia msg media toggle"), { locked = true })
 hl.bind("XF86AudioNext", cmd("noctalia msg media next"), { locked = true })
 hl.bind("XF86AudioPrev", cmd("noctalia msg media previous"), { locked = true })
+
+-- For Noctalia Color templates
+require("noctalia")
