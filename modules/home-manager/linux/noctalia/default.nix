@@ -11,13 +11,16 @@ in
   };
 
   config = {
+    xdg.configFile."hypr/hyprland.lua".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Nix/modules/home-manager/linux/noctalia/hyprland.lua";
+
     home.sessionVariables.NOCTALIA_HYPR_MOD = cfg.mod;
 
     programs.zsh.profileExtra = ''
       export NOCTALIA_HYPR_MOD="${cfg.mod}"
 
       if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-        exec start-hyprland -- --config "$HOME/Nix/modules/home-manager/linux/noctalia/hyprland.lua"
+        exec start-hyprland
       fi
     '';
   };
