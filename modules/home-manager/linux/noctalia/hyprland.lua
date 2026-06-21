@@ -94,7 +94,8 @@ hl.config({
             enabled = true,
             height = 0,
             rounding = 0,
-            indicator_height = 2,
+            indicator_height = 6,
+            indicator_gap = 2,
             gaps_in = 0,
             gaps_out = 0,
         },
@@ -126,6 +127,7 @@ hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "snap" })
 hl.animation({ leaf = "windowsOut", enabled = true, speed = 2, bezier = "snap" })
 hl.animation({ leaf = "fade", enabled = true, speed = 1, bezier = "default" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 3, bezier = "snap" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3, bezier = "snap", style = "slidevert -100%" })
 hl.animation({ leaf = "border", enabled = true, speed = 1, bezier = "default" })
 hl.animation({ leaf = "borderangle", enabled = true, speed = 2, bezier = "default" })
 
@@ -142,16 +144,19 @@ hl.layer_rule({
 })
 
 hl.window_rule({
-    name = "float-satty",
-    match = { class = "com.gabm.satty" },
-    float = true,
-})
-
-hl.window_rule({
     name = "float-thunar",
     match = { class = "^(thunar|Thunar|org\\.xfce\\.Thunar)$" },
     float = true,
     center = true,
+})
+
+hl.window_rule({
+    name = "float-centered-tabbed-notion-teams",
+    match = { class = "^(notion-electron|teams-for-linux)$" },
+    float = true,
+    size = { "85%", "85%" },
+    center = true,
+    group = "set",
 })
 
 ---------------------
