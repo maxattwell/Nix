@@ -67,8 +67,8 @@
 ;; Ghostel terminal emulator
 (use-package! ghostel
   :commands (ghostel ghostel-other ghostel-next ghostel-previous ghostel-list-buffers
-             ghostel-project ghostel-project-next ghostel-project-previous
-             ghostel-project-list-buffers)
+                     ghostel-project ghostel-project-next ghostel-project-previous
+                     ghostel-project-list-buffers)
   :init
   ;; Keep the native module outside straight's package tree so it survives
   ;; package rebuilds/syncs. First use will ask to download a prebuilt module.
@@ -291,6 +291,41 @@
 (use-package! msgpack)
 (use-package! tramp-rpc)
 
+;; clutch - interactive database client
+(use-package! clutch
+  :commands (clutch-query-console
+             clutch-query-sqlite-file
+             clutch-switch-console
+             clutch-execute
+             clutch-dispatch)
+  :mode ("\\.mysql\\'" . clutch-mode)
+  :init
+  ;; Conservative defaults; override per-connection with :connect-timeout,
+  ;; :read-idle-timeout, :query-timeout, or :rpc-timeout as needed.
+  (setq clutch-connect-timeout-seconds 10
+        clutch-read-idle-timeout-seconds 30
+        clutch-query-timeout-seconds 20
+        clutch-jdbc-rpc-timeout-seconds 15
+        clutch-connection-alist
+        '(("sgs-dev-pg" . (:backend pg
+                           :host "psql-sgs-dev.postgres.database.azure.com"
+                           :port 5432
+                           :user "dashboard_app"
+                           :password "b083}cZUIvYbUHv:pz%<G%xU"
+                           :database "system"
+                           :sslmode require))))
+  :config
+  (map! :leader
+        (:prefix ("d" . "database")
+         :desc "Query console" "q" #'clutch-query-console
+         :desc "SQLite file" "s" #'clutch-query-sqlite-file
+         :desc "Switch console" "c" #'clutch-switch-console
+         :desc "Clutch dispatch" "d" #'clutch-dispatch)))
+
+(with-eval-after-load 'evil                                                                
+  (require 'clutch-evil)                                                                   
+  (clutch-evil-setup))                                                                     
+
 (after! diff-hl
   (setq diff-hl-disable-on-remote t))
 
@@ -326,36 +361,36 @@
 (when nil
   (map! :leader
         (:prefix ("a" . "AI/Agent")
-       :desc "pi coding agent" "P" #'pi-coding-agent
-       ;; Sidebar control
-       :desc "Toggle sidebar" "s" #'agent-shell-sidebar-toggle
-       :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
-       :desc "Reset sidebar" "r" #'agent-shell-sidebar-reset
+         :desc "pi coding agent" "P" #'pi-coding-agent
+         ;; Sidebar control
+         :desc "Toggle sidebar" "s" #'agent-shell-sidebar-toggle
+         :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
+         :desc "Reset sidebar" "r" #'agent-shell-sidebar-reset
 
-       ;; Model & session management
-       :desc "Set model" "m" #'agent-shell-set-session-model
-       :desc "Cycle session mode" "t" #'agent-shell-cycle-session-mode
-       :desc "Set session mode" "T" #'agent-shell-set-session-mode
+         ;; Model & session management
+         :desc "Set model" "m" #'agent-shell-set-session-model
+         :desc "Cycle session mode" "t" #'agent-shell-cycle-session-mode
+         :desc "Set session mode" "T" #'agent-shell-set-session-mode
 
-       ;; Interaction control
-       :desc "Interrupt" "i" #'agent-shell-interrupt
-       :desc "Clear buffer" "k" #'agent-shell-clear-buffer
+         ;; Interaction control
+         :desc "Interrupt" "i" #'agent-shell-interrupt
+         :desc "Clear buffer" "k" #'agent-shell-clear-buffer
 
-       ;; Send content
-       :desc "Send current file" "." #'agent-shell-send-current-file
-       :desc "Send file" "," #'agent-shell-send-file
-       :desc "Send region" "v" #'agent-shell-send-region
-       :desc "Send screenshot" "p" #'agent-shell-send-screenshot
-       :desc "Send clipboard image" "y" #'agent-shell-send-clipboard-image
+         ;; Send content
+         :desc "Send current file" "." #'agent-shell-send-current-file
+         :desc "Send file" "," #'agent-shell-send-file
+         :desc "Send region" "v" #'agent-shell-send-region
+         :desc "Send screenshot" "p" #'agent-shell-send-screenshot
+         :desc "Send clipboard image" "y" #'agent-shell-send-clipboard-image
 
-       ;; Shell management
-       :desc "New shell" "n" #'agent-shell-new-shell
-       :desc "Kill shell" "K" #'agent-shell-kill-buffer
-       :desc "Rename shell" "R" #'agent-shell-rename-buffer
-       :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
+         ;; Shell management
+         :desc "New shell" "n" #'agent-shell-new-shell
+         :desc "Kill shell" "K" #'agent-shell-kill-buffer
+         :desc "Rename shell" "R" #'agent-shell-rename-buffer
+         :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
 
-       ;; Help
-       :desc "Help menu" "h" #'agent-shell-help-menu)))
+         ;; Help
+         :desc "Help menu" "h" #'agent-shell-help-menu)))
 
 (after! lsp-mode
   (add-to-list 'lsp-disabled-clients 'vetur)
