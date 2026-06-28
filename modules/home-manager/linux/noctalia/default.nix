@@ -14,6 +14,10 @@ in
     xdg.configFile."hypr/hyprland.lua".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Nix/modules/home-manager/linux/noctalia/hyprland.lua";
 
+    home.packages = with pkgs; [
+      libnotify
+    ];
+
     home.sessionVariables.NOCTALIA_HYPR_MOD = cfg.mod;
 
     programs.zsh.profileExtra = ''
