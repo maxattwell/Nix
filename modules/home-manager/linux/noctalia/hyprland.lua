@@ -6,6 +6,9 @@
 -------------------
 
 hl.on("hyprland.start", function()
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
+    hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
+    hl.exec_cmd("sh -c 'sleep 2; systemctl --user reset-failed xdg-desktop-portal-hyprland; systemctl --user restart xdg-desktop-portal-hyprland xdg-desktop-portal'")
     hl.exec_cmd("noctalia")
 end)
 
@@ -36,6 +39,7 @@ local notificationsToggle = "noctalia msg notification-dnd-toggle"
 local lightTheme = "noctalia msg theme-mode-set light"
 local darkTheme = "noctalia msg theme-mode-set dark"
 local screenshot = "noctalia msg screenshot-region"
+local screenRecorder = os.getenv("HOME") .. "/Nix/assets/bin/toggle-screen-recording.sh"
 
 local function cmd(command)
     return hl.dsp.exec_cmd(command)
@@ -150,14 +154,14 @@ hl.window_rule({
     center = true,
 })
 
-hl.window_rule({
-    name = "float-centered-tabbed-notion-teams",
-    match = { class = "^(notion-electron|teams-for-linux)$" },
-    float = true,
-    size = { "85%", "85%" },
-    center = true,
-    group = "set",
-})
+-- hl.window_rule({
+--     name = "float-centered-tabbed-notion-teams",
+--     match = { class = "^(notion-electron|teams-for-linux)$" },
+--     float = true,
+--     size = { "85%", "85%" },
+--     center = true,
+--     group = "set",
+-- })
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -176,7 +180,8 @@ hl.bind(mainMod .. " + SHIFT + SPACE", cmd(controlCenter))
 hl.bind(mainMod .. " + comma", cmd(settings))
 hl.bind(mainMod .. " + F1", cmd(darkTheme))
 hl.bind(mainMod .. " + F2", cmd(lightTheme))
-hl.bind(mainMod .. " + SHIFT + S", cmd(screenshot))
+hl.bind(mainMod .. " + S", cmd(screenshot))
+hl.bind(mainMod .. " + SHIFT + S", cmd(screenRecorder))
 hl.bind(mainMod .. " + N", cmd(notificationsToggle))
 hl.bind(mainMod .. " + V", cmd(voiceInput))
 
