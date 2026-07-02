@@ -10,5 +10,7 @@
     ../email.nix
   ];
 
+  services.gnome.gnome-keyring.enable = true;
+
   hardware.bluetooth.enable = true;
 }

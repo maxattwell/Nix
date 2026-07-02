@@ -7,16 +7,16 @@
     ../../modules/nixos/profiles/desktop-environment.nix
     ../../modules/nixos/profiles/laptop.nix
     ../../modules/nixos/profiles/zram.nix
-    ../../modules/nixos/dns-public.nix
     ../../modules/nixos/profiles/emacs.nix
     ../../modules/nixos/profiles/dev.nix
     ../../modules/nixos/profiles/insurgence.nix
     ../../modules/nixos/profiles/remote-access.nix
   ];
 
-  boot.resumeDevice = "/dev/disk/by-uuid/891fd660-0886-48a8-a54a-76d17d937268";
+  services.resolved.enable = true;
+  networking.networkmanager.dns = "systemd-resolved";
 
-  services.fprintd.enable = true;
+  boot.resumeDevice = "/dev/disk/by-uuid/891fd660-0886-48a8-a54a-76d17d937268";
 
   services.tlp = {
     enable = true;
