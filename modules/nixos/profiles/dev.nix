@@ -5,6 +5,8 @@
     tree
     nodejs
     pnpm
+    yarn
+    bun
     supabase-cli
     docker-compose
     uv
