@@ -36,6 +36,7 @@
     nh
     pass
     gnupg
+    btop
   ];
 
   services.logind = {

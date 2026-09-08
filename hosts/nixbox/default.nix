@@ -10,6 +10,7 @@
     ../../modules/nixos/profiles/dev.nix
     ../../modules/nixos/profiles/insurgence.nix
     ../../modules/nixos/profiles/remote-access.nix
+    ../../modules/nixos/music-assistant.nix
   ];
 
   # Linux 6.18 currently blackscreens on this GTX 1070 with the
