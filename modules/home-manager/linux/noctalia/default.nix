@@ -24,7 +24,7 @@ in
       export NOCTALIA_HYPR_MOD="${cfg.mod}"
 
       if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-        exec start-hyprland
+        exec uwsm start -e -D Hyprland hyprland.desktop
       fi
     '';
   };

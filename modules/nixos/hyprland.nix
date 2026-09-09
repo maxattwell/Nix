@@ -1,7 +1,13 @@
 { pkgs, ... }:
 
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    # Start the session through uwsm so graphical-session.target (and
+    # therefore xdg-desktop-portal) is properly activated. Launch with:
+    #   uwsm start hyprland
+    withUWSM = true;
+  };
 
   services.dbus.enable = true;
 
