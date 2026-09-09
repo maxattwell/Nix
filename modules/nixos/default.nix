@@ -37,6 +37,7 @@
     pass
     gnupg
     btop
+    appimage-run
   ];
 
   services.logind = {
