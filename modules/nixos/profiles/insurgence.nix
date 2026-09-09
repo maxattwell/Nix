@@ -12,6 +12,7 @@
     cloudflare-warp
     cloudflared  # Add cloudflared for tunnels
     docker-buildx
+    notion-electron
   ];
 
   # Cloudflare WARP - Zero Trust Client
