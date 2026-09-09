@@ -155,15 +155,6 @@ hl.window_rule({
     center = true,
 })
 
--- hl.window_rule({
---     name = "float-centered-tabbed-notion-teams",
---     match = { class = "^(notion-electron|teams-for-linux)$" },
---     float = true,
---     size = { "85%", "85%" },
---     center = true,
---     group = "set",
--- })
-
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
