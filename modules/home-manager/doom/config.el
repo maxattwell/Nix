@@ -183,6 +183,29 @@
           ;; into the shell, but keep it in the normal window cycle.
           (select-window side-window))))))
 
+(defun my/pilish-toggle-or-open ()
+  "Focus/open Pilish; if already focused, toggle it closed."
+  (interactive)
+  ;; Ensure non-autoloaded helpers like `pilish-project-buffers' are available.
+  (require 'pilish)
+  (let* ((chat-buf (car (ignore-errors (pilish-project-buffers))))
+         (input-buf (and chat-buf
+                         (buffer-local-value 'pilish--input-buffer chat-buf)))
+         (selected-buf (window-buffer (selected-window)))
+         (selected-pilish-p (or (eq selected-buf chat-buf)
+                                (eq selected-buf input-buf)))
+         (win (or (and input-buf (get-buffer-window input-buf nil))
+                  (and chat-buf (get-buffer-window chat-buf nil)))))
+    (cond
+     ;; If you're already in this Pilish session, close it.
+     (selected-pilish-p (pilish-toggle))
+     ;; If it's visible elsewhere, focus it.
+     (win (select-window win))
+     ;; If it exists but is hidden, show it.
+     (chat-buf (pilish-toggle))
+     ;; Otherwise create it.
+     (t (pilish)))))
+
 ;; Ghostel workspace/session workflow
 (map! :leader
       (:prefix ("a" . "Ghostel")
@@ -192,7 +215,8 @@
        :desc "List all terminals" "a" #'ghostel-list-buffers
        :desc "Default terminal" "g" #'ghostel
        :desc "Other terminal" "o" #'ghostel-other
-       :desc "Toggle pi sidebar" "s" #'my/ghostel-project-pi-sidebar-toggle
+       :desc "Toggle/open Pilish" "s" #'my/pilish-toggle-or-open
+       :desc "Toggle pi Ghostel sidebar" "S" #'my/ghostel-project-pi-sidebar-toggle
        :desc "Toggle bottom terminal" "t" #'my/ghostel-project-terminal-bottom-toggle
        :desc "Next terminal" "]" #'ghostel-next
        :desc "Previous terminal" "[" #'ghostel-previous
@@ -329,85 +353,89 @@
 (after! diff-hl
   (setq diff-hl-disable-on-remote t))
 
-;; pi-coding-agent (Doom Emacs)
-(use-package! pi-coding-agent
-  :commands (pi-coding-agent pi)
+;; Pilish - Pi coding agent porcelain for Emacs
+(use-package! pilish
+  :commands (pilish pi)
   :init
-  (defalias 'pi #'pi-coding-agent)
+  (setq pilish-input-window-display 'on-demand)
+  (defalias 'pi #'pilish)
   :config
   ;; Optional defaults
-  (setq pi-coding-agent-input-window-height 10
-        pi-coding-agent-tool-preview-lines 10
-        pi-coding-agent-bash-preview-lines 5
-        pi-coding-agent-context-warning-threshold 70
-        pi-coding-agent-context-error-threshold 90
-        pi-coding-agent-visit-file-other-window t))
+  (setq pilish-input-window-height 10
+        pilish-tool-preview-lines 10
+        pilish-bash-preview-lines 5
+        pilish-context-warning-threshold 70
+        pilish-context-error-threshold 90
+        pilish-visit-file-other-window t)
 
-;; Agent Shell Sidebar - AI assistant sidebar
-(use-package! agent-shell-sidebar
-  :after agent-shell
-  :vc (:url "https://github.com/cmacrae/agent-shell-sidebar")
-  :custom
-  (agent-shell-sidebar-width "25%")
-  (agent-shell-sidebar-minimum-width 80)
-  (agent-shell-sidebar-maximum-width "50%")
-  (agent-shell-sidebar-position 'right)
-  (agent-shell-sidebar-locked t)
-  :config
-  (setq agent-shell-opencode-default-model-id "openai/gpt-5.4/medium"))
 
-;; Agent Shell Sidebar keybindings disabled for now; SPC a is used for Ghostel.
-;; Re-enable this block if you bring agent-shell-sidebar back.
-(when nil
-  (map! :leader
-        (:prefix ("a" . "AI/Agent")
-         :desc "pi coding agent" "P" #'pi-coding-agent
-         ;; Sidebar control
-         :desc "Toggle sidebar" "s" #'agent-shell-sidebar-toggle
-         :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
-         :desc "Reset sidebar" "r" #'agent-shell-sidebar-reset
 
-         ;; Model & session management
-         :desc "Set model" "m" #'agent-shell-set-session-model
-         :desc "Cycle session mode" "t" #'agent-shell-cycle-session-mode
-         :desc "Set session mode" "T" #'agent-shell-set-session-mode
+  ;; Agent Shell Sidebar - AI assistant sidebar
+  (use-package! agent-shell-sidebar
+    :after agent-shell
+    :vc (:url "https://github.com/cmacrae/agent-shell-sidebar")
+    :custom
+    (agent-shell-sidebar-width "25%")
+    (agent-shell-sidebar-minimum-width 80)
+    (agent-shell-sidebar-maximum-width "50%")
+    (agent-shell-sidebar-position 'right)
+    (agent-shell-sidebar-locked t)
+    :config
+    (setq agent-shell-opencode-default-model-id "openai/gpt-5.4/medium"))
 
-         ;; Interaction control
-         :desc "Interrupt" "i" #'agent-shell-interrupt
-         :desc "Clear buffer" "k" #'agent-shell-clear-buffer
+  ;; Agent Shell Sidebar keybindings disabled for now; SPC a is used for Ghostel.
+  ;; Re-enable this block if you bring agent-shell-sidebar back.
+  (when nil
+    (map! :leader
+          (:prefix ("a" . "AI/Agent")
+           :desc "Pilish" "P" #'pilish
+           ;; Sidebar control
+           :desc "Toggle sidebar" "b" #'agent-shell-sidebar-toggle
+           :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
+           :desc "Reset sidebar" "r" #'agent-shell-sidebar-reset
 
-         ;; Send content
-         :desc "Send current file" "." #'agent-shell-send-current-file
-         :desc "Send file" "," #'agent-shell-send-file
-         :desc "Send region" "v" #'agent-shell-send-region
-         :desc "Send screenshot" "p" #'agent-shell-send-screenshot
-         :desc "Send clipboard image" "y" #'agent-shell-send-clipboard-image
+           ;; Model & session management
+           :desc "Set model" "m" #'agent-shell-set-session-model
+           :desc "Cycle session mode" "t" #'agent-shell-cycle-session-mode
+           :desc "Set session mode" "T" #'agent-shell-set-session-mode
 
-         ;; Shell management
-         :desc "New shell" "n" #'agent-shell-new-shell
-         :desc "Kill shell" "K" #'agent-shell-kill-buffer
-         :desc "Rename shell" "R" #'agent-shell-rename-buffer
-         :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
+           ;; Interaction control
+           :desc "Interrupt" "i" #'agent-shell-interrupt
+           :desc "Clear buffer" "k" #'agent-shell-clear-buffer
 
-         ;; Help
-         :desc "Help menu" "h" #'agent-shell-help-menu)))
+           ;; Send content
+           :desc "Send current file" "." #'agent-shell-send-current-file
+           :desc "Send file" "," #'agent-shell-send-file
+           :desc "Send region" "v" #'agent-shell-send-region
+           :desc "Send screenshot" "p" #'agent-shell-send-screenshot
+           :desc "Send clipboard image" "y" #'agent-shell-send-clipboard-image
 
-(after! lsp-mode
-  (add-to-list 'lsp-disabled-clients 'vetur)
-  (add-to-list 'lsp-disabled-clients 'vls)
-  (add-to-list 'lsp-disabled-clients 'tailwindcss)
-  (setq lsp-auto-guess-root t))
+           ;; Shell management
+           :desc "New shell" "n" #'agent-shell-new-shell
+           :desc "Kill shell" "K" #'agent-shell-kill-buffer
+           :desc "Rename shell" "R" #'agent-shell-rename-buffer
+           :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
 
-(after! lsp-volar
-  (setq lsp-volar-location-for-typescript-plugin :auto
-        lsp-volar-typescript-server-id 'ts-ls))
+           ;; Help
+           :desc "Help menu" "h" #'agent-shell-help-menu)))
 
-(after! lsp-clients
-  (defun my/lsp-use-project-typescript-tsdk ()
-    (when (and buffer-file-name (string-match-p "\\.vue\\'" buffer-file-name))
-      (when-let* ((root (or (locate-dominating-file default-directory "package.json")
-                            (locate-dominating-file default-directory "tsconfig.json")))
-                  (tsdk (expand-file-name "node_modules/typescript/lib" root)))
-        (when (file-directory-p tsdk)
-          (setq-local lsp-clients-typescript-tsdk tsdk)))))
-  (add-hook 'web-mode-hook #'my/lsp-use-project-typescript-tsdk))
+  (after! lsp-mode
+    (add-to-list 'lsp-disabled-clients 'vetur)
+    (add-to-list 'lsp-disabled-clients 'vls)
+    (add-to-list 'lsp-disabled-clients 'tailwindcss)
+    (setq lsp-auto-guess-root t))
+
+  (after! lsp-volar
+    (setq lsp-volar-location-for-typescript-plugin :auto
+          lsp-volar-typescript-server-id 'ts-ls))
+
+  (after! lsp-clients
+    (defun my/lsp-use-project-typescript-tsdk ()
+      (when (and buffer-file-name (string-match-p "\\.vue\\'" buffer-file-name))
+        (when-let* ((root (or (locate-dominating-file default-directory "package.json")
+                              (locate-dominating-file default-directory "tsconfig.json")))
+                    (tsdk (expand-file-name "node_modules/typescript/lib" root)))
+          (when (file-directory-p tsdk)
+            (setq-local lsp-clients-typescript-tsdk tsdk)))))
+    (add-hook 'web-mode-hook #'my/lsp-use-project-typescript-tsdk))
+
