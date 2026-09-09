@@ -73,22 +73,7 @@
           export TERM=linux
       fi
 
-       # Set npm global config
-       export NPM_CONFIG_PREFIX=~/.npm-global
-       export PATH=~/.npm-global/bin:$PATH
-
-       # Set pnpm global config
-       export PNPM_HOME=~/.local/share/pnpm
-       export PATH=$PNPM_HOME:$PATH
-
-       # Set XDG config home
-       export XDG_CONFIG_HOME=~/.config
-
-       # Add .local/bin to path
-       export PATH="$HOME/.local/bin:$PATH"
-
-       # Add .bun to path
-       export PATH="$HOME/.bun/bin:$PATH"
+       # Tool environment is managed centrally via Home Manager sessionVariables/sessionPath.
       '';
     };
 
