@@ -325,19 +325,17 @@
   :mode ("\\.mysql\\'" . clutch-mode)
   :init
   ;; Conservative defaults; override per-connection with :connect-timeout,
-  ;; :read-idle-timeout, :query-timeout, or :rpc-timeout as needed.
+  ;; :read-idle-timeout, :query-timeout, or :rpc-timeout as needed. Connection
+  ;; definitions (including credentials) live in the untracked
+  ;; ~/Nix/secrets/clutch.el so they never land in this public repo.
   (setq clutch-connect-timeout-seconds 10
         clutch-read-idle-timeout-seconds 30
         clutch-query-timeout-seconds 20
         clutch-jdbc-rpc-timeout-seconds 15
-        clutch-connection-alist
-        '(("sgs-dev-pg" . (:backend pg
-                           :host "psql-sgs-dev.postgres.database.azure.com"
-                           :port 5432
-                           :user "dashboard_app"
-                           :password "REDACTED"
-                           :database "system"
-                           :sslmode require))))
+        clutch-connection-alist nil)
+  (let ((secrets (expand-file-name "~/Nix/secrets/clutch.el")))
+    (when (file-exists-p secrets)
+      (load secrets nil t)))
   :config
   (map! :leader
         (:prefix ("d" . "database")

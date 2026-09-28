@@ -1,4 +1,5 @@
 .aider*
+/secrets/
 assets/backgrounds/current.png
 modules/home-manager/lazyvim/lazy-lock.json
 /.agent-shell/

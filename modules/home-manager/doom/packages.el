@@ -84,5 +84,8 @@
   :recipe (:host github :repo "cmacrae/agent-shell-sidebar"))
 
 ;; Interactive database client
-(package! clutch                                                                           
-  :recipe (:local-repo "/home/max/code/clutch"))                                           
+(package! clutch
+  :recipe (:host github :repo "LuciusChen/clutch"))
+
+;; Required by clutch's PostgreSQL backend (clutch-db-pg.el).
+(package! pgsql)
