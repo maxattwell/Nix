@@ -325,17 +325,21 @@
   :mode ("\\.mysql\\'" . clutch-mode)
   :init
   ;; Conservative defaults; override per-connection with :connect-timeout,
-  ;; :read-idle-timeout, :query-timeout, or :rpc-timeout as needed. Connection
-  ;; definitions (including credentials) live in the untracked
-  ;; ~/Nix/secrets/clutch.el so they never land in this public repo.
+  ;; :read-idle-timeout, :query-timeout, or :rpc-timeout as needed. Passwords
+  ;; resolve through auth-source-pass (pass entries), e.g. "insurgence/sgs-local-pg".
+  (require 'auth-source-pass)
+  (auth-source-pass-enable)
   (setq clutch-connect-timeout-seconds 10
         clutch-read-idle-timeout-seconds 30
         clutch-query-timeout-seconds 20
         clutch-jdbc-rpc-timeout-seconds 15
-        clutch-connection-alist nil)
-  (let ((secrets (expand-file-name "~/Nix/secrets/clutch.el")))
-    (when (file-exists-p secrets)
-      (load secrets nil t)))
+        clutch-connection-alist
+        '(("sgs-local-pg" . (:backend pg
+                             :host "localhost"
+                             :port 5432
+                             :user "system"
+                             :database "system"
+                             :pass-entry "insurgence/sgs-local-pg"))))
   :config
   (map! :leader
         (:prefix ("d" . "database")
