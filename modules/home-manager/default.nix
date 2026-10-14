@@ -7,6 +7,7 @@
     sessionVariables = {
       NPM_CONFIG_PREFIX = "$HOME/.npm-global";
       PNPM_HOME = "$HOME/.local/share/pnpm";
+      BUN_INSTALL = "$HOME/.bun";
       # Prefer ntn's file-backed auth store. The system keyring path can report
       # a successful browser login but fail to return the token afterwards.
       NOTION_KEYRING = "0";

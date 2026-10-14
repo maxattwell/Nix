@@ -14,6 +14,7 @@
       ANDROID_HOME = "/Users/max/Library/Android/sdk";
       NPM_CONFIG_PREFIX = "~/.npm-global";
       PNPM_HOME = "~/.local/share/pnpm";
+      BUN_INSTALL = "~/.bun";
       XDG_CONFIG_HOME ="~/.config";
     };
 
@@ -33,5 +34,10 @@
    # Create pnpm global directory
    home.activation.createPnpmHome = ''
      mkdir -p ~/.local/share/pnpm
+   '';
+
+   # Create bun global directory
+   home.activation.createBunHome = ''
+     mkdir -p ~/.bun/bin
    '';
 }
