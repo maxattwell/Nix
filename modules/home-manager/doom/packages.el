@@ -57,9 +57,6 @@
 
 (package! pdf-tools)
 
-(package! ghostel)
-(package! evil-ghostel)
-
 (package! auto-dark)
 
 ;; (package! glab)
@@ -78,14 +75,41 @@
 
 (package! shell-maker)
 (package! acp)
-(package! pilish)
 (package! agent-shell)
-(package! agent-shell-sidebar
-  :recipe (:host github :repo "cmacrae/agent-shell-sidebar"))
 
-;; Interactive database client
+;; Interactive database client.
+;;
+;; Point straight at our fork on the contribution branch. The straight
+;; repo slot ~/.config/emacs/.local/straight/repos/clutch is a symlink to
+;; ~/code/clutch, so straight builds directly from the local checkout.
+;; Upstream is preserved at repos/clutch.upstream-bak. Rebuild after edits
+;; with M-x straight-rebuild-package RET clutch.
 (package! clutch
-  :recipe (:host github :repo "LuciusChen/clutch"))
+  :recipe (:host github :repo "maxattwell/clutch" :branch "evil-mode"))
 
 ;; Required by clutch's PostgreSQL backend (clutch-db-pg.el).
 (package! pgsql)
+
+;; Beads issue tracker interface (not on MELPA; install from source).
+;; Source files live in the repo's lisp/ subdirectory, hence the :files entry.
+;;
+;; Point at our fork on the fix/agent-shell-renamed-buffer branch. Upstream
+;; beads.el renames the agent-shell shell buffer with a raw `rename-buffer',
+;; which breaks shell-maker's buffer lookup (agent start dies with
+;; "wrong-type-argument shell-maker-config nil" / "processp nil"). The fork
+;; renames via `shell-maker-set-buffer-name' and adds a compatibility shim.
+;; The straight repo slot ~/.config/emacs/.local/straight/repos/beads.el is a
+;; symlink to ~/code/beads.el, so straight builds the local checkout directly;
+;; upstream is preserved at repos/beads.el.upstream-bak.
+(package! beads
+  :recipe (:host github :repo "maxattwell/beads.el"
+           :branch "fix/agent-shell-renamed-buffer"
+           :files ("lisp/*.el")))
+
+;; beads.el dependency (on MELPA; straight pulls it transitively, listed
+;; explicitly so a doom sync always installs it).
+(package! sesman)
+
+(package! agent-shell-hq
+  :recipe (:host nil :repo "https://github.com/sreenivasvrao/agent-shell-hq"
+           :files ("*.el")))

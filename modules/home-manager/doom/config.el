@@ -1,6 +1,19 @@
 (setq user-full-name "Max Attwell"
       user-mail-address "max.attwell@hotmail.com")
 
+;; Beads issue tracker interface (https://github.com/r0man/beads.el).
+;; Installed from our fork via packages.el (see the note there); invoke with
+;; M-x beads.  The fork carries the agent-shell shell-buffer rename fix, so no
+;; in-config workarounds are needed.
+(use-package! beads
+  :commands (beads beads-dashboard beads-dispatch beads-list beads-ready beads-show beads-create)
+  :hook (after-init . beads-eldoc-mode)
+  :init
+  (defun my/insurgence-beads ()
+    "Open my personal Insurgence Beads tracker."
+    (interactive)
+    (beads-dashboard :directory "/home/max/code/insurgence")))
+
 (setq doom-font (font-spec :family "Mononoki Nerd Font Mono" :size 13 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font Mono" :size 14))
 
@@ -64,184 +77,8 @@
 ;; Set the flags for dired when calling the ls command
 (setq dired-listing-switches "-ahlgo")
 
-;; Ghostel terminal emulator
-(use-package! ghostel
-  :commands (ghostel ghostel-other ghostel-next ghostel-previous ghostel-list-buffers
-                     ghostel-project ghostel-project-next ghostel-project-previous
-                     ghostel-project-list-buffers)
-  :init
-  ;; Keep the native module outside straight's package tree so it survives
-  ;; package rebuilds/syncs. First use will ask to download a prebuilt module.
-  (setq ghostel-module-auto-install 'ask
-        ghostel-module-directory (expand-file-name "ghostel/" doom-cache-dir)
-        ghostel-shell "/bin/zsh")
-  :config
-  (add-to-list 'project-switch-commands '(ghostel-project "Ghostel") t)
-  (add-to-list 'project-switch-commands '(ghostel-project-list-buffers "Ghostel buffers") t)
-  (add-to-list 'ghostel-eval-cmds '("magit-status-setup-buffer" magit-status-setup-buffer)))
-
-(use-package! evil-ghostel
-  :after (ghostel evil)
-  :hook (ghostel-mode . evil-ghostel-mode))
-
-;; Let left/right side windows occupy the full frame height. This makes the pi
-;; sidebar sit "over" bottom side windows instead of the bottom terminal spanning
-;; underneath it.
+;; Let left/right side windows occupy the full frame height.
 (setq window-sides-vertical t)
-
-(defun my/ghostel-project-pi ()
-  "Open or create a project-scoped Ghostel terminal running pi."
-  (interactive)
-  (require 'ghostel)
-  (let* ((default-directory (project-root (project-current t)))
-         ;; This becomes a project-prefixed buffer name, e.g. a per-repo
-         ;; "ghostel: pi" session, and `ghostel' will switch to it if it
-         ;; already exists.
-         (ghostel-buffer-name (project-prefixed-buffer-name "ghostel: pi"))
-         (existing (ghostel--find-buffer-by-identity ghostel-buffer-name))
-         (buffer (ghostel)))
-    ;; Only start pi when the terminal was newly created; otherwise just switch.
-    (unless existing
-      (run-at-time
-       0.2 nil
-       (lambda (buf)
-         (when (buffer-live-p buf)
-           (with-current-buffer buf
-             (ghostel-send-string "pi\n"))))
-       buffer))
-    buffer))
-
-(defun my/ghostel-project-pi-sidebar-toggle ()
-  "Toggle the current project's pi Ghostel terminal in a right sidebar."
-  (interactive)
-  (require 'ghostel)
-  (let* ((origin-window (selected-window))
-         (origin-buffer (current-buffer))
-         (project-root (project-root (project-current t)))
-         (ghostel-buffer-name (project-prefixed-buffer-name "ghostel: pi"))
-         (existing (ghostel--find-buffer-by-identity ghostel-buffer-name))
-         (existing-window (and existing (get-buffer-window existing))))
-    (if existing-window
-        (delete-window existing-window)
-      (let ((buffer (or existing
-                        (let ((default-directory project-root))
-                          (my/ghostel-project-pi)))))
-        ;; `my/ghostel-project-pi' may have switched the current window to the
-        ;; terminal while creating it. Restore the editor window, then show the
-        ;; terminal as a side window.
-        (when (window-live-p origin-window)
-          (set-window-buffer origin-window origin-buffer))
-        (let ((side-window
-               (display-buffer-in-side-window
-                buffer
-                '((side . right)
-                  (slot . 0)
-                  (window-width . 0.35)
-                  (dedicated . t)
-                  (window-parameters . ((no-delete-other-windows . t)
-                                        (no-other-window . nil)))))))
-          (set-window-dedicated-p side-window t)
-          ;; Focus the sidebar after toggling it open so the cursor/input goes
-          ;; straight to pi.  Keep it in the normal window cycle so Doom/Emacs
-          ;; window commands can move focus to it later too.
-          (select-window side-window))))))
-
-(defun my/ghostel-project-terminal-bottom-toggle ()
-  "Toggle the current project's Ghostel terminal at the bottom of the frame."
-  (interactive)
-  (require 'ghostel)
-  (let* ((origin-window (selected-window))
-         (origin-buffer (current-buffer))
-         (project-root (project-root (project-current t)))
-         ;; Use a dedicated per-project buffer so this behaves like the pi
-         ;; sidebar: toggling reuses the same session instead of creating a new
-         ;; one each time.
-         (ghostel-buffer-name (project-prefixed-buffer-name "ghostel: terminal"))
-         (existing (ghostel--find-buffer-by-identity ghostel-buffer-name))
-         (existing-window (and existing (get-buffer-window existing))))
-    (if existing-window
-        (delete-window existing-window)
-      (let ((buffer (or existing
-                        (let ((default-directory project-root))
-                          (ghostel)))))
-        ;; `ghostel' may have switched the current window to the terminal while
-        ;; creating it. Restore the editor window, then show the terminal as a
-        ;; bottom side window.
-        (when (window-live-p origin-window)
-          (set-window-buffer origin-window origin-buffer))
-        (let ((side-window
-               (display-buffer-in-side-window
-                buffer
-                '((side . bottom)
-                  (slot . 0)
-                  (window-height . 0.30)
-                  (dedicated . t)
-                  (window-parameters . ((no-delete-other-windows . t)
-                                        (no-other-window . nil)))))))
-          (set-window-dedicated-p side-window t)
-          ;; Focus the terminal after toggling it open so typing goes straight
-          ;; into the shell, but keep it in the normal window cycle.
-          (select-window side-window))))))
-
-(defun my/pilish-toggle-or-open ()
-  "Focus/open Pilish; if already focused, toggle it closed."
-  (interactive)
-  ;; Ensure non-autoloaded helpers like `pilish-project-buffers' are available.
-  (require 'pilish)
-  (let* ((chat-buf (car (ignore-errors (pilish-project-buffers))))
-         (input-buf (and chat-buf
-                         (buffer-local-value 'pilish--input-buffer chat-buf)))
-         (selected-buf (window-buffer (selected-window)))
-         (selected-pilish-p (or (eq selected-buf chat-buf)
-                                (eq selected-buf input-buf)))
-         (win (or (and input-buf (get-buffer-window input-buf nil))
-                  (and chat-buf (get-buffer-window chat-buf nil)))))
-    (cond
-     ;; If you're already in this Pilish session, close it.
-     (selected-pilish-p (pilish-toggle))
-     ;; If it's visible elsewhere, focus it.
-     (win (select-window win))
-     ;; If it exists but is hidden, show it.
-     (chat-buf (pilish-toggle))
-     ;; Otherwise create it.
-     (t (pilish)))))
-
-;; Ghostel workspace/session workflow
-(map! :leader
-      (:prefix ("a" . "Ghostel")
-       ;; Global terminals
-       :desc "New project terminal" "n" (cmd! (ghostel-project '(4)))
-       :desc "New terminal" "N" (cmd! (ghostel '(4)))
-       :desc "List all terminals" "a" #'ghostel-list-buffers
-       :desc "Default terminal" "g" #'ghostel
-       :desc "Other terminal" "o" #'ghostel-other
-       :desc "Toggle/open Pilish" "s" #'my/pilish-toggle-or-open
-       :desc "Toggle pi Ghostel sidebar" "S" #'my/ghostel-project-pi-sidebar-toggle
-       :desc "Toggle bottom terminal" "t" #'my/ghostel-project-terminal-bottom-toggle
-       :desc "Next terminal" "]" #'ghostel-next
-       :desc "Previous terminal" "[" #'ghostel-previous
-
-       ;; Project terminals
-       (:prefix ("p" . "project")
-        :desc "Project terminal" "p" #'ghostel-project
-        :desc "New project terminal" "n" (cmd! (ghostel-project '(4)))
-        :desc "List project terminals" "a" #'ghostel-project-list-buffers
-        :desc "Next project terminal" "]" #'ghostel-project-next
-        :desc "Previous project terminal" "[" #'ghostel-project-previous)
-
-       ;; Current terminal actions / modes
-       :desc "Copy mode" "v" #'ghostel-copy-mode
-       :desc "Line mode" "l" #'ghostel-line-mode
-       :desc "Char mode" "c" #'ghostel-char-mode
-       :desc "Emacs mode" "e" #'ghostel-emacs-mode
-       :desc "Clear screen" "x" #'ghostel-clear
-       :desc "Clear scrollback" "X" #'ghostel-clear-scrollback
-       :desc "Force redraw" "r" #'ghostel-force-redraw
-       :desc "Kill current buffer" "k" #'kill-current-buffer))
-
-;; Fast terminal/session picker. Overrides Doom's default SPC ' ivy/vertico resume.
-(map! :leader
-      :desc "List Ghostel terminals" "'" #'ghostel-list-buffers)
 
 ;; Dont create new workspace when calling emacsclient
 (after! persp-mode
@@ -348,96 +185,117 @@
          :desc "Switch console" "c" #'clutch-switch-console
          :desc "Clutch dispatch" "d" #'clutch-dispatch)))
 
-(with-eval-after-load 'evil                                                                
-  (require 'clutch-evil)                                                                   
-  (clutch-evil-setup))                                                                     
+(with-eval-after-load 'evil
+  (require 'clutch-evil)
+  (clutch-evil-setup))
 
 (after! diff-hl
   (setq diff-hl-disable-on-remote t))
 
-;; Pilish - Pi coding agent porcelain for Emacs
-(use-package! pilish
-  :commands (pilish pi)
-  :init
-  (setq pilish-input-window-display 'on-demand)
-  (defalias 'pi #'pilish)
-  :config
-  ;; Optional defaults
-  (setq pilish-input-window-height 10
-        pilish-tool-preview-lines 10
-        pilish-bash-preview-lines 5
-        pilish-context-warning-threshold 70
-        pilish-context-error-threshold 90
-        pilish-visit-file-other-window t)
+;; agent-shell: SPC a
+;; Default agent for every new shell is Oh My Pi (`omp'): an identifier here
+;; makes agent-shell skip its picker (see `agent-shell--auto-preferred-config').
+(setq agent-shell-preferred-agent-config 'omp)
 
+;; Starting a shell otherwise auto-inserts the current file:line (the `line'
+;; source) into the prompt; keep only explicit region/error context.
+(setq agent-shell-context-sources '(region error))
 
+(map! :leader
+      (:prefix ("a" . "Agent shell")
+       :desc "Agent shell" "a" #'agent-shell
+       :desc "New shell" "n" #'agent-shell-new-shell
+       :desc "Help menu" "?" #'agent-shell-help-menu
+       :desc "Send region/error" "d" #'agent-shell-send-dwim
+       :desc "HQ sidebar" "h" #'agent-shell-hq-toggle
+       :desc "HQ peek" "p" #'agent-shell-hq-peek))
 
-  ;; Agent Shell Sidebar - AI assistant sidebar
-  (use-package! agent-shell-sidebar
-    :after agent-shell
-    :vc (:url "https://github.com/cmacrae/agent-shell-sidebar")
-    :custom
-    (agent-shell-sidebar-width "25%")
-    (agent-shell-sidebar-minimum-width 80)
-    (agent-shell-sidebar-maximum-width "50%")
-    (agent-shell-sidebar-position 'right)
-    (agent-shell-sidebar-locked t)
-    :config
-    (setq agent-shell-opencode-default-model-id "openai/gpt-5.4/medium"))
+;; Agent Shell + Evil: RET sends in normal state, newlines in insert state,
+;; and *agent-shell-diff* buffers open in Emacs state.
+(after! (agent-shell evil)
+  (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
+  (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
+  (evil-define-key 'normal agent-shell-mode-map (kbd "?") #'agent-shell-help-menu)
+  (add-hook 'diff-mode-hook
+            (lambda ()
+              (when (string-match-p "\\*agent-shell-diff\\*" (buffer-name))
+                (evil-emacs-state)))))
 
-  ;; Agent Shell Sidebar keybindings disabled for now; SPC a is used for Ghostel.
-  ;; Re-enable this block if you bring agent-shell-sidebar back.
-  (when nil
-    (map! :leader
-          (:prefix ("a" . "AI/Agent")
-           :desc "Pilish" "P" #'pilish
-           ;; Sidebar control
-           :desc "Toggle sidebar" "b" #'agent-shell-sidebar-toggle
-           :desc "Toggle focus" "f" #'agent-shell-sidebar-toggle-focus
-           :desc "Reset sidebar" "r" #'agent-shell-sidebar-reset
+;; LSP settings for Vue/TypeScript projects.
+(after! lsp-mode
+  (add-to-list 'lsp-disabled-clients 'vetur)
+  (add-to-list 'lsp-disabled-clients 'vls)
+  (add-to-list 'lsp-disabled-clients 'tailwindcss)
+  (setq lsp-auto-guess-root t))
 
-           ;; Model & session management
-           :desc "Set model" "m" #'agent-shell-set-session-model
-           :desc "Cycle session mode" "t" #'agent-shell-cycle-session-mode
-           :desc "Set session mode" "T" #'agent-shell-set-session-mode
+(after! lsp-volar
+  (setq lsp-volar-location-for-typescript-plugin :auto
+        lsp-volar-typescript-server-id 'ts-ls))
 
-           ;; Interaction control
-           :desc "Interrupt" "i" #'agent-shell-interrupt
-           :desc "Clear buffer" "k" #'agent-shell-clear-buffer
+(after! lsp-clients
+  (defun my/lsp-use-project-typescript-tsdk ()
+    (when (and buffer-file-name (string-match-p "\\.vue\\'" buffer-file-name))
+      (when-let* ((root (or (locate-dominating-file default-directory "package.json")
+                            (locate-dominating-file default-directory "tsconfig.json")))
+                  (tsdk (expand-file-name "node_modules/typescript/lib" root)))
+        (when (file-directory-p tsdk)
+          (setq-local lsp-clients-typescript-tsdk tsdk)))))
+  (add-hook 'web-mode-hook #'my/lsp-use-project-typescript-tsdk))
 
-           ;; Send content
-           :desc "Send current file" "." #'agent-shell-send-current-file
-           :desc "Send file" "," #'agent-shell-send-file
-           :desc "Send region" "v" #'agent-shell-send-region
-           :desc "Send screenshot" "p" #'agent-shell-send-screenshot
-           :desc "Send clipboard image" "y" #'agent-shell-send-clipboard-image
+;; Agent Shell HQ - heads-up display and peek for agent-shell sessions
+(use-package! agent-shell-hq
+  :commands (agent-shell-hq-toggle agent-shell-hq-peek agent-shell-hq-label)
+  :custom
+  ;; Width of the sidebar listing agent-shell buffers (columns)
+  (agent-shell-hq-toggle-sidebar-width 50)
+  ;; Where the peek posframe is anchored: top, bottom, left, right
+  (agent-shell-hq-peek-position 'right)
+  ;; Width of the peek posframe (columns)
+  (agent-shell-hq-peek-width 52)
+  ;; Maximum height of the peek posframe (rows)
+  (agent-shell-hq-peek-height 60)
+  ;; Extra frame parameters for the peek posframe (nil: inherit theme colors)
+  (agent-shell-hq-peek-parameters nil)
+  ;; CLI command that receives the prompt as its final argument.
+  ;; `claude' is not installed here; use omp's smol (fast/cheap) role with
+  ;; Gemini flash-lite instead.  The appended system prompt keeps the model
+  ;; from wrapping the title in preamble.
+  (agent-shell-hq-label-command
+   '("omp" "-p" "--no-session" "--smol" "google/gemini-3.5-flash-lite"
+     "--append-system-prompt"
+     "Output ONLY the title text. No preamble, no quotes, no explanation."))
+  ;; Characters of buffer content (from the end) used as context for the title
+  (agent-shell-hq-label-context-chars 2000)
+  ;; Prompt template sent to the command (%s = buffer context)
+  (agent-shell-hq-label-prompt
+   "Reply with ONLY a terse 8-10 word title for this conversation, lowercase, no punctuation:\n\n%s")
+  :bind
+  ("C-c a h" . agent-shell-hq-toggle)
+  ("C-c a p" . agent-shell-hq-peek))
 
-           ;; Shell management
-           :desc "New shell" "n" #'agent-shell-new-shell
-           :desc "Kill shell" "K" #'agent-shell-kill-buffer
-           :desc "Rename shell" "R" #'agent-shell-rename-buffer
-           :desc "Switch to other buffer" "o" #'agent-shell-other-buffer
-
-           ;; Help
-           :desc "Help menu" "h" #'agent-shell-help-menu)))
-
-  (after! lsp-mode
-    (add-to-list 'lsp-disabled-clients 'vetur)
-    (add-to-list 'lsp-disabled-clients 'vls)
-    (add-to-list 'lsp-disabled-clients 'tailwindcss)
-    (setq lsp-auto-guess-root t))
-
-  (after! lsp-volar
-    (setq lsp-volar-location-for-typescript-plugin :auto
-          lsp-volar-typescript-server-id 'ts-ls))
-
-  (after! lsp-clients
-    (defun my/lsp-use-project-typescript-tsdk ()
-      (when (and buffer-file-name (string-match-p "\\.vue\\'" buffer-file-name))
-        (when-let* ((root (or (locate-dominating-file default-directory "package.json")
-                              (locate-dominating-file default-directory "tsconfig.json")))
-                    (tsdk (expand-file-name "node_modules/typescript/lib" root)))
-          (when (file-directory-p tsdk)
-            (setq-local lsp-clients-typescript-tsdk tsdk)))))
-    (add-hook 'web-mode-hook #'my/lsp-use-project-typescript-tsdk))
-
+;; agent-shell-hq ships no Evil integration: the sidebar and the peek posframe
+;; are plain fundamental-mode read-only buffers, so Evil's normal/insert state
+;; maps shadow the package's single-key map (q -> macro recording, n -> search
+;; next, RET -> evil-ret).  Run them in Emacs state so the package's own map is
+;; authoritative, re-asserting on every render/show.
+;;
+;; Defined at top level, not inside `after!': agent-shell-hq defers its own
+;; submodules and its feature can load without this body ever running, so a
+;; deferred definition silently never happens.  `advice-add' on a not-yet
+;; defined function is fine; the advice is attached to the symbol and survives
+;; the later `defun'.  The body itself is inert until the buffers exist.
+(defun my/agent-shell-hq--emacs-state (&rest _)
+  "Put the HQ sidebar and peek buffers in Emacs state.
+Each keeps its own local keymap: the sidebar's `agent-shell-hq-toggle-map'
+(which Evil's normal/insert state would otherwise shadow) and the peek
+posframe's `agent-shell-hq-peek-map'.  `evil-emacs-state-map' is cleared
+buffer-locally so it cannot outrank either one."
+  (dolist (entry '((" *agent-shell-hq-sidebar*" . nil)
+                   (" *agent-shell-hq-peek*" . agent-shell-hq-peek-map)))
+    (when-let ((buf (get-buffer (car entry))))
+      (with-current-buffer buf
+        (evil-emacs-state)
+        (setq-local evil-emacs-state-map (cdr entry))))))
+(advice-add 'agent-shell-hq-toggle--render :after #'my/agent-shell-hq--emacs-state)
+(advice-add 'agent-shell-hq-toggle :after #'my/agent-shell-hq--emacs-state)
+(advice-add 'agent-shell-hq-peek :after #'my/agent-shell-hq--emacs-state)
