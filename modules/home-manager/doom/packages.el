@@ -110,6 +110,9 @@
 ;; explicitly so a doom sync always installs it).
 (package! sesman)
 
+(package! beady
+  :recipe (:host github :repo "maxattwell/beady" :files ("*.el")))
+
 (package! agent-shell-hq
   :recipe (:host nil :repo "https://github.com/sreenivasvrao/agent-shell-hq"
            :files ("*.el")))

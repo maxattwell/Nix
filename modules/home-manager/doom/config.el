@@ -14,6 +14,16 @@
     (interactive)
     (beads-dashboard :directory "/home/max/code/insurgence")))
 
+;; Beady — an alternative Beads interface with built-in evil support.
+(use-package! beady
+  :commands (beady beady-show-issue beady-create-menu)
+  :init
+  (map! :leader :desc "Beads" "o B" #'beady)
+  (add-hook 'doom-real-buffer-functions
+            (lambda (buf)
+              (with-current-buffer buf
+                (derived-mode-p 'beady-list-mode 'beady-show-mode)))))
+
 (setq doom-font (font-spec :family "Mononoki Nerd Font Mono" :size 13 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font Mono" :size 14))
 
@@ -195,7 +205,7 @@
 ;; agent-shell: SPC a
 ;; Default agent for every new shell is Oh My Pi (`omp'): an identifier here
 ;; makes agent-shell skip its picker (see `agent-shell--auto-preferred-config').
-(setq agent-shell-preferred-agent-config 'omp)
+;; (setq agent-shell-preferred-agent-config 'omp)
 
 ;; Starting a shell otherwise auto-inserts the current file:line (the `line'
 ;; source) into the prompt; keep only explicit region/error context.
