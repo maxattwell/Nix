@@ -40,5 +40,16 @@
     SuspendState = "mem";
   };
 
+  # Moonlight client for streaming from nixbox's Sunshine host.
+  programs.moonlight-qt = {
+    enable = true;
+    # Allow raising the scheduling priority for smoother frame pacing.
+    capSysNice = true;
+  };
+
+  # Sunshine encodes full/JPEG color range; Moonlight's Linux decoder
+  # otherwise assumes limited range and washes the colors out.
+  environment.sessionVariables.COLOR_RANGE_OVERRIDE = "2";
+
   system.stateVersion = "26.05"; # Did you read the comment?
 }

@@ -11,6 +11,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start gnome-keyring.service")
     hl.exec_cmd("sh -c 'sleep 2; systemctl --user reset-failed xdg-desktop-portal-hyprland; systemctl --user restart xdg-desktop-portal-hyprland xdg-desktop-portal'")
     hl.exec_cmd("noctalia")
+    -- Only nixbox runs Sunshine; don't add a phantom monitor on other hosts.
+    hl.exec_cmd([[sh -c '[ "$(cat /etc/hostname)" = nixbox ] && hyprctl output create headless virtual']])
 end)
 
 -------------------------------
@@ -18,6 +20,20 @@ end)
 -------------------------------
 
 hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+
+----------------
+---- MONITORS ----
+----------------
+
+-- Virtual 16:10 panel sized to match the thinkpad (1920x1200 @ 1.5 = 1280x800
+-- logical). Sunshine streams this output (output_name = virtual in
+-- ~/.config/sunshine/sunshine.conf) so the stream has no letterbox bars.
+hl.monitor({
+    output = "virtual",
+    mode = "1920x1200@60",
+    position = "3840x0",
+    scale = 1.5,
+})
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -77,6 +93,16 @@ hl.gesture({
     fingers = 4,
     direction = "horizontal",
     action = "workspace",
+    -- Keep working even when a fullscreen client (Moonlight) holds a
+    -- keyboard-shortcuts inhibitor -- switches thinkpad's workspaces.
+    disable_inhibit = true,
+})
+
+-- Sunshine's virtual keyboard: swap Alt <-> Super so thinkpad's "Alt is my mod"
+-- muscle memory drives nixbox (whose mod is Super). Streamed input only.
+hl.device({
+    name = "libvirtualhid-keyboard",
+    kb_options = "altwin:swap_alt_win",
 })
 
 -----------------------
@@ -84,6 +110,14 @@ hl.gesture({
 -----------------------
 
 hl.config({
+    -- Force software cursors so the cursor is composited into wlr-screencopy
+    -- captures. With a headless output, Hyprland's "auto" mode doesn't reliably
+    -- do this, and Sunshine/Moonlight (absolute mouse mode) hide the client
+    -- cursor and rely on the host cursor being in the video.
+    cursor = {
+        no_hardware_cursors = 1,
+    },
+
     general = {
         gaps_in = 0,
         gaps_out = 0,
