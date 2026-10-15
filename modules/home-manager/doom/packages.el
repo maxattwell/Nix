@@ -51,6 +51,9 @@
 
 (package! evil-snipe :disable t)
 
+(package! ghostel)
+(package! evil-ghostel)
+
 (package! nvm)
 
 (package! magit-delta)
@@ -68,10 +71,6 @@
 (package! llm)
 (package! magit-gptcommit
   :recipe (:host github :repo "douo/magit-gptcommit"))
-
-(package! msgpack)
-(package! tramp-rpc
-  :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))
 
 (package! shell-maker)
 (package! acp)

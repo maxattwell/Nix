@@ -57,6 +57,20 @@
   (setq evil-escape-key-sequence "jk"
         evil-escape-unordered-key-sequence "jk"))
 
+;; Ghostel terminal with Evil navigation and the existing jk escape sequence.
+(use-package! ghostel
+  :commands (ghostel ghostel-project))
+
+(after! evil-escape
+  (setq evil-escape-excluded-major-modes
+        (delq 'ghostel-mode evil-escape-excluded-major-modes)))
+
+(use-package! evil-ghostel
+  :after ghostel
+  :hook (ghostel-mode . evil-ghostel-mode)
+  :init
+  (setq evil-ghostel-escape 'evil))
+
 ;; Set s, S as avy movements
 (map!
  :n "s" nil
@@ -131,7 +145,11 @@
 ;; Shell toggle keybindings
 (map! :leader
       (:prefix ("o" . "open")
-       :desc "Toggle eshell" "e" #'+eshell/toggle))
+       :desc "Toggle eshell" "e" #'+eshell/toggle
+       :desc "Project Ghostel terminal" "g" #'ghostel-project
+       :desc "Ghostel terminal" "G" #'ghostel
+       :desc "Project Ghostel buffers" "t" #'ghostel-project-list-buffers
+       :desc "All Ghostel buffers" "T" #'ghostel-list-buffers))
 
 ;; LLM provider setup for Gemini
 (use-package! llm
@@ -158,9 +176,6 @@
 ;; Prefer minibuffer prompts over system dialog windows
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
-
-(use-package! msgpack)
-(use-package! tramp-rpc)
 
 ;; clutch - interactive database client
 (use-package! clutch
